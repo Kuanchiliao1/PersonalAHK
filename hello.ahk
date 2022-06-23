@@ -7,7 +7,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Persistent
 #InstallKeybdHook
 #InstallMouseHook
-#Include KeyLogLib.ahk
+#Include ..\Private_Folder\KeyLogLib.ahk
 #KeyHistory 200
 
 
@@ -37,7 +37,7 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
 		Run, "..\Private_Folder\3sec-tooltip-randomised.ahk"
 	}
 	if (!WinExist("Anki.ahk")) {
-		Run, "%..\Private_Folder\Anki.ahk"
+		Run, "..\Private_Folder\Anki.ahk"
 	}
 	if (!WinExist("something.ahk")) {
 		Run, "..\Private_Folder\something.ahk"
