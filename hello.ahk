@@ -1454,6 +1454,13 @@ return
 	#If
 	
 #IfWinActive ahk_exe sm18.exe ; if one of these windows are active, execute. This is more robust
+	~^m::
+		mouseclick, left
+		sleep 200
+		send ^m
+		return
+
+		
 	;Deleted first component from the article import template
 		F2::
 		{
