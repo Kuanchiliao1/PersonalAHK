@@ -1,3 +1,20 @@
 {
-    "editor.maxTokenizationLineLength": 200000
-}
+    "editor.maxTokenizationLineLength": 2000000,
+	
+	"editor.suggest.snippetsPreventQuickSuggestions": false, 
+	"editor.quickSuggestionsDelay": 5000, 
+	"editor.suggest.preview": false, 
+	 // Enable word based suggestions
+	 "editor.wordBasedSuggestions": false,
+
+	 // Enable parameter hints
+	 "editor.parameterHints.enabled": false, 
+
+	   // Controls if quick suggestions should show up while typing
+		 "editor.quickSuggestions": {
+			"other": false, 
+			"comments": false, 
+			"strings": false  d
+	},
+
+

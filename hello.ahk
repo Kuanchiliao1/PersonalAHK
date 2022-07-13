@@ -10,6 +10,9 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include ..\Private_Folder\KeyLogLib.ahk
 #KeyHistory 200
 
+Global VarJ := ""
+Global VarK := ""
+Global VarL := ""
 
 
 DetectHiddenWindows, On ; BEcause most AHK script have their window hidden
@@ -51,11 +54,11 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
 	if (!WinExist("Socratic_Questions.ahk")) {
 		Run, "..\Private_Folder\Socratic_Questions.ahk"
 	}
-	if (!WinExist("TestSM2.ahk")) {
-		Run, "..\Private_Folder\TestSM2.ahk"
-	}
+	; if (!WinExist("TestSM2.ahk")) {
+	; 	Run, "..\Private_Folder\TestSM2.ahk"
+	; }
 		if (!WinExist("Priorities.ahk")) {
-		Run, "%A_ScriptDir%\Priorities.ahk"
+		Run, "..\Private_Folder\Priorities.ahk"
 	}
 
 
@@ -104,7 +107,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		:X*:op.::conventionclip("🄾🅿💻 ")  ; 🄲 What does this code do?, what's the output?
 
 
-;Cursor movement upgrades
+;Cursor movement upgrades *combo
 	#If (getKeyState("F13") && getKeyState("Capslock", "P"))
 	; #If t && getKeyState("Capslock", "P") ; Sampling for using toggle instead of F13
 		w::
@@ -113,7 +116,14 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
 		return
 
+		
 		s::
+		Send {Down 5}
+					SetCapsLockState, alwaysoff
+
+		return
+
+		e::
 		Send {Down 5}
 					SetCapsLockState, alwaysoff
 
@@ -276,7 +286,10 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 					}
 					WinGetActiveStats, Title, Width, Height, X, Y
 					MouseMove, Width / 2, Height / 2, 0
+					Keywait, j
+					If (KeyWait, F14)
 					mouseclick, left
+					else
 					return
 
 	
@@ -398,6 +411,22 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
 
 	; Arrow features: Control, Control + Shift, Alt, Windows(left and right)
+
+		^!w::
+			send ^!{Up}
+			return 
+		^!s::
+			send ^!{Down}
+			return
+
+		^!a::
+			send ^!{Left}
+			return
+
+		^!d::
+			send ^!{Right}
+			return
+
 		^d::
 			send, ^{Right}
 			return
@@ -507,22 +536,22 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 			}
 			Return
 
-		u::
-			IfWinExist Browse
-			{
-				IfWinNotActive, Browse
-				WinActivate Browse
-				else
-				WinMinimize Browse
-			}
-			else
-			{
-				WinActivate User 1 - Anki
-				WinWaitActive User 1 - Anki
-				send b
-				WinMinimize User 1 - Anki ;
-			}
-			Return
+		; u::
+		; 	IfWinExist Browse
+		; 	{
+		; 		IfWinNotActive, Browse
+		; 		WinActivate Browse
+		; 		else
+		; 		WinMinimize Browse
+		; 	}
+		; 	else
+		; 	{
+		; 		WinActivate User 1 - Anki
+		; 		WinWaitActive User 1 - Anki
+		; 		send b
+		; 		WinMinimize User 1 - Anki ;
+		; 	}
+		; 	Return
 		
 	;Activate/minimize brave windows
 
@@ -538,16 +567,29 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		}
 			g::activateMinimize("WindowG") ; FocusMate window
 			h::activateMinimize("WindowH") ; "Home" Window
-			j::activateMinimize("WindowJ") ; "Life" Window
-			k::activateMinimize("WindowK") ; Codin Window
+			u::activateMinimize("ahk_class ConsoleWindowClass ahk_exe ubuntu.exe") ; "Life" Window
+			; k::activateMinimize("WindowK") ; Codin Window
 			n::activateMinimize("WindowN") ; Codin Window
 			l::activateMinimize("WindowL") ; 
+			 
 
-
+	;Scroll function
+		j::
+					Loop 3
+					{
+						Click, WheelDown
+					}
+				return
+		k::
+					Loop 3
+					{
+						Click, WheelUp
+					}
+				return
 
 	;Activate/minimize VSCode
 		v::
-			SetTitleMatchMode, 2
+			SetTitleMatchMode, 2 
 			IfWinExist ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe
 				{
 					IfWinNotActive, ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe
@@ -556,8 +598,11 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 					WinMinimize ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe
 				}
 			else
-			Run, C:\Users\kuanc\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\Visual Studio Code.lnk
-				
+			{
+			send {CtrlDown}{CtrlUp}   ; Run C:\Users\kuanc\AppData\Local\Programs\todoist\Todoist.exe 
+			sleep 100
+			send {CtrlDown}{CtrlUp}
+			}
 			
 
 			Return
@@ -591,21 +636,19 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 					winminimize, ahk_class Chrome_WidgetWin_1 ahk_exe Notion.exe ; Minimizes the window
 				}
 			else
-			Run C:\Users\kuanc\Desktop\Notion.lnk ; a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z
-
+			{
+			send {CtrlDown}{CtrlUp}   ; Run C:\Users\kuanc\AppData\Local\Programs\todoist\Todoist.exe 
+			sleep 100
+			send {CtrlDown}{CtrlUp}
+			}
 			Return
 
-	;Search tabs
+	;Click center of active window
 		b::
-					IfWinNotActive, Main1
-					WinActivate Main1
-					
-					else
-					WinMinimize Main1
-					
-					IfWinActive Main1
-					Send ^+a
-				
+					WinGetActiveStats, Title, Width, Height, X, Y
+					MouseMove, Width / 2, Height / 2, 0
+					Keywait j
+					mouseclick, left
 					Return
 
 	;simulated arrow keys, perhaps I can turn them into physical presses
@@ -654,9 +697,21 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 ;Capslock Down Hotkeys *combo
 		#If (getKeyState("Capslock", "P"))
 
+
+	p::
+		PID:=DllCall("GetCurrentProcessId") 
+for process in ComObjGet("winmgmts:").ExecQuery("Select * from Win32_Process where name = 'Autohotkey.exe' and processID  <> " PID )
+   process, close, % process.ProcessId
+process, close, % PID ; If you want to close also this script
+return
+
+
+
+
 		setPriority(min, max) {               
 
     send, !p
+		sleep 1000
     Random, OutputVar, %min%, %max%
     Clipboard := 
 		Clipboard := OutputVar
@@ -669,28 +724,109 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		}
 		return
 
+		setPriorityExtract(min, max) {
+   
+    Send, +!{x}
+		Sleep, 1000
+   
+    Random, OutputVar, %min%, %max%
+		Clipboard := ""
+		Clipboard := OutputVar
+		Clipwait 2 
+		Send, ^v
+		Sleep 200
+		Send, {Enter}
+   
+    SetCapsLockState, Off
+		}
+		return
+
 		;Open GUI (Capslock + 1)
 			1::
 			Inputbox, varA, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header 
 			
 			switch varA
 			{
-				case "1": setPriority(0.01,0.36)
-				case "2": setPriority(0.36,0.72)
-				case "3": setPriority(0.72,1.08)
-				case "4": setPriority(1.08,1.44)
-				case "5": setPriority(1.44,1.8)
-				case "6": setPriority(1.8,2.16)
-				case "7": setPriority(2.16,2.52)
-				case "8": setPriority(2.52,2.88)
-				case "9": setPriority(2.88,3.24)
-				case "0": setPriority(3.24,3.6)
+				case "q": setPriority(0.01,0.36)
+				case "w": setPriority(0.36,0.72)
+				case "e": setPriority(0.72,1.08)
+				case "r": setPriority(1.08,1.44)
+				case "t": setPriority(1.44,1.8)
+				case "y": setPriority(1.8,2.16)
+				case "u": setPriority(2.16,2.52)
+				case "i": setPriority(2.52,2.88)
+				case "o": setPriority(2.88,3.24)
+				case "p": setPriority(3.24,3.6)
+
+				case "a": setPriority(3.6,6.04)
+				case "s": setPriority(6.04,8.48)
+				case "d": setPriority(8.48,10.92)
+				case "f": setPriority(10.92,13.36)
+				case "g": setPriority(13.36,15.8)
+				case "h": setPriority(15.8,18.24)
+				case "j": setPriority(18.24,20.68)
+				case "k": setPriority(20.68,23.12)
+				case "l": setPriority(23.12,25.56)
+				case ";": setPriority(25.56,28.0)
+
+				case "z": setPriority(28,33)
+				case "x": setPriority(33,38)
+				case "c": setPriority(38,45)
+				case "v": setPriority(45,55)
+				case "b": setPriority(55,66)
+				case "n": setPriority(66,77)
+				case "m": setPriority(77,88)
+				case ",": setPriority(88,95)
+				case ".": setPriority(95,99)
+;::setPriorityExtract(99,99.9)
 			}
 			return
+
+
+
 		; Open GUI 
 				2::
 					Inputbox, varB, Enter string, , , 640, 480 ; varB = variable, Enter string = GUI header
-					return
+				
+
+				switch varB
+				{ 
+					case "q": setPriorityExtract(0.01,0.36)
+					case "w": setPriorityExtract(0.36,0.72)
+					case "e": setPriorityExtract(0.72,1.08)
+					case "r": setPriorityExtract(1.08,1.44)
+					case "t": setPriorityExtract(1.44,1.8)
+					case "y": setPriorityExtract(1.8,2.16)
+					case "u": setPriorityExtract(2.16,2.52)
+					case "i": setPriorityExtract(2.52,2.88)
+					case "o": setPriorityExtract(2.88,3.24)
+					case "p": setPriorityExtract(3.24,3.6)
+
+					case "a": setPriorityExtract(3.6,6.04)
+					case "s": setPriorityExtract(6.04,8.48)
+					case "d": setPriorityExtract(8.48,10.92)
+					case "f": setPriorityExtract(10.92,13.36)
+					case "g": setPriorityExtract(13.36,15.8)
+					case "h": setPriorityExtract(15.8,18.24)
+					case "j": setPriorityExtract(18.24,20.68)
+					case "k": setPriorityExtract(20.68,23.12)
+					case "l": setPriorityExtract(23.12,25.56)
+					case ";": setPriorityExtract(25.56,28.0)
+
+					case "z": setPriorityExtract(28,33)
+					case "x": setPriorityExtract(33,38)
+					case "c": setPriorityExtract(38,45)
+					case "v": setPriorityExtract(45,55)
+					case "b": setPriorityExtract(55,66)
+					case "n": setPriorityExtract(66,77)
+					case "m": setPriorityExtract(77,88)
+					case ",": setPriorityExtract(88,95)
+					case ".": setPriorityExtract(95,99)
+				}
+				return
+
+
+
 		;Alternative Esc Key
 			q::
 			Send, {Esc}
@@ -783,7 +919,8 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 			SetCapsLockState, alwaysoff
 			Return
 
-			
+
+	
 		;Highlight the entire page to the right/left of the cursor
 			^+a::
 			Send {Ctrl Down} {Shift Down}{Home}{Shift Up}{Ctrl Up}
@@ -893,14 +1030,22 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 					
 					IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe brave.exe
 					{
-										Run, https://www.google.com/search?q=%searchTerm%				
+										Run, https://www.google.com/search?q=%searchTerm%&sxsrf=ALiCzsYSwIViK8cYWBkyjNn-sOLklBOmfQ:1657397795211&source=lnms&tbm=shop&sa=X&ved=2ahUKEwjl0tb2z-z4AhWupIkEHRJMAcEQ_AUoAXoECAEQAw&biw=1975&bih=1156&dpr=1.1
+										Run, https://www.amazon.com/s?k=%searchTerm%	
+										Run, https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=%searchTerm%&_sacat=0
+										Run, https://camelcamelcamel.com/search?sq=%searchTerm%
+										Msgbox "Remember to use Cammel!!"			
 					}
 
 					else
 					{
 					WinActivate WindowH
-					Run, https://www.google.com/search?q=%searchTerm%
+						Run, https://www.google.com/search?q=%searchTerm%&sxsrf=ALiCzsYSwIViK8cYWBkyjNn-sOLklBOmfQ:1657397795211&source=lnms&tbm=shop&sa=X&ved=2ahUKEwjl0tb2z-z4AhWupIkEHRJMAcEQ_AUoAXoECAEQAw&biw=1975&bih=1156&dpr=1.1
+						Run, https://www.amazon.com/s?k=%searchTerm%	
+						Run, https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=%searchTerm%&_sacat=0
+						Run, https://camelcamelcamel.com/search?sq=%searchTerm%
 
+						Msgbox "Remember to use Cammel!!"	
 							SetCapsLockState, alwaysoff
 							}
 				}
@@ -983,6 +1128,36 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
 				!+d::WinMaximize, A
 
+
+			;Three buttons for clipboard
+			
+			
+				!+j::
+					clipboard = "" ; empty clipboard
+					sleep 400 ; pause
+					send +#s  ; screenclip
+	
+					sleep 3000
+					VarJ := clipboardall
+					msgbox % VarJ
+				return
+				
+				
+				!+k::
+					clipboard = ""
+					clipboard := VarJ
+					clipwait 
+
+					sleep 1000
+					send ^v
+				return
+
+
+				!+l::
+					buttonThree := clipboard
+				return
+
+					
 			;Tag and recall windows(!+q !+e)
 				!+q::
 				CUSTOMLOGGER(A_THISHOTKEY)
@@ -1454,6 +1629,17 @@ If (A_ThisMenuItemPos = 1) {
 
 
 
++!b::
+mouseclick, left
+sleep 200
+mouseclick, left
+sleep 1500
+send {tab}
+sleep 300
+send Coding - Launch School RUBY101
+send {Enter}
+sleep 300
+send {Enter} 
 
 
 ;Guide
