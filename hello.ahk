@@ -453,6 +453,12 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		+!s::
 			send, +!{Down}
 			return
+		+!a::
+			send, +!{Left}
+		return
+		+!d::
+			send, +!{Right}
+			return
 		
 		+d::
 			send, +{Right}
@@ -707,11 +713,10 @@ return
 
 
 
-
+ ; Capslock + 1/2: GUI hotkeys
 		setPriority(min, max) {               
-
     send, !p
-		sleep 1000
+		sleep 300
     Random, OutputVar, %min%, %max%
     Clipboard := 
 		Clipboard := OutputVar
@@ -720,15 +725,14 @@ return
 		Sleep 200
 		Send, {Enter}
 
-    SetCapsLockState, Off
+    SetCapsLockState, Alwaysoff
 		}
 		return
 
 		setPriorityExtract(min, max) {
    
     Send, +!{x}
-		Sleep, 1000
-   
+		Sleep, 300
     Random, OutputVar, %min%, %max%
 		Clipboard := ""
 		Clipboard := OutputVar
@@ -737,7 +741,25 @@ return
 		Sleep 200
 		Send, {Enter}
    
-    SetCapsLockState, Off
+    SetCapsLockState, Alwaysoff
+		}
+		return
+
+		closeDiscord() {
+			Process,Close,discord.exe
+			SetCapsLockState, Alwaysoff
+		}
+		return
+
+		runRubyFile() {
+			WinActivate ahk_exe ubuntu.exe
+			; WinWaitActive {"ahk_class ConsoleWindowClass ahk_exe ubuntu.exe"}
+			; Sleep 1000
+			Send ruby %clipboard%
+			; WinActivate ahk_exe code.exe
+			
+
+			SetCapsLockState, Alwaysoff
 		}
 		return
 
@@ -778,6 +800,9 @@ return
 				case "m": setPriority(77,88)
 				case ",": setPriority(88,95)
 				case ".": setPriority(95,99)
+
+				case 1: closeDiscord()
+				case 2: runRubyFile()
 ;::setPriorityExtract(99,99.9)
 			}
 			return
@@ -1024,7 +1049,7 @@ return
 					Send {Enter}
 							SetCapsLockState, alwaysoff
 							}
-				} else if (KeyPressCount > 2) {
+				} else if (KeyPressCount = 3) {
 					SetCapsLockState, alwaysoff
 					Inputbox, searchTerm, Enter search,,,640, 480
 					
@@ -1034,7 +1059,8 @@ return
 										Run, https://www.amazon.com/s?k=%searchTerm%	
 										Run, https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=%searchTerm%&_sacat=0
 										Run, https://camelcamelcamel.com/search?sq=%searchTerm%
-										Msgbox "Remember to use Cammel!!"			
+										Msgbox "Remember to use Cammel!!"		
+										WinWaitClose search	
 					}
 
 					else
@@ -1047,8 +1073,10 @@ return
 
 						Msgbox "Remember to use Cammel!!"	
 							SetCapsLockState, alwaysoff
-							}
+							WinWaitClose search
+					}
 				}
+				
 				KeyPressCount := 0 
 				SetTimer, KeyPressMonitor, Off
 				Tooltip,
@@ -1460,7 +1488,7 @@ return
 		send ^m
 		return
 
-		
+
 	;Deleted first component from the article import template
 		F2::
 		{
@@ -1608,30 +1636,30 @@ Menu, MySubMenu2, Add, Coding, :MySubMenu2
 
 return
 
-^+h::
-Menu, MyMainMenu, Show
-return
+; ^+h::
+; Menu, MyMainMenu, Show
+; return
 
 
-MenuHandler:  ; I don't want it to do anything if I'm hovering/clicking a main menu item with a submenu
-return 
+; MenuHandler:  ; I don't want it to do anything if I'm hovering/clicking a main menu item with a submenu
+; return 
 
-SubMenu1Label:
-If (A_ThisMenuItemPos = 1) {
-	Run, %A_desktop%
-} else if (A_ThisMenuItemPos = 2) {
-	send test
-}
-return
+; SubMenu1Label:
+; If (A_ThisMenuItemPos = 1) {
+; 	Run, %A_desktop%
+; } else if (A_ThisMenuItemPos = 2) {
+; 	send test
+; }
+; return
 
 
 
-SubMenu2Label:
-If (A_ThisMenuItemPos = 1) {
-	send test 
-} else if (A_ThisMenuItemPos = 2) {
+; SubMenu2Label:
+; If (A_ThisMenuItemPos = 1) {
+; 	send test 
+; } else if (A_ThisMenuItemPos = 2) {
 
-}
+; }
 
 
 
@@ -1702,13 +1730,6 @@ send {Enter}
 ; Capslock down only
 ; To do: F13, F14
 ; Find out all the combos by scrolling through my script
-; F13 down: Control, Capslock, Shift. Control + Shift, Control + Capslock, Shift + Capslock 
-; F14: Control, Capslock, Shift. Control + Shift, Control + Capslock, Shift + Capslock  Make these into submenus, perhaps with an INI file?? I'm not sure. Maybe just a list with spaces
-; Control
-; Control + Shift
-; Control + Win
-; Control + Alt
-; Win + Alt
 
 
 
