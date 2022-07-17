@@ -61,21 +61,18 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
 		Run, "..\Private_Folder\Priorities.ahk"
 	}
 
-
-
 return ; End of the Autoexecutable section. Below this would be the functions, hotkeys and everything else.
 
 ; Run, "..\Private_Folder\testingstuff.txt" ; Sample for how to go out of relative folder 
 
 ; Rebinds
 	RShift::F14
-
-		; \:: t := !t ; For toggling
 	\::F13
 
+		; \:: t := !t ; For toggling
+
 ;My conventions for anki and SM https://www.wikiwand.com/en/Enclosed_Alphanumeric_Supplement
-		; :*:css.::{U+1F172}{U+1F182}{U+1F182} ; 🄲 CSS. This is sample of old version of conventions
-	
+		; :*:css.::{U+1F172}{U+1F182}{U+1F182} ; 🄲 CSS. This is sample of old version of conventions	
 
 		conventionclip(abc) { ;Function for conventions
 			oldclip := clipboard ; save clipboard to oldclip variable
@@ -115,7 +112,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 					SetCapsLockState, alwaysoff
 
 		return
-
 		
 		s::
 		Send {Down 5}
@@ -130,7 +126,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		return
 
 		;Basic home and end to navigate to front and end of line
-
 			a::
 			Send {Home}
 			SetCapsLockState, alwaysoff
@@ -1397,74 +1392,6 @@ return
 		RWin::^j
 
 	;Enter tag on Anki
-		:*:tagsp::
-			CUSTOMLOGGER(A_THISHOTKEY)
-			Send, {Ctrl Down}{Shift Down}t{Ctrl Up}{Shift Up}
-			Sleep, 200
-			Send, SpanishPriority
-			Sleep, 200
-			Send, {Shift Down}{Tab}{Shift Up}
-			Sleep, 100
-			Send, {Shift Down}{Tab}{Shift Up}
-			Sleep, 100
-			Send, {Shift Down}{Tab}{Shift Up}
-
-			Return
-		
-		:*:tagred::
-			CUSTOMLOGGER(A_THISHOTKEY)
-			Send, {Ctrl Down}{Shift Down}t{Ctrl Up}{Shift Up}
-			Sleep, 200
-			Send, Reddit
-			Sleep, 200
-			Send, {Shift Down}{Tab}{Shift Up}
-			Sleep, 100
-			Send, {Shift Down}{Tab}{Shift Up}
-			Sleep, 100
-			Send, {Shift Down}{Tab}{Shift Up}
-			Return
-		
-		:*:tagrela::
-			CUSTOMLOGGER(A_THISHOTKEY)
-			Send, {Ctrl Down}{Shift Down}t{Ctrl Up}{Shift Up}
-			Sleep, 200
-			Send, Psy149
-			Sleep, 200
-			Send, {Shift Down}{Tab}{Shift Up}
-			Sleep, 100
-			Send, {Shift Down}{Tab}{Shift Up}
-			Sleep, 100
-			Send, {Shift Down}{Tab}{Shift Up}
-
-			Return
-		
-		; :*:tagsp:
-		; 	Send, {Ctrl Down}{Shift Down}t{Ctrl Up}{Shift Up}
-		; 	Sleep, 200
-		; 	Send, SpanishPriority
-		; 	Sleep, 200
-		; 	Send, {Shift Down}{Tab}{Shift Up}
-		; 	Sleep, 100
-		; 	Send, {Shift Down}{Tab}{Shift Up}
-		; 	Sleep, 100
-		; 	Send, {Shift Down}{Tab}{Shift Up}
-
-		; 	Return
-		
-		; :*:tagsp:
-		; 	Send, {Ctrl Down}{Shift Down}t{Ctrl Up}{Shift Up}
-		; 	Sleep, 200
-		; 	Send, SpanishPriority
-		; 	Sleep, 200
-		; 	Send, {Shift Down}{Tab}{Shift Up}
-		; 	Sleep, 100
-		; 	Send, {Shift Down}{Tab}{Shift Up}
-		; 	Sleep, 100
-		; 	Send, {Shift Down}{Tab}{Shift Up}
-
-		; 	Return
-
-
 		
 ;Delete windows in taskbar fast
 	#If (MouseIsOverClass()="Shell_TrayWnd")
@@ -1516,15 +1443,6 @@ return
 		}
 		return
 
-	;Conventions SM 
-	;Quick End of Queue(inactive)
-		;^s:
-		;Send, ^+{j}
-		;Send, {Enter}
-		;Sleep, 50
-		;return
-
-
 	;Make cloze and delete-
 		^!z::
 		Sleep, 100
@@ -1565,19 +1483,6 @@ return
 
 
 
-; Projects: 
-
-	; To do:
-	
-	
-	
-	; Advanced: scroll through the mouse wheel to change the side buttons(?)
-	; Autosend emails by highlighting email address
-	; Sending the shortcut for the compose feature (c)
-	; Navigate to the "To:" field or image references as last resort
-
-
-	; Wrap in quotes for google searches > can do by myself
 
 
 
@@ -1590,38 +1495,9 @@ return
 		Sleep, 300
 		Send, {Ctrl down}w{Ctrl up}
 		Sleep, 300
-	
 	Run, C:\Users\kuanc\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Todoist.lnk
-
-
 	Return
 
-
-
-;Language learning(DEEPL)
-
-
-
-
-
-; #if (getKeyState("LButton", "P"))
-; s::
-; 	WinGet, active_id, ID, A
-; 	Click
-; 	Sleep, 20
-; 	WinGet, temp_id, ID, A ; store the ID in variable
-; 	WinMinimize, ahk_id %temp_id%
-; 	if (temp_id !== active_id){
-; 		WinActivate, ahk_id %active_id%
-; 	}
-; 	return
-
-; d::
-; Click
-; Send !{F4}
-; return
-
-; #if
 
 #If
 ; Work in progress
@@ -1636,50 +1512,35 @@ Menu, MySubMenu2, Add, Coding, :MySubMenu2
 
 return
 
-; ^+h::
-; Menu, MyMainMenu, Show
-; return
-
-
-; MenuHandler:  ; I don't want it to do anything if I'm hovering/clicking a main menu item with a submenu
-; return 
-
-; SubMenu1Label:
-; If (A_ThisMenuItemPos = 1) {
-; 	Run, %A_desktop%
-; } else if (A_ThisMenuItemPos = 2) {
-; 	send test
-; }
-; return
-
-
-
-; SubMenu2Label:
-; If (A_ThisMenuItemPos = 1) {
-; 	send test 
-; } else if (A_ThisMenuItemPos = 2) {
-
-; }
-
-
-
-
+; For calendar
 +!b::
-mouseclick, left
-sleep 200
-mouseclick, left
-sleep 1500
-send {tab}
-sleep 300
-send Coding - Launch School RUBY101
-send {Enter}
-sleep 300
-send {Enter} 
+	mouseclick, left
+	sleep 200
+	mouseclick, left
+	sleep 1500
+	send {tab}
+	sleep 300
+	send Coding - Launch School RUBY101
+	send {Enter}
+	sleep 300
+	send {Enter} 
+return
 
+; Projects: 
+
+	; To do:
+	
+	
+	
+	; Advanced: scroll through the mouse wheel to change the side buttons(?)
+	; Autosend emails by highlighting email address
+	; Sending the shortcut for the compose feature (c)
+	; Navigate to the "To:" field or image references as last resort
+
+
+	; Wrap in quotes for google searches > can do by myself
 
 ;Guide
-
-
 ; Shift + Alt + Arrow: copy line up or down
 ; Move lines: alt + arrow 
 ; Hold alt: highlight multiple things
@@ -1711,7 +1572,6 @@ send {Enter}
 
 
 ; Tasklist:
-; -p3 find Cut the fat from startup scripts
 ; -ip Start with lines 1-500 only... General refactoring and organization - figure out consistent convention for describing the code as well as.... 
 ; Write down a working BM convention system here: -ip --inprogress, -f --fix, -d --done, -p1 - p2 -p3,  --nav, --find(problem), -x --currently testing
 ; Put all code I'm not using into an archive script
@@ -1723,17 +1583,13 @@ send {Enter}
 	; First menu of decks I frequent: All, All Generative, Coding
 	; Sub menu of tags: LS, 
 ; Find Vimston's way to scroll in SM
-; --done Use regular suspend instead of entire NiftyWindows Script
 
-; Setup an alphabetic table that updates automatically so that I know which hotkeys are open and which are not - currently have excel version
 ; Done manually with:
 ; Capslock down only
 ; To do: F13, F14
 ; Find out all the combos by scrolling through my script
 
-
-
-
+; --done Use regular suspend instead of entire NiftyWindows Script
 ; --done  -p1 Fix Socratic questions script - Maybe make the pause button more accessible. Soln: #!c
 ; --done Fix F13 + Windows + Shift + Side arrow hotkeys
 ; --done Figure out the bookmark shortcuts, navigation, and usage
