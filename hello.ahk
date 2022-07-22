@@ -24,9 +24,7 @@ GroupAdd, SuperMemo, ahk_class TElWind ;Element window
 GroupAdd, SuperMemo, ahk_class TElDATAWind ;Element Data window
 GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
 
-
 ; RUN THESE PROGRAMS ON STARTUP
-	
 	if (!WinExist("KeyLog (3).ahk")) {
 		Run, "..\Private_Folder\KeyLog (3).ahk"
 	}
@@ -60,7 +58,6 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
 		if (!WinExist("Priorities.ahk")) {
 		Run, "..\Private_Folder\Priorities.ahk"
 	}
-
 return ; End of the Autoexecutable section. Below this would be the functions, hotkeys and everything else.
 
 ; Run, "..\Private_Folder\testingstuff.txt" ; Sample for how to go out of relative folder 
@@ -69,13 +66,15 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 	RShift::F14
 	\::F13
 
-		; \:: t := !t ; For toggling
+	; #If t && getKeyState("Capslock", "P") ; Sample for using toggle instead of F13
+		; \:: t := !t ; For setting toggle
+
 
 ;My conventions for anki and SM https://www.wikiwand.com/en/Enclosed_Alphanumeric_Supplement
 		; :*:css.::{U+1F172}{U+1F182}{U+1F182} ; 🄲 CSS. This is sample of old version of conventions	
 
 		conventionclip(abc) { ;Function for conventions
-			oldclip := clipboard ; save clipboard to oldclip variable
+			oldclip := clipboardall ; save clipboard to oldclip variable
 			clipboard := "" ; clear clipboard
 			clipboard := abc ; 🄲 UNIX {U+1F184}{U+1F17D}{U+1F178}{U+1F187}
 			clipwait, 2, 1
@@ -103,27 +102,48 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		:X*:turn.::conventionclip("✍🄰→🄱💻 ") ; 🄲 Write code to turn something from A to B
 		:X*:op.::conventionclip("🄾🅿💻 ")  ; 🄲 What does this code do?, what's the output?
 
+		:X*:rwrong.::conventionclip("🆁🆄🅱🆈 ❌💻 ")
+		:X*:rdiff.::conventionclip("🆁🆄🅱🆈 Δ💻 ")  
+		:X*:rgp.::conventionclip("🆁🆄🅱🆈 ✍𝒫💻 ")
+		:X*:rp.::conventionclip("🆁🆄🅱🆈 🅿💻 ")
+    :X*:rturn.::conventionclip("🆁🆄🅱🆈 ✍🄰→🄱💻 ")
+		:X*:rop.::conventionclip("🆁🆄🅱🆈 🄾🅿💻 ") 
+		:X*:rexp.::conventionclip("🆁🆄🅱🆈 🆇✈️💻 ")
+
 
 ;Cursor movement upgrades *combo
 	#If (getKeyState("F13") && getKeyState("Capslock", "P"))
-	; #If t && getKeyState("Capslock", "P") ; Sampling for using toggle instead of F13
 		w::
 		Send {Up 5}
-					SetCapsLockState, alwaysoff
-
+		SetCapsLockState, alwaysoff
 		return
 		
 		s::
 		Send {Down 5}
-					SetCapsLockState, alwaysoff
-
+		SetCapsLockState, alwaysoff
 		return
 
 		e::
 		Send {Down 5}
-					SetCapsLockState, alwaysoff
-
+		SetCapsLockState, alwaysoff
 		return
+		
+		;Highlight more lines at a time up and down
+			+w::
+			Send {ShiftDown}{Up 5}{ShiftUp}
+			return
+
+			+s::
+			Send {ShiftDown}{Down 5}{ShiftUp}
+			return
+
+			+a::
+			Send {ShiftDown}{Home}{ShiftUp}
+			return
+
+			+d::
+			Send {ShiftDown}{End}{ShiftUp}
+			return
 
 		;Basic home and end to navigate to front and end of line
 			a::
@@ -136,27 +156,11 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 			SetCapsLockState, alwaysoff
 			Return
 
-; f14(Rshift) Down Hotkeys IF Anki is active *combo
 		; Guide:
-		; bury  - v
-		; pause - f
-		; pass - space
-		; fail - d
-		; suspend - s
-		; delete - a
-		; reschedule - c
-		; redo - z
-		; change deck - x
-
-		; Red - q
-		; Orange - w
-		; Blue - e
-		; Green - r
-		; Marked - t
-		; pink - g
-		; purple - h
-#If (getKeyState("F14") && WinActive("ahk_exe anki.exe") && !WinActive("Add")) ;Active IF I hold down RShift, anki.exe is active, AND "Add" window is not active
-	; Anki navigation keys
+		; bury  - v ; pause - f ; pass - space ; fail - d ; suspend - s ; delete - a ; reschedule - c ; redo - z ; change deck - x
+		; Red - q ; Orange - w ; Blue - e ; Green - r ; Marked - t ; pink - g ; purple - h
+#If (getKeyState("F14") && WinActive("ahk_exe anki.exe") && !WinActive("Add")) ; Active IF I hold down RShift AND anki.exe is active  AND "Add" window is not active | *combo
+	; Anki general navigation keys
 		v::
 		send -
 		return
@@ -186,8 +190,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		send ^d
 		return
 
-
-		;Flags + Marked
+	;Flags + Marked
 		q::
 		send ^1 
 		return
@@ -216,30 +219,25 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		send ^7
 		return
 
-
-
-
-
-
 #If
 
 ;RShift down hotkeys *combo
 	#If (getKeyState("F14", "V"))
-		;Pseudocode - Create function for controlsend instead of copying it every time
-		;I want to keep everything the same except these:
 
-		; ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, Google Chrome ;Get the window handle of the Chrome window
-		; ControlFocus,,ahk_id %outputvar%
-		; ControlSend, , VAR, Google Chrome
-
-
-		; Video Controls
+		;Video Controls
 				sendToVid(a) {
 					SetTitleMatchMode, 2
-					ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, Google Chrome ;Get the window handle of the Chrome window
+					ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, WindowH ;Google Chrome ;Get the window handle of the Chrome window
 					ControlFocus,,ahk_id %outputvar%
-					ControlSend, , %a%, Google Chrome
+					ControlSend, , %a%, WindowH ;Google Chrome
 				}
+
+				; sendToVid(a) {
+				; 	SetTitleMatchMode, 2
+				; 	ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, Google Chrome ;Get the window handle of the Chrome window
+				; 	ControlFocus,,ahk_id %outputvar%
+				; 	ControlSend, , %a%, Google Chrome
+				; }
 
 				f::sendToVid("{space}")
 				q::sendToVid("q")
@@ -260,9 +258,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 				9::sendToVid("9")
 				0::sendToVid("0")
 
-				
-
-
 				k::
 					Loop 3
 					{
@@ -271,7 +266,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 					WinGetActiveStats, Title, Width, Height, X, Y
 					MouseMove, Width / 2, Height / 2, 0
 					mouseclick, left
-
 					return
 
 				j::
@@ -285,29 +279,16 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 					If (KeyWait, F14)
 					mouseclick, left
 					else
-					return
-
-	
+					return	
 	#If
-
-
-
 ;f13(\) Down Hotkeys *combo
 	#If (getKeyState("F13", "V"))
-
 	;for using the original keys replaced by F13
-		[::
-		send \
-		return
-
-		]::
-		send | 
-		return
+		[:: send \
+		]:: send | 
 		
 	; Opening video from incremental video
 		z::
-			; WinWaitActive  ; Trying to get cursor in the box
-			; Click, 300 300
 			WinActivate ahk_class TElWind 
 			WinWaitActive ahk_class TElWind 
 			clipboard := ""
@@ -350,13 +331,13 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 			Send 6    ; This is relative number for changing layout
 			Send {Down}
 			return
+	
 	; Open chrome inconito
 		y::
 			Run, chrome.exe %clipboard% " --new-window -incognito -alwaysontop"
 			WinMove, A, , 1945, 0, 1500, 1440 ; WinMove, Active Window, , x, Y(coordinates for top left of window), window width, window height
 			WinMove, A, , 1945, 0, 1500, 1440 ; WinMove, Active Window, , x, Y(coordinates for top left of window), window width, window height
 		return
-
 
 	;Testing copies timestamped YT url link, ex: https://youtu.be/zd1yXUhqoKM?t=307
 		;psuedocode:
@@ -400,125 +381,52 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		Send {Alt}
 		Send w
 		Send 3    ; This is relative number for changing layout
-
 		return
-
-
 
 	; Arrow features: Control, Control + Shift, Alt, Windows(left and right)
+		^!w:: send ^!{Up}
+		^!s:: send ^!{Down}
+		^!a:: send ^!{Left}
+		^!d:: send ^!{Right}
 
-		^!w::
-			send ^!{Up}
-			return 
-		^!s::
-			send ^!{Down}
-			return
+		^d:: send, ^{Right}
+		^a:: send, ^{Left}
 
-		^!a::
-			send ^!{Left}
-			return
+		^+d:: send, ^+{Right}
+		^+a::  send, ^+{Left}
+		^+w:: send, ^+{Up}
+		^+s:: send, ^+{Down}
 
-		^!d::
-			send ^!{Right}
-			return
-
-		^d::
-			send, ^{Right}
-			return
-		^a::
-			send, ^{Left}
-			return
-
-		^+d::
-			send, ^+{Right}
-			return
-		^+a:: 
-			send, ^+{Left}
-			return
-		^+w::
-			send, ^+{Up}
-			return
-		^+s::
-			send, ^+{Down}
-			return
-
-		+!w::
-			send, +!{Up}
-			return
-		+!s::
-			send, +!{Down}
-			return
-		+!a::
-			send, +!{Left}
-		return
-		+!d::
-			send, +!{Right}
-			return
+		+!w:: send, +!{Up}
+		+!s:: send, +!{Down}
+		+!a:: send, +!{Left}
+		+!d:: send, +!{Right}
 		
-		+d::
-			send, +{Right}
-			return
-		+a::
-			send, +{Left}
-			return
-		+w::
-			send, +{Up}
-			return
-		+s::
-			send, +{Down}
-			return
-
-		!a::
-			send, !{Left}
-			return
-		!d::
-			send, !{Right}
-			return
-		!w::
-			send, !{Up}
-			return
-		!s::
-			send, !{Down}
-			return
-
+		+d:: send, +{Right}
+		+a:: send, +{Left}
+		+w:: send, +{Up}
+		+s:: send, +{Down}
+			
+		!a:: send, !{Left}
+		!d:: send, !{Right}
+		!w:: send, !{Up} 
+		!s:: send, !{Down}
 		
 	; Snap windows left and right, minimize, maximize
-		#d::
-			send, #{Right}
-			Return
-
-		#a::
-			Send, #{Left}
-			return
-
-		#w::
-			send {F11}
-			return
-
-		#s::
-			WinMaximize, A
-			return
+		#d:: send, #{Right}
+		#a:: Send, #{Left}
+		#w:: send {F11}
+		#s:: WinMaximize, A
 			
 	; Snap windows to diferent monitor
-			+#d::
-				send, #+{Right}
-				return
-			+#a::
-				send, #+{Left}
-				return
-
+			+#d:: send, #+{Right}
+			+#a:: send, #+{Left}
+				
 	;VIM-like chrome tab navigation
-		+J::
-			send, ^+{Tab}
-			return
-		+K::
-			send, ^{Tab}
-			return
-
-	
-
+		+j:: send, ^+{Tab}
+		+k:: send, ^{Tab}
+			
 	;Anki window activate/minimize
-
 		o::activateMinimize("User 1 - Anki")
 		i::
 			IfWinExist Add
@@ -536,23 +444,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 				WinMinimize User 1 - Anki ;
 			}
 			Return
-
-		; u::
-		; 	IfWinExist Browse
-		; 	{
-		; 		IfWinNotActive, Browse
-		; 		WinActivate Browse
-		; 		else
-		; 		WinMinimize Browse
-		; 	}
-		; 	else
-		; 	{
-		; 		WinActivate User 1 - Anki
-		; 		WinWaitActive User 1 - Anki
-		; 		send b
-		; 		WinMinimize User 1 - Anki ;
-		; 	}
-		; 	Return
 		
 	;Activate/minimize brave windows
 
@@ -562,8 +453,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 			WinActivate %Title%
 			else
 			WinMinimize %Title%
-
-			
 			Return
 		}
 			g::activateMinimize("WindowG") ; FocusMate window
@@ -697,21 +586,10 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
 ;Capslock Down Hotkeys *combo
 		#If (getKeyState("Capslock", "P"))
-
-
-	p::
-		PID:=DllCall("GetCurrentProcessId") 
-for process in ComObjGet("winmgmts:").ExecQuery("Select * from Win32_Process where name = 'Autohotkey.exe' and processID  <> " PID )
-   process, close, % process.ProcessId
-process, close, % PID ; If you want to close also this script
-return
-
-
-
  ; Capslock + 1/2: GUI hotkeys
 		setPriority(min, max) {               
     send, !p
-		sleep 300
+		sleep 500
     Random, OutputVar, %min%, %max%
     Clipboard := 
 		Clipboard := OutputVar
@@ -725,9 +603,8 @@ return
 		return
 
 		setPriorityExtract(min, max) {
-   
     Send, +!{x}
-		Sleep, 300
+		Sleep, 500
     Random, OutputVar, %min%, %max%
 		Clipboard := ""
 		Clipboard := OutputVar
@@ -741,19 +618,18 @@ return
 		return
 
 		closeDiscord() {
-			Process,Close,discord.exe
+			Process,Close, ahk_exe discord.exe
 			SetCapsLockState, Alwaysoff
 		}
 		return
 
 		runRubyFile() {
-			WinActivate ahk_exe ubuntu.exe
 			; WinWaitActive {"ahk_class ConsoleWindowClass ahk_exe ubuntu.exe"}
 			; Sleep 1000
-			Send ruby %clipboard%
+			Send {CtrlDown}kd{CtrlUp}   
+			sleep 400
+			ControlSend, , ruby %clipboard%, Ubuntu
 			; WinActivate ahk_exe code.exe
-			
-
 			SetCapsLockState, Alwaysoff
 		}
 		return
@@ -802,13 +678,10 @@ return
 			}
 			return
 
-
-
 		; Open GUI 
 				2::
 					Inputbox, varB, Enter string, , , 640, 480 ; varB = variable, Enter string = GUI header
 				
-
 				switch varB
 				{ 
 					case "q": setPriorityExtract(0.01,0.36)
@@ -889,7 +762,6 @@ return
 			SetCapsLockState, alwaysoff
 			return
 
-
 		;Delete, minimize window
 			w::
 			Send !{F4}
@@ -951,7 +823,6 @@ return
 			Send {Ctrl Down} {Shift Down}{End}{Shift Up}{Ctrl Up}
 			SetCapsLockState, alwaysoff
 			Return
-
 
 		;Run AHK script
 			z::
