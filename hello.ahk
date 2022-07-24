@@ -10,8 +10,8 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include ..\Private_Folder\KeyLogLib.ahk
 #KeyHistory 200
 
-Global VarJ := ""
-Global VarK := ""
+Global VarJ := 3 ; Used for scroll settings
+Global VarK := 5
 Global VarL := ""
 
 
@@ -34,7 +34,7 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
 	if (!WinExist("FastNavKeys.ahk")) {
 		Run, "..\Private_Folder\FastNavKeys.ahk"
 	}
-		if (!WinExist("3sec-tooltip-randomised.ahk")) {
+	if (!WinExist("3sec-tooltip-randomised.ahk")) {
 		Run, "..\Private_Folder\3sec-tooltip-randomised.ahk"
 	}
 	if (!WinExist("Anki.ahk")) {
@@ -114,12 +114,12 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 ;Cursor movement upgrades *combo
 	#If (getKeyState("F13") && getKeyState("Capslock", "P"))
 		w::
-		Send {Up 5}
+		Send {Up %VarK%}
 		SetCapsLockState, alwaysoff
 		return
 		
 		s::
-		Send {Down 5}
+		Send {Down %VarK%}
 		SetCapsLockState, alwaysoff
 		return
 
@@ -161,29 +161,20 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		; Red - q ; Orange - w ; Blue - e ; Green - r ; Marked - t ; pink - g ; purple - h
 #If (getKeyState("F14") && WinActive("ahk_exe anki.exe") && !WinActive("Add")) ; Active IF I hold down RShift AND anki.exe is active  AND "Add" window is not active | *combo
 	; Anki general navigation keys
-		v::
-		send -
-		return
+		v:: send -
+		f:: send p
 
-		f::
-		send p
-		return
+		d:: send 1
+		
 
-		d::
-		send 1
-		return
+		s:: send ^{Del}
+		
 
-		s::
-		send ^{Del}
-		return
+		z:: send z
+		
 
-		z::
-		send z
-		return
-
-		c::
-		send ^+d
-		return
+		c:: send ^+d
+		
 
 		x::
 		send b
@@ -191,34 +182,13 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		return
 
 	;Flags + Marked
-		q::
-		send ^1 
-		return
-
-		w::
-		send ^2
-		return
-
-		e::
-		send ^4
-		return
-
-		r::
-		send ^3
-		return
-
-		t::
-		send +*
-		return
-
-		g::
-		send ^5
-		return
-
-		h::
-		send ^7
-		return
-
+		q:: send ^1 
+		w:: send ^2
+		e:: send ^4
+		r:: send ^3
+		t:: send +*
+		g:: send ^5
+		h:: send ^7
 #If
 
 ;RShift down hotkeys *combo
@@ -258,28 +228,28 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 				9::sendToVid("9")
 				0::sendToVid("0")
 
-				k::
-					Loop 3
-					{
-						Click, WheelUp
-					}
-					WinGetActiveStats, Title, Width, Height, X, Y
-					MouseMove, Width / 2, Height / 2, 0
-					mouseclick, left
-					return
+				; k::
+				; 	Loop 3
+				; 	{
+				; 		Click, WheelUp
+				; 	}
+				; 	WinGetActiveStats, Title, Width, Height, X, Y
+				; 	MouseMove, Width / 2, Height / 2, 0
+				; 	mouseclick, left
+				; 	return
 
-				j::
-					Loop 3
-					{
-						Click, WheelDown
-					}
-					WinGetActiveStats, Title, Width, Height, X, Y
-					MouseMove, Width / 2, Height / 2, 0
-					Keywait, j
-					If (KeyWait, F14)
-					mouseclick, left
-					else
-					return	
+				; j::
+				; 	Loop 3
+				; 	{
+				; 		Click, WheelDown
+				; 	}
+				; 	WinGetActiveStats, Title, Width, Height, X, Y
+				; 	MouseMove, Width / 2, Height / 2, 0
+				; 	Keywait, j
+				; 	If (KeyWait, F14)
+				; 	mouseclick, left
+				; 	else
+				; 	return	
 	#If
 ;f13(\) Down Hotkeys *combo
 	#If (getKeyState("F13", "V"))
@@ -465,13 +435,13 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
 	;Scroll function
 		j::
-					Loop 3
+					Loop %VarJ%
 					{
 						Click, WheelDown
 					}
 				return
 		k::
-					Loop 3
+					Loop %VarJ%
 					{
 						Click, WheelUp
 					}
@@ -542,21 +512,17 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 					Return
 
 	;simulated arrow keys, perhaps I can turn them into physical presses
-		s::
-		Send {Down}
-		Return
-
-		w::
-		Send {Up}
-		Return
-
-		a::
-		Send {Left}
-		Return
+		s:: Send {Down}
 		
-		d::
-		Send {Right}
-		Return
+
+		w:: Send {Up}
+		
+
+		a:: Send {Left}
+		
+		
+		d:: Send {Right}
+		
 
 	;change SM template hotkeys
 		p::
@@ -634,6 +600,14 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		}
 		return
 
+		gscroll() {
+			Inputbox, VarJ, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header 
+		}
+
+		gupdown() {
+			Inputbox, VarK, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header 
+		}
+
 		;Open GUI (Capslock + 1)
 			1::
 			Inputbox, varA, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header 
@@ -672,8 +646,12 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 				case ",": setPriority(88,95)
 				case ".": setPriority(95,99)
 
+				case "gscroll":gscroll()
+				case "gupdown":gupdown()
 				case 1: closeDiscord()
 				case 2: runRubyFile()
+				; case 3: setGlobal()
+				
 ;::setPriorityExtract(99,99.9)
 			}
 			return
@@ -977,9 +955,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 ; return
 
 		;Go to line in VSCode
-			x::
-				send ^g
-				return		
+			x:: send ^g
 		
 		;cut highlighted text and wrap it with console.log
 			b::
@@ -1091,6 +1067,9 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		:*?:+-::± ; plus or minus sign
 		:*:Tnow::- set alarm for 
 
+		:*:template..::  {#}{#}Problem{Enter}{#} Input:{Enter}{#} Output:{Enter}{#} In my words: {Enter}{Enter}{#}{#}Data Structure{enter}{#}{enter}{enter}{#}{#}Algorithm{Enter}{#}
+		 
+
 		;For coding
 			:r:#sin::#singleinstance force
 
@@ -1149,14 +1128,10 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		; SendRaw, 
 		; Return
 		
-
 	;Using Right mouse button and scroll wheel
 		RButton & WheelDown:: Send ^{PgUp}
 		RButton & WheelUp:: Send ^{PgDn}	
 		RButton Up:: Click Right
-
-
-
 
 
 	variable := "World"
@@ -1164,7 +1139,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 	MsgBox % "Hello " variable ; The one Angel prefers lol
 
 	;For DeepL
-		; ::
 		; CUSTOMLOGGER(A_THISHOTKEY)
 		
 		; clipboard := ""  ; Start off empty to allow ClipWait to detect when the text has arrived.
@@ -1194,9 +1168,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		; ClipWait  ; Wait for the clipboard to contain text.	
 		; Run, https://www.spanishdict.com/translate/%ClipBoard%
 		; Return
-
-
-
 
 	;Instasearch YT
 		^#y::
@@ -1255,14 +1226,10 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		Sleep, 500
 		Send, {f}r
 		return
-		
-	
+
 	#IfWinActive ahk_class Qt5QWindowIcon
 	;Cloze hotkey
-		
 		RWin::^j
-
-	;Enter tag on Anki
 		
 ;Delete windows in taskbar fast
 	#If (MouseIsOverClass()="Shell_TrayWnd")
@@ -1285,7 +1252,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		sleep 200
 		send ^m
 		return
-
 
 	;Deleted first component from the article import template
 		F2::
@@ -1310,7 +1276,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 				sleep, 10
 				Send, {Esc} ; close dialog
 			}
-
 		}
 		return
 
@@ -1445,6 +1410,7 @@ return
 ; Tasklist:
 ; -ip Start with lines 1-500 only... General refactoring and organization - figure out consistent convention for describing the code as well as.... 
 ; Write down a working BM convention system here: -ip --inprogress, -f --fix, -d --done, -p1 - p2 -p3,  --nav, --find(problem), -x --currently testing
+	; This is in Notion
 ; Put all code I'm not using into an archive script
 ; -p1 Get this code on to github while properly using git ignore
 ; --done -p1 Make a hotkey to click in the vertical center of the text editor so I can focus after scroll with F14 + j/k
@@ -1455,10 +1421,6 @@ return
 	; Sub menu of tags: LS, 
 ; Find Vimston's way to scroll in SM
 
-; Done manually with:
-; Capslock down only
-; To do: F13, F14
-; Find out all the combos by scrolling through my script
 
 ; --done Use regular suspend instead of entire NiftyWindows Script
 ; --done  -p1 Fix Socratic questions script - Maybe make the pause button more accessible. Soln: #!c
