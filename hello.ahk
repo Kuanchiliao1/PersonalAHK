@@ -1,6 +1,4 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
-; #Warn  ; Enable warnings to assist with detecting common errors.
-SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
+﻿SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #singleinstance force
 
@@ -14,7 +12,6 @@ Global VarJ := 3 ; Used for scroll settings
 Global VarK := 5
 Global VarL := ""
 
-
 DetectHiddenWindows, On ; BEcause most AHK script have their window hidden
 SetTitleMatchMode, 2 
 
@@ -23,6 +20,13 @@ GroupAdd, SuperMemo, ahk_class TContents ;Content Window (Knowledge Tree)
 GroupAdd, SuperMemo, ahk_class TElWind ;Element window
 GroupAdd, SuperMemo, ahk_class TElDATAWind ;Element Data window
 GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
+
+		; these are the lines 1-4 on the menu
+				Menu, MyMenu, Add, l, MenuHandler  ;MenuHandler is a label - 
+				Menu, MyMenu, Add, F13, MenuHandler
+				Menu, MyMenu, Add, F14, MenuHandler
+				Menu, MyMenu, Add, Run Chrome, MenuHandler
+				return
 
 ; RUN THESE PROGRAMS ON STARTUP
 	if (!WinExist("KeyLog (3).ahk")) {
@@ -58,16 +62,40 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
 		if (!WinExist("Priorities.ahk")) {
 		Run, "..\Private_Folder\Priorities.ahk"
 	}
+	if (!WinExist("timer.ahk")) {
+		Run, "..\Private_Folder\timer.ahk"
+	}
 return ; End of the Autoexecutable section. Below this would be the functions, hotkeys and everything else.
 
 ; Rebinds
-	RShift::F14
-	\::F13
+		RShift::F14
+		\::F13
+
+#If r && getKeyState("Capslock")
+	f:: send {Alt Up}
+
+
+#If r
+	d:: send {backspace}
+	v:: send {CtrlDown}ku{CtrlUp}
+	c:: send {CtrlDown}kc{CtrlUp}
+	f:: send {Alt Down}
 
 	; #If t && getKeyState("Capslock", "P") ; Sample for using toggle instead of F13
-		; \:: t := !t ; For setting toggle
+	#If t && getKeyState("F13")
+		a:: MouseMove, -50, 0, 1, R
+		w:: MouseMove, 0, -50, 1, R
+		s:: MouseMove,  0, 50, 1, R
+		d:: MouseMove, 50, 0, 1, R
+
+		b:: mouseclick, left
 
 
+	 #If getKeyState("F13")
+		 r:: 
+		 t := !t ; For setting toggle
+		 return
+	#If
 ;My conventions for anki and SM https://www.wikiwand.com/en/Enclosed_Alphanumeric_Supplement
 		conventionclip(abc) { ;Function for conventions
 			oldclip := clipboardall ; save clipboard to oldclip variable
@@ -79,7 +107,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 			sleep 200
 			clipboard := oldclip
 			return  
-		}
+			}
 
 		:X*:con,.::conventionclip("🄲 ")
 		:X*:key,.::conventionclip("⌨ ")
@@ -90,6 +118,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		:X*:html,.::conventionclip("🅷🆃🅼🅻 ")
 		:X*:ruby,.::conventionclip("🆁🆄🅱🆈 ")
 		:X*:unix,.::conventionclip("🆄🅽🅸🆇 ")
+		:X*:reg,.::conventionclip("🆁🆇")
 
 		:X*:wrong,.::conventionclip("❌💻 ") ; ("{U+274C}{U+1F4BB}") ; 🄲 What's wrong with this code? Red x and computer emoji
 		:X*:diff,.::conventionclip("Δ💻 ")    ; ({U+0394}{U+1F4BB})" ; 🄲 What's the difference? Delta and computer emoji
@@ -97,6 +126,8 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		:X*:p,.::conventionclip("🅿💻 ")  ; 🄲 What does this code do?
 		:X*:turn,.::conventionclip("✍🄰→🄱💻 ") ; 🄲 Write code to turn something from A to B
 		:X*:op,.::conventionclip("🄾🅿💻 ")  ; 🄲 What does this code do?, what's the output?
+		:X*:exp,.::conventionclip("🆇✈️💻 ")
+
 
 		:X*:rwrong,.::conventionclip("🆁🆄🅱🆈 ❌💻 ")
 		:X*:rdiff,.::conventionclip("🆁🆄🅱🆈 Δ💻 ")  
@@ -104,10 +135,12 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		:X*:rp,.::conventionclip("🆁🆄🅱🆈 🅿💻 ")
     :X*:rturn,.::conventionclip("🆁🆄🅱🆈 ✍🄰→🄱💻 ")
 		:X*:rop,.::conventionclip("🆁🆄🅱🆈 🄾🅿💻 ") 
+		:X*:roop,.::conventionclip("🆁🆄🅱🆈 ⭕⭕🅿💻 ")
+		:X*:roopexp,.::conventionclip("🆁🆄🅱🆈 🆇 ✈️ ⭕⭕🅿💻 ")
 		:X*:rexp,.::conventionclip("🆁🆄🅱🆈 🆇✈️💻 ")
 
 		:*:d,.::do ||{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left} ; Ruby - write blocks 
-		:*:m,.::{home}def {end}{enter}end{Home}{Backspace}{Enter}{Up}{Tab} ; Ruby - write method definitions
+		:*:m,.::{backspace}{home}def {end}{enter}end{Home}{Backspace}{Enter}{Up}{Tab} ; Ruby - write method definitions
 	
 ;Cursor movement upgrades *combo
 	#If (getKeyState("F13") && getKeyState("Capslock", "P"))
@@ -164,7 +197,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		t:: send +*
 		g:: send ^5
 		h:: send ^7
-#If
 
 ;RShift down hotkeys *combo
 	#If (getKeyState("F14", "V"))
@@ -203,13 +235,12 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 				9::sendToVid("9")
 				0::sendToVid("0")
 
-	#If
 ;f13(\) Down Hotkeys *combo
 	#If (getKeyState("F13", "V"))
 	;for using the original keys replaced by F13
 		[:: send \
 		]:: send | 
-		
+
 	; Opening video from incremental video
 		z::
 			WinActivate ahk_class TElWind 
@@ -300,25 +331,25 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		^d:: send, ^{Right}
 		^a:: send, ^{Left}
 
-		^+d:: send, ^+{Right}
-		^+a::  send, ^+{Left}
-		^+w:: send, ^+{Up}
-		^+s:: send, ^+{Down}
+		^+d:: send ^+{Right}
+		^+a::  send ^+{Left}
+		^+w:: send ^+{Up}
+		^+s:: send ^+{Down}
 
-		+!w:: send, +!{Up}
-		+!s:: send, +!{Down}
-		+!a:: send, +!{Left}
-		+!d:: send, +!{Right}
+		+!w:: send +!{Up}
+		+!s:: send +!{Down}
+		+!a:: send +!{Left}
+		+!d:: send +!{Right}
 		
-		+d:: send, +{Right}
-		+a:: send, +{Left}
-		+w:: send, +{Up}
-		+s:: send, +{Down}
+		+d:: send +{Right}
+		+a:: send +{Left}
+		+w:: send +{Up}
+		+s:: send +{Down}
 			
-		!a:: send, !{Left}
-		!d:: send, !{Right}
-		!w:: send, !{Up} 
-		!s:: send, !{Down}
+		!a:: send !{Left}
+		!d:: send !{Right}
+		!w:: send !{Up} 
+		!s:: send !{Down}
 		
 	; Snap windows left and right, minimize, maximize
 		#d:: send, #{Right}
@@ -355,10 +386,19 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		
 	;Activate/minimize brave windows
 		activateMinimize(Title) {
-			IfWinNotActive, %Title%
-			WinActivate %Title%
-			else
-			WinMinimize %Title%
+		Ifwinexist %Title%
+			{
+				IfWinNotActive, %Title%
+				WinActivate %Title%
+				else
+				WinMinimize %Title%
+			}
+		else
+		{
+			send {CtrlDown}{CtrlUp}   ; Run C:\Users\kuanc\AppData\Local\Programs\todoist\Todoist.exe 
+			sleep 100
+			send {CtrlDown}{CtrlUp}
+		}
 			Return
 		}
 			g::activateMinimize("WindowG") ; FocusMate window
@@ -366,7 +406,28 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 			u::activateMinimize("ahk_class ConsoleWindowClass ahk_exe ubuntu.exe") ; "Life" Window
 			; k::activateMinimize("WindowK") ; Codin Window
 			n::activateMinimize("WindowN") ; Codin Window
-			l::activateMinimize("WindowL") ; 
+			; l::activateMinimize("WindowL") ; 
+			; l::
+	
+
+
+				l::
+				Menu, MyMenu, Show  ; show the menu created called MyMenu
+				send {F13 up}
+				return
+
+				MenuHandler:
+				If (A_ThisMenuItemPos = 1) {
+						activateMinimize("WindowL")
+				} else if (A_ThisMenuItemPos = 2) {
+						Run, C:\users\juho2\downloads
+				} else if (A_ThisMenuItemPos = 3) {
+						Run, calc.exe
+				} else if (A_ThisMenuItemPos = 4) {
+						Run, Chrome.exe
+				}
+				return
+
 
 	;Scroll function
 		j::
@@ -384,65 +445,37 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
 	;Activate/minimize VSCode
 		v::
-			SetTitleMatchMode, 2 
-			IfWinExist ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe
-				{
-					IfWinNotActive, ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe
-					WinActivate ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe
-					else
-					WinMinimize ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe
-				}
+			KeyWait, v
+			KeyWait, v, D T0.1 
+
+			If ErrorLevel 
+				; ControlSend, , {left}, ahk_exe vlc.exe 
+				activateMinimize("Ubuntu ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe")
 			else
-			{
-			send {CtrlDown}{CtrlUp}   ; Run C:\Users\kuanc\AppData\Local\Programs\todoist\Todoist.exe 
-			sleep 100
-			send {CtrlDown}{CtrlUp}
-			}
-			Return
-	
+				; ControlSend, , ^{left}, ahk_exe vlc.exe 		
+				activateMinimize("hello.ahk - Coding folder ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe")
+			return
+
+			
+
 	;Activate/minimize Todoist
-		t::
-			ifwinexist Todoist 
-				{
-					ifwinnotactive, Todoist
-					winactivate, Todoist
-					; Sleep 1000
-					else
-					winminimize, Todoist
-				}
-			else
-			{
-			send {CtrlDown}{CtrlUp}   ; Run C:\Users\kuanc\AppData\Local\Programs\todoist\Todoist.exe 
-			sleep 100
-			send {CtrlDown}{CtrlUp}
-			}
-			Return
+		t::activateMinimize("Todoist")
 
 	;Notion window activate/minimize
-		m::
-			ifwinexist ahk_class Chrome_WidgetWin_1 ahk_exe Notion.exe 
-				{
-					ifwinnotactive, ahk_class Chrome_WidgetWin_1 ahk_exe Notion.exe ; Checks if the window is active
-					winactivate, ahk_class Chrome_WidgetWin_1 ahk_exe Notion.exe ; Activates the window
-					; Sleep 1000
-					else
-					winminimize, ahk_class Chrome_WidgetWin_1 ahk_exe Notion.exe ; Minimizes the window
-				}
-			else
-			{
-			send {CtrlDown}{CtrlUp}   ; Run C:\Users\kuanc\AppData\Local\Programs\todoist\Todoist.exe 
-			sleep 100
-			send {CtrlDown}{CtrlUp}
-			}
-			Return
+		m::activateMinimize("ahk_class Chrome_WidgetWin_1 ahk_exe Notion.exe")
 
-	;Click center of active window
-		b::
-					WinGetActiveStats, Title, Width, Height, X, Y
-					MouseMove, Width / 2, Height / 2, 0
-					Keywait j
-					mouseclick, left
+	;Clicks
+		b:: ; Click center of activate window
+				WinGetActiveStats, Title, Width, Height, X, Y
+				MouseMove, Width / 2, Height / 2, 0
+				Keywait j
+				mouseclick, left
 				Return
+		
+		+b:: ; click with highlighting??
+				mouseclick, left
+				return
+
 
 	;simulated arrow keys, perhaps I can turn them into physical presses
 		s:: Send {Down}
@@ -495,7 +528,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
 		setPriorityExtract(min, max) {
 			Send, +!{x}
-			Sleep, 500
+			Sleep, 800
 			Random, OutputVar, %min%, %max%
 			Clipboard := ""
 			Clipboard := OutputVar
@@ -510,6 +543,13 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
 		closeDiscord() {
 			run, cmd.exe /c "taskkill /IM "Discord.exe" /F"
+			sleep 1000
+			
+			send {CtrlDown}{CtrlUp}   ; Run C:\Users\kuanc\AppData\Local\Programs\todoist\Todoist.exe 
+			sleep 50
+			send {CtrlDown}{CtrlUp}
+			sleep 50
+			; send discord
 			SetCapsLockState, Alwaysoff
 			}
 			return
@@ -534,68 +574,68 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		gscroll() {
 			Inputbox, VarJ, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header 
 			SetCapsLockState, Alwaysoff
-		}
+			}
+			RETURN
 
 		gupdown() {
 			Inputbox, VarK, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header 
 			SetCapsLockState, Alwaysoff
-		}
-
-		;Open GUI (Capslock + 1)
-			1::
-			Inputbox, varA, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header 
-			
-			switch varA
-			{
-				case "q": setPriority(0.01,0.36)
-				case "w": setPriority(0.36,0.72)
-				case "e": setPriority(0.72,1.08)
-				case "r": setPriority(1.08,1.44)
-				case "t": setPriority(1.44,1.8)
-				case "y": setPriority(1.8,2.16)
-				case "u": setPriority(2.16,2.52)
-				case "i": setPriority(2.52,2.88)
-				case "o": setPriority(2.88,3.24)
-				case "p": setPriority(3.24,3.6)
-
-				case "a": setPriority(3.6,6.04)
-				case "s": setPriority(6.04,8.48)
-				case "d": setPriority(8.48,10.92)
-				case "f": setPriority(10.92,13.36)
-				case "g": setPriority(13.36,15.8)
-				case "h": setPriority(15.8,18.24)
-				case "j": setPriority(18.24,20.68)
-				case "k": setPriority(20.68,23.12)
-				case "l": setPriority(23.12,25.56)
-				case ";": setPriority(25.56,28.0)
-
-				case "z": setPriority(28,33)
-				case "x": setPriority(33,38)
-				case "c": setPriority(38,45)
-				case "v": setPriority(45,55)
-				case "b": setPriority(55,66)
-				case "n": setPriority(66,77)
-				case "m": setPriority(77,88)
-				case ",": setPriority(88,95)
-				case ".": setPriority(95,99)
-
-				case "gscroll":gscroll()
-				case "gupdown":gupdown()
-
-				case "killahk": closeAllAHK()
-
-				case 1: closeDiscord()
-				case 2: runRubyFile()
-				; case 3: setGlobal()
-				
-;::setPriorityExtract(99,99.9)
 			}
 			return
 
-		; Open GUI 
-				2::
-					Inputbox, varB, Enter string, , , 640, 480 ; varB = variable, Enter string = GUI header
+		;Open GUI (Capslock + 1)
+			1::
+				Inputbox, varA, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header 
 				
+				switch varA
+				{
+					case "q": setPriority(0.01,0.36)
+					case "w": setPriority(0.36,0.72)
+					case "e": setPriority(0.72,1.08)
+					case "r": setPriority(1.08,1.44)
+					case "t": setPriority(1.44,1.8)
+					case "y": setPriority(1.8,2.16)
+					case "u": setPriority(2.16,2.52)
+					case "i": setPriority(2.52,2.88)
+					case "o": setPriority(2.88,3.24)
+					case "p": setPriority(3.24,3.6)
+
+					case "a": setPriority(3.6,6.04)
+					case "s": setPriority(6.04,8.48)
+					case "d": setPriority(8.48,10.92)
+					case "f": setPriority(10.92,13.36)
+					case "g": setPriority(13.36,15.8)
+					case "h": setPriority(15.8,18.24)
+					case "j": setPriority(18.24,20.68)
+					case "k": setPriority(20.68,23.12)
+					case "l": setPriority(23.12,25.56)
+					case ";": setPriority(25.56,28.0)
+
+					case "z": setPriority(28,33)
+					case "x": setPriority(33,38)
+					case "c": setPriority(38,45)
+					case "v": setPriority(45,55)
+					case "b": setPriority(55,66)
+					case "n": setPriority(66,77)
+					case "m": setPriority(77,88)
+					case ",": setPriority(88,95)
+					case ".": setPriority(95,99)
+
+					case "gscroll":gscroll()
+					case "gupdown":gupdown()
+
+					case "ahk": closeAllAHK()
+
+					case 1: closeDiscord()
+					case 2: runRubyFile()
+					; case 3: setGlobal()
+				}
+				return
+
+		; Open GUI 
+			2::
+				Inputbox, varB, Enter string, , , 640, 480 ; varB = variable, Enter string = GUI header
+			
 				switch varB
 				{ 
 					case "q": setPriorityExtract(0.01,0.36)
@@ -638,7 +678,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 				SetCapsLockState, alwaysoff
 				return 
 		;Insert date and time for Anki cards
-				t::
+			t::
 				Send {Enter 2}{Up 2}
 
 				FormatTime, TimeString, R
@@ -648,6 +688,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 				Send {Enter}
 				SetCapsLockState, alwaysoff
 				return
+			
 	
 		;Volume Up, Volume Down
 			4::
@@ -740,10 +781,16 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		;Run AHK script
 			z::
 				IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe
+				{
 				Send {CtrlDown}kh{CtrlUp}
+				SetCapsLockState, alwaysoff
+				}
 
 				IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe
+				{
+				Send ^{Enter}
 				SetCapsLockState, alwaysoff
+				}
 				Return
 
 		;Windows Spy
@@ -757,12 +804,29 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 				WinMinimize, Window Spy
 
 				SetCapsLockState, alwaysoff
-			Return
-				
+				Return
+			
+		; Toggle
+			r::
+				r := !r
+				SetCapsLockState, alwaysoff
+				if r 
+				{
+					tooltip % "Toggle: ON"
+					sleep 1000
+					tooltip 
+				}
+				else
+				{
+					tooltip % "Toggle: OFF"
+					sleep 1000
+					tooltip 
+				}
+				return
 		;Steven
 			k::
-			Run chrome.exe https://www.youtube.com/watch?v=GDTD24KsdGc "--new-window -incognito"
-			return
+				Run chrome.exe https://www.youtube.com/watch?v=GDTD24KsdGc "--new-window -incognito"
+				return
 	
 		;Instant google search    
 			e::
@@ -901,7 +965,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
 				!+d::WinMaximize, A
 
-
 			;Three buttons for clipboard - Testing
 				; !+j::
 				; 	clipboard = "" ; empty clipboard
@@ -939,19 +1002,19 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
 	;Pasting slides to Docs From Specific Screen Region, use w/ ShareX(+#^q)
 		+#^q::
-		Send, #+{q}
-		Sleep, 1000
-		Send, {Enter 9}
-		Send, ^{v}
-		Sleep, 2000
-		Send, {Enter}
-		Return
+			Send, #+{q}
+			Sleep, 1000
+			Send, {Enter 9}
+			Send, ^{v}
+			Sleep, 2000
+			Send, {Enter}
+			Return
 	
 	;Autocorrects/text expansions
-		:*?:.test::
-		send %ClipBoard%
-		return
+		:*?:.test:: send %ClipBoard%
 
+		 
+	
 		:*?:kmail::kuanchiliao@gmail.com
     :*:cmail::clickthisbabyonemoretime@gmail.com
 		:*?:ucmail::kuanchiliao@ucsb.edu
@@ -962,8 +1025,32 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		:*?:+-::± ; plus or minus sign
 		:*:Tnow::- set alarm for 
 
-		:*:template,.::{#}{#}Problem{Enter}{#} Input:{Enter}{#} Output:{Enter}{#} In my words: {Enter}{Enter}{#}{#}Data Structure{enter}{#}{enter}{enter}{#}{#}Algorithm{Enter}{#}{Up 8}{End}{Space}
+		;PEDAC template
+			:*:template,.::{#}{#}Problem{Enter}{#} Input:{Enter}{#} Output:{Enter}{#} Questions(New or orig object?): {Enter}{Enter}{#}{#}Data Structure{enter}{#}{enter}{enter}{#}{#}Algorithm{Enter}{#}{Up 8}{End}{Space}
 
+		; Adding p and object_id to clipboarded stuff
+			^!v::
+				Sendraw p "
+					send ^v
+					Sendraw .object_id => #{
+					send ^v
+					Sendraw .object_id}"
+				return
+
+				; ^!v::
+				; Sendraw p "object_id of
+				; 		send {space}
+				; 		send, ^v 
+				; 		sendraw .object_id => #{
+				; 		send ^v
+				; 		sleep 200
+				; 		sendraw .object_id}"
+				; return
+
+				; p "#return.object_id
+
+				; p "#{arr1.object_id} is the object_id of ^v"
+				
 		;For sending dates and time
 			:c*:Anow::
 				SendInput, %A_MM%-%A_DD%-%A_YYYY%
@@ -984,20 +1071,20 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 				Return
 
 		;Spanish accents
-		:*?:aaa::á
-		:*?:uuu::ú
-		:*?:eee::é
-		:*?:iii::í
-		:*?:ooo::ó
-		:*?:!!!::¡
-		:*?:???::¿
-		:*?:nnnn::ñ
+			:*?:aaa::á
+			:*?:uuu::ú
+			:*?:eee::é
+			:*?:iii::í
+			:*?:ooo::ó
+			:*?:!!!::¡
+			:*?:???::¿
+			:*?:nnnn::ñ
 		
 		;Arrows
-		:*:>>.::→
-		:*:<<.::←
-		:*:^^.::↑
-		:*:vv.::↓
+			:*:>>.::→
+			:*:<<.::←
+			:*:^^.::↑
+			:*:vv.::↓
 
 		; :*:increases*
 		; SendRaw, {{c1::increases}}(↑↓ )
@@ -1009,7 +1096,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		RButton & WheelDown:: Send ^{PgUp}
 		RButton & WheelUp:: Send ^{PgDn}	
 		RButton Up:: Click Right
-
 
 	variable := "World"
 	MsgBox Hello %variable%
@@ -1087,7 +1173,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		WinGetClass, WinClass, ahk_id %WinID%
 		return WinClass
 		}
-	#If
 	
 #IfWinActive ahk_exe sm18.exe ; if one of these windows are active, execute. This is more robust
 	~^m::
@@ -1168,7 +1253,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		Return
 
 
-#If
+	#If
 ; Testing
 ; Menu, MyMainMenu, Add, AllDeck, MenuHandler
 ; Menu, MySubMenu1, Add, PSY143, SubMenu1Label
@@ -1182,17 +1267,17 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
 ; For calendar
 +!b::
-	mouseclick, left
-	sleep 200
-	mouseclick, left
-	sleep 1500
-	send {tab}
-	sleep 300
-	send Coding - Launch School RUBY101
-	send {Enter}
-	sleep 300
-	send {Enter} 
-return
+		mouseclick, left
+		sleep 200
+		mouseclick, left
+		sleep 1500
+		send {tab}
+		sleep 300
+		send Coding - Launch School RUBY120
+		send {Enter}
+		sleep 300
+		send {Enter} 
+	return
 
 ; Projects: 
 
