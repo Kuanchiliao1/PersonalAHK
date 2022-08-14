@@ -200,41 +200,53 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		h:: send ^7
 
 ;RShift down hotkeys *combo
-	#If (getKeyState("F14", "V"))
-
-		;Video Controls
-				sendToVid(a) {
+	#If (getKeyState("F14", "V") && WinActive("ahk_exe sm18.exe")) 
+	; 	;Video Control
+					sendToVid(a, b) {
 					SetTitleMatchMode, 2
-					ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, WindowL ;Google Chrome ;Get the window handle of the Chrome window
+					ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, %b% ;Get the window handle of the Chrome window
 					ControlFocus,,ahk_id %outputvar%
-					ControlSend, , %a%, WindowL ;Google Chrome
+					ControlSend, , %a%, %b%
 				}
 
-				; sendToVid(a) {
-				; 	SetTitleMatchMode, 2
-				; 	ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, Google Chrome ;Get the window handle of the Chrome window
-				; 	ControlFocus,,ahk_id %outputvar%
-				; 	ControlSend, , %a%, Google Chrome
-				; }
+				f::sendToVid("{space}", "Google Chrome")
+				q::sendToVid("q", "Google Chrome")
+				e::sendToVid("e", "Google Chrome")
+				g::sendToVid("g", "Google Chrome")
+				s::sendToVid("s", "Google Chrome")
+				r::sendToVid("r", "Google Chrome")
+				w::sendToVid("w", "Google Chrome")
+				c::sendToVid("c", "Google Chrome")
+				1::sendToVid("1", "Google Chrome")
+				2::sendToVid("2", "Google Chrome")
+				3::sendToVid("3", "Google Chrome")
+				4::sendToVid("4", "Google Chrome")
+				5::sendToVid("5", "Google Chrome")
+				6::sendToVid("6", "Google Chrome")
+				7::sendToVid("7", "Google Chrome")
+				8::sendToVid("8", "Google Chrome")
+				9::sendToVid("9", "Google Chrome")
+				0::sendToVid("0", "Google Chrome")
 
-				f::sendToVid("{space}")
-				q::sendToVid("q")
-				e::sendToVid("e")
-				g::sendToVid("g")
-				s::sendToVid("s")
-				r::sendToVid("r")
-				w::sendToVid("w")
-				c::sendToVid("c")
-				1::sendToVid("1")
-				2::sendToVid("2")
-				3::sendToVid("3")
-				4::sendToVid("4")
-				5::sendToVid("5")
-				6::sendToVid("6")
-				7::sendToVid("7")
-				8::sendToVid("8")
-				9::sendToVid("9")
-				0::sendToVid("0")
+	#If (getKeyState("F14", "V"))
+				f::sendToVid("{space}", "Window L")
+				q::sendToVid("q", "Window L")
+				e::sendToVid("e", "Window L")
+				g::sendToVid("g", "Window L")
+				s::sendToVid("s", "Window L")
+				r::sendToVid("r", "Window L")
+				w::sendToVid("w", "Window L")
+				c::sendToVid("c", "Window L")
+				1::sendToVid("1", "Window L")
+				2::sendToVid("2", "Window L")
+				3::sendToVid("3", "Window L")
+				4::sendToVid("4", "Window L")
+				5::sendToVid("5", "Window L")
+				6::sendToVid("6", "Window L")
+				7::sendToVid("7", "Window L")
+				8::sendToVid("8", "Window L")
+				9::sendToVid("9", "Window L")
+				0::sendToVid("0", "Window L")
 
 ;f13(\) Down Hotkeys *combo
 	#If (getKeyState("F13", "V"))
@@ -1012,9 +1024,9 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 			Return
 	
 	;Autocorrects/text expansions
-		:*?:.test:: send %ClipBoard%
-
-		 
+		:*?:.test::
+		 	send %clipboard%
+			return
 	
 		:*?:kmail::kuanchiliao@gmail.com
     :*:cmail::clickthisbabyonemoretime@gmail.com
@@ -1080,12 +1092,13 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 			:*?:!!!::¡
 			:*?:???::¿
 			:*?:nnnn::ñ
-		
+	
 		;Arrows
 			:*:>>.::→
 			:*:<<.::←
 			:*:^^.::↑
 			:*:vv.::↓
+
 
 		; :*:increases*
 		; SendRaw, {{c1::increases}}(↑↓ )
@@ -1140,8 +1153,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 			Clipboard := "" ; Empty the clipboard
 			
 			Send, #+s
-			
-			;Send, ^c
 
 			ClipWait, 5 ; "2" seconds
 
@@ -1169,7 +1180,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		Send {Up}{Enter}
 		return
 
-		MouseIsOverClass(){
+		MouseIsOverClass() {
 		MouseGetPos,,,WinID
 		WinGetClass, WinClass, ahk_id %WinID%
 		return WinClass
