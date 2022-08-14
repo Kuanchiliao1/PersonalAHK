@@ -26,7 +26,6 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
 				Menu, MyMenu, Add, F13, MenuHandler
 				Menu, MyMenu, Add, F14, MenuHandler
 				Menu, MyMenu, Add, Run Chrome, MenuHandler
-				return
 
 ; RUN THESE PROGRAMS ON STARTUP
 	if (!WinExist("KeyLog (3).ahk")) {
@@ -56,9 +55,6 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
 	if (!WinExist("Socratic_Questions.ahk")) {
 		Run, "..\Private_Folder\Socratic_Questions.ahk"
 	}
-	; if (!WinExist("TestSM2.ahk")) {
-	; 	Run, "..\Private_Folder\TestSM2.ahk"
-	; }
 		if (!WinExist("Priorities.ahk")) {
 		Run, "..\Private_Folder\Priorities.ahk"
 	}
@@ -141,6 +137,11 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
 		:*:d,.::do ||{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left} ; Ruby - write blocks 
 		:*:m,.::{backspace}{home}def {end}{enter}end{Home}{Backspace}{Enter}{Up}{Tab} ; Ruby - write method definitions
+		:*:,.::{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left}{Down} ; Ruby - write blocks 
+		:*:c,.::{backspace}{home}class {end}{enter}end{Home}{Backspace}{Enter}{Up}{Tab} ; Ruby - write method definitions
+
+
+
 	
 ;Cursor movement upgrades *combo
 	#If (getKeyState("F13") && getKeyState("Capslock", "P"))
@@ -202,19 +203,19 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 	#If (getKeyState("F14", "V"))
 
 		;Video Controls
-				; sendToVid(a) {
-				; 	SetTitleMatchMode, 2
-				; 	ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, WindowH ;Google Chrome ;Get the window handle of the Chrome window
-				; 	ControlFocus,,ahk_id %outputvar%
-				; 	ControlSend, , %a%, WindowH ;Google Chrome
-				; }
-
 				sendToVid(a) {
 					SetTitleMatchMode, 2
-					ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, Google Chrome ;Get the window handle of the Chrome window
+					ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, WindowL ;Google Chrome ;Get the window handle of the Chrome window
 					ControlFocus,,ahk_id %outputvar%
-					ControlSend, , %a%, Google Chrome
+					ControlSend, , %a%, WindowL ;Google Chrome
 				}
+
+				; sendToVid(a) {
+				; 	SetTitleMatchMode, 2
+				; 	ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, Google Chrome ;Get the window handle of the Chrome window
+				; 	ControlFocus,,ahk_id %outputvar%
+				; 	ControlSend, , %a%, Google Chrome
+				; }
 
 				f::sendToVid("{space}")
 				q::sendToVid("q")
