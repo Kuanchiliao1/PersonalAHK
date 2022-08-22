@@ -76,6 +76,9 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 	v:: send {CtrlDown}ku{CtrlUp}
 	c:: send {CtrlDown}kc{CtrlUp}
 	f:: send {Alt Down}
+  g:: send ^{enter}
+  s:: send {Enter}
+  
 
 	; #If t && getKeyState("Capslock", "P") ; Sample for using toggle instead of F13
 	#If t && getKeyState("F13")
@@ -136,9 +139,10 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		:X*:rexp,.::conventionclip("🆁🆄🅱🆈 🆇✈️💻 ")
 
 		:*:d,.::do ||{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left} ; Ruby - write blocks 
-		:*:m,.::{backspace}{home}def {end}{enter}end{Home}{Backspace}{Enter}{Up}{Tab} ; Ruby - write method definitions
+		:*:m,.::{backspace}{home}def {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definitions
 		:*:,.::{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left}{Down} ; Ruby - write blocks 
-		:*:c,.::{backspace}{home}class {end}{enter}end{Home}{Backspace}{Enter}{Up}{Tab} ; Ruby - write method definitions
+		:*:c,.::{backspace}{home}class {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definitions
+    :*:i,.::def initialize{end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End}
 
 
 
@@ -199,15 +203,17 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		g:: send ^5
 		h:: send ^7
 
-;RShift down hotkeys *combo
-	#If (getKeyState("F14", "V") && WinActive("ahk_exe sm18.exe")) 
-	; 	;Video Control
-					sendToVid(a, b) {
+sendToVid(a, b) {
 					SetTitleMatchMode, 2
 					ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, %b% ;Get the window handle of the Chrome window
 					ControlFocus,,ahk_id %outputvar%
 					ControlSend, , %a%, %b%
 				}
+
+;RShift down hotkeys *combo
+	#If (getKeyState("F14", "V") && WinActive("ahk_exe sm18.exe")) 
+	; 	;Video Control
+					
 
 				f::sendToVid("{space}", "Google Chrome")
 				q::sendToVid("q", "Google Chrome")
@@ -229,24 +235,24 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 				0::sendToVid("0", "Google Chrome")
 
 	#If (getKeyState("F14", "V"))
-				f::sendToVid("{space}", "Window L")
-				q::sendToVid("q", "Window L")
-				e::sendToVid("e", "Window L")
-				g::sendToVid("g", "Window L")
-				s::sendToVid("s", "Window L")
-				r::sendToVid("r", "Window L")
-				w::sendToVid("w", "Window L")
-				c::sendToVid("c", "Window L")
-				1::sendToVid("1", "Window L")
-				2::sendToVid("2", "Window L")
-				3::sendToVid("3", "Window L")
-				4::sendToVid("4", "Window L")
-				5::sendToVid("5", "Window L")
-				6::sendToVid("6", "Window L")
-				7::sendToVid("7", "Window L")
-				8::sendToVid("8", "Window L")
-				9::sendToVid("9", "Window L")
-				0::sendToVid("0", "Window L")
+				f::sendToVid("{space}", "WindowL")
+				q::sendToVid("q", "WindowL")
+				e::sendToVid("e", "WindowL")
+				g::sendToVid("g", "WindowL")
+				s::sendToVid("s", "WindowL")
+				r::sendToVid("r", "WindowL")
+				w::sendToVid("w", "WindowL")
+				c::sendToVid("c", "WindowL")
+				1::sendToVid("1", "WindowL")
+				2::sendToVid("2", "WindowL")
+				3::sendToVid("3", "WindowL")
+				4::sendToVid("4", "WindowL")
+				5::sendToVid("5", "WindowL")
+				6::sendToVid("6", "WindowL")
+				7::sendToVid("7", "WindowL")
+				8::sendToVid("8", "WindowL")
+				9::sendToVid("9", "WindowL")
+				0::sendToVid("0", "WindowL")
 
 ;f13(\) Down Hotkeys *combo
 	#If (getKeyState("F13", "V"))
@@ -286,9 +292,9 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 			WinMove, A, , 1945, 0, 1500, 1440 ; WinMove, Active Window, , x, Y(coordinates for top left of window), window width, window height
 			WinMove, A, , 1945, 0, 1500, 1440 ; WinMove, Active Window, , x, Y(coordinates for top left of window), window width, window height
 			
-			WinActivate ahk_class TElWind 
-			WinWaitActive ahk_class TElWind 
-			Sleep, 200
+			WinActivate ahk_class TElWind
+			WinWaitActive ahk_class TElWind
+			Sleep, 200 
 			Send {Alt}
 			Send w
 			Send 6    ; This is relative number for changing layout
@@ -296,44 +302,48 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 			return
 	
 	; Open chrome inconito
-		y::
-			Run, chrome.exe %clipboard% " --new-window -incognito -alwaysontop"
-			WinMove, A, , 1945, 0, 1500, 1440 ; WinMove, Active Window, , x, Y(coordinates for top left of window), window width, window height
-			WinMove, A, , 1945, 0, 1500, 1440 ; WinMove, Active Window, , x, Y(coordinates for top left of window), window width, window height
-		return
+		; y::
+		; 	Run, chrome.exe %clipboard% " --new-window -incognito -always-on-top"
+		; 	WinMove, A, , 1945, 0, 1500, 1440 ; WinMove, Active Window, , x, Y(coordinates for top left of window), window width, window height
+		; 	WinMove, A, , 1945, 0, 1500, 1440 ; WinMove, Active Window, , x, Y(coordinates for top left of window), window width, window height
+		; return#SingleInstance force 
 
 		; Copies timestamped URL of vid and transfer to SM
 		x::
-		clipboard := ""
-		Send ^{Home}
-		Send {CtrlDown}{ShiftDown}{down 2}{CtrlUp}{ShiftUp}
-		Send ^x ; Cut all topic text
-		clipwait
+			clipboard := ""
+			Send ^{Home}
+			Send {CtrlDown}{ShiftDown}{down 2}{CtrlUp}{ShiftUp}
+			Send ^x ; Cut all topic text
+			clipwait
 
-		Haystack := clipboard
-		; Send {AltDown}{Tab}{AltUp} 
-		WinActivate ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe 
-		WinWaitActive ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe
-	
-		MouseMove, 300, 300
-		sleep 200
-		Send {RButton}
-		sleep, 200
-		send {Tab 3}{Enter}
-		winclose ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe
-		sleep 200
+			; Haystack := clipboard
+			WinActivate ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe 
+			WinWaitActive ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe
+			sleep 500
 		
-		WinActivate ahk_class TElWind 
-		WinWaitActive ahk_class TElWind
-		
-		clipboard := RegExReplace(Haystack, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", clipboard) ; Haystack, needle, replacement
-		Send ^{Home}
-		Send ^v
-		Sleep, 200
-		Send {Alt}
-		Send w
-		Send 3    ; This is relative number for changing layout
-		return
+			;Click center of active window and copy URL w/ timestamp
+			WinGetActiveStats, Title, Width, Height, X, Y
+			MouseMove, Width / 2, Height / 2, 0
+			click, right
+			sleep, 200
+			send {Tab 3}{Enter}
+			winclose ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe
+			sleep 200
+			
+			;Activate SM window
+			WinActivate ahk_class TElWind 
+			WinWaitActive ahk_class TElWind
+			
+			;Replace clipboard with URL with timestamp
+			clipboard := RegExReplace(clipboard, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", clipboard) ; (value, haystack, needle, )
+			sleep, 200
+			Send ^{Home}
+			Send ^v
+			Sleep, 200
+			Send {Alt}
+			Send w
+			Send 3    ; This is relative number for changing layout
+			return
 
 	; Arrow features: Control, Control + Shift, Alt, Windows(left and right)
 		^!w:: send ^!{Up}
