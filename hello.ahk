@@ -61,6 +61,14 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
 	if (!WinExist("timer.ahk")) {
 		Run, "..\Private_Folder\timer.ahk"
 	}
+
+sendToVid(a, b) {
+					SetTitleMatchMode, 2
+					ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, %b% ;Get the window handle of the Chrome window
+					ControlFocus,,ahk_id %outputvar%
+					ControlSend, , %a%, %b%
+				}
+
 return ; End of the Autoexecutable section. Below this would be the functions, hotkeys and everything else.
 
 ; Rebinds
@@ -75,9 +83,12 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 	d:: send {backspace}
 	v:: send {CtrlDown}ku{CtrlUp}
 	c:: send {CtrlDown}kc{CtrlUp}
-	f:: send {Alt Down}
+	f::ControlSend, , ruby %clipboard%, Ubuntu
   g:: send ^{enter}
   s:: send {Enter}
+
+  Backspace:: send, you suck
+  Enter:: send, you suck
   
 
 	; #If t && getKeyState("Capslock", "P") ; Sample for using toggle instead of F13
@@ -93,8 +104,29 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 	 #If getKeyState("F13")
 		 r:: 
 		 t := !t ; For setting toggle
-		 return
+     return
+     
+
+     n::
+     length := StrLen(clipboard) + 2
+      send {+}{- %length%}{+}{enter}
+      send {|} %clipboard% {|}{enter}
+      send {+}{- %length%}{+}
+     return
+
+     m::
+     SAT := "Saturday"
+      MON := "Monday"
+      Saturday := "Saturn"
+      Monday := "Moon"
+      v := SAT .  MON      ; v = "SaturdayMonday" (there must be a SPACE before and after dot)
+      MsgBox v = "%v%"
+     return
 	#If
+
+
+
+
 ;My conventions for anki and SM https://www.wikiwand.com/en/Enclosed_Alphanumeric_Supplement
 		conventionclip(abc) { ;Function for conventions
 			oldclip := clipboardall ; save clipboard to oldclip variable
@@ -203,19 +235,13 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 		g:: send ^5
 		h:: send ^7
 
-sendToVid(a, b) {
-					SetTitleMatchMode, 2
-					ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, %b% ;Get the window handle of the Chrome window
-					ControlFocus,,ahk_id %outputvar%
-					ControlSend, , %a%, %b%
-				}
 
 ;RShift down hotkeys *combo
 	#If (getKeyState("F14", "V") && WinActive("ahk_exe sm18.exe")) 
 	; 	;Video Control
 					
 
-				f::sendToVid("{space}", "Google Chrome")
+				f::sendToVid("{Space}", "Google Chrome")
 				q::sendToVid("q", "Google Chrome")
 				e::sendToVid("e", "Google Chrome")
 				g::sendToVid("g", "Google Chrome")
@@ -290,7 +316,7 @@ sendToVid(a, b) {
 			Run, chrome.exe %YT_URL% " --new-window -incognito -alwaysontop" ; New window, incognito
 			sleep, 1000
 			WinMove, A, , 1945, 0, 1500, 1440 ; WinMove, Active Window, , x, Y(coordinates for top left of window), window width, window height
-			WinMove, A, , 1945, 0, 1500, 1440 ; WinMove, Active Window, , x, Y(coordinates for top left of window), window width, window height
+			WinMove, A, , 1945, 0, 1500, 1440 
 			
 			WinActivate ahk_class TElWind
 			WinWaitActive ahk_class TElWind
@@ -309,41 +335,28 @@ sendToVid(a, b) {
 		; return#SingleInstance force 
 
 		; Copies timestamped URL of vid and transfer to SM
-		x::
-			clipboard := ""
-			Send ^{Home}
-			Send {CtrlDown}{ShiftDown}{down 2}{CtrlUp}{ShiftUp}
-			Send ^x ; Cut all topic text
-			clipwait
-
-			; Haystack := clipboard
-			WinActivate ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe 
-			WinWaitActive ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe
-			sleep 500
 		
-			;Click center of active window and copy URL w/ timestamp
-			WinGetActiveStats, Title, Width, Height, X, Y
-			MouseMove, Width / 2, Height / 2, 0
-			click, right
-			sleep, 200
-			send {Tab 3}{Enter}
-			winclose ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe
-			sleep 200
-			
-			;Activate SM window
-			WinActivate ahk_class TElWind 
-			WinWaitActive ahk_class TElWind
-			
-			;Replace clipboard with URL with timestamp
-			clipboard := RegExReplace(clipboard, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", clipboard) ; (value, haystack, needle, )
-			sleep, 200
-			Send ^{Home}
-			Send ^v
-			Sleep, 200
-			Send {Alt}
-			Send w
-			Send 3    ; This is relative number for changing layout
-			return
+		x::
+      clipboard := ""
+      Send ^{Home}
+      Send {CtrlDown}{ShiftDown}{down 2}{CtrlUp}{ShiftUp}
+      Send ^x ; Cut all topic text
+      clipwait
+
+      Haystack := clipboard
+      ; Copy timestamped URL of video to clipboard
+      sendToVid("+{F10}{Tab 3}{Enter}", "Google Chrome") 
+      sendToVid("^w", "Google Chrome")
+      
+      clipboard := RegExReplace(Haystack, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", clipboard) ; Haystack, needle, replacement
+      Send ^{Home}
+      Send ^v
+      Sleep, 200
+      Send {Alt}
+      Send w
+      Send 3    ; This is relative number for changing layout
+
+      return
 
 	; Arrow features: Control, Control + Shift, Alt, Windows(left and right)
 		^!w:: send ^!{Up}
@@ -517,6 +530,8 @@ sendToVid(a, b) {
 			send, {Enter}
 			}
 			return
+
+
 
 		q::
 			ifwinexist ahk_exe sm18.exe
@@ -1051,6 +1066,8 @@ sendToVid(a, b) {
 		;PEDAC template
 			:*:template,.::{#}{#}Problem{Enter}{#} Input:{Enter}{#} Output:{Enter}{#} Questions(New or orig object?): {Enter}{Enter}{#}{#}Data Structure{enter}{#}{enter}{enter}{#}{#}Algorithm{Enter}{#}{Up 8}{End}{Space}
 
+
+
 		; Adding p and object_id to clipboarded stuff
 			^!v::
 				Sendraw p "
@@ -1295,7 +1312,7 @@ sendToVid(a, b) {
 		sleep 1500
 		send {tab}
 		sleep 300
-		send Coding - Launch School RUBY120
+		send Coding - Launch School RUBY130
 		send {Enter}
 		sleep 300
 		send {Enter} 
