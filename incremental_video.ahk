@@ -2,6 +2,15 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 
+Would anyone be intersted in an AHK script for incremental video?
+
+Core features would be something like
+- Control the video playback speed
+- Control video playback features without activating the video window
+- Use chrome window to load video
+- Timestamp saved automatically at end of rep
+- 
+
 
 sendToVid(a, b) {
 					SetTitleMatchMode, 2
@@ -104,38 +113,23 @@ sendToVid(a, b) {
 
 		; Copies timestamped URL of vid and transfer to SM
 		x::
-			clipboard := ""
-			Send ^{Home}
-			Send {CtrlDown}{ShiftDown}{down 2}{CtrlUp}{ShiftUp}
-			Send ^x ; Cut all topic text
-			clipwait
+      clipboard := ""
+      Send ^{Home}
+      Send {CtrlDown}{ShiftDown}{down 2}{CtrlUp}{ShiftUp}
+      Send ^x ; Cut all topic text
+      clipwait
 
-			; Haystack := clipboard
-			WinActivate ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe 
-			WinWaitActive ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe
-			sleep 200
-		
-			;Click center of active window and copy URL w/ timestamp
-			WinGetActiveStats, Title, Width, Height, X, Y
-			MouseMove, Width / 2, Height / 2, 0
-			click, right
-			return
-			sleep, 200
-			send {Tab 3}{Enter}
-			winclose ahk_class Chrome_WidgetWin_1 ahk_exe chrome.exe
-			sleep 200
-			
-			;Activate SM window
-			WinActivate ahk_class TElWind 
-			WinWaitActive ahk_class TElWind
-			
-			;Replace clipboard with URL with timestamp
-			clipboard := RegExReplace(clipboard, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", clipboard) ; (value, haystack, needle, )
-			sleep, 200
-			Send ^{Home}
-			Send ^v
-			Sleep, 200
-			Send {Alt}
-			Send w
-			Send 3    ; This is relative number for changing layout
-			return
+      Haystack := clipboard
+      ; Copy timestamped URL of video to clipboard
+      sendToVid("+{F10}{Tab 3}{Enter}", "Google Chrome") 
+      sendToVid("^w", "Google Chrome")
+      
+      clipboard := RegExReplace(Haystack, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", clipboard) ; Haystack, needle, replacement
+      Send ^{Home}
+      Send ^v
+      Sleep, 200
+      Send {Alt}
+      Send w
+      Send 3    ; This is relative number for changing layout
+
+      return
