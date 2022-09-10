@@ -124,9 +124,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
      return
   #If
 
-
-
-
 ;My conventions for anki and SM https://www.wikiwand.com/en/Enclosed_Alphanumeric_Supplement
     conventionclip(abc) { ;Function for conventions
       oldclip := clipboardall ; save clipboard to oldclip variable
@@ -1110,8 +1107,10 @@ ClipSaved =              ; Free the memory in case the clipboard was very large.
 send {up 12}{end}{Space}
 return
 
-
-
+:*:stage,.::
+  SendInput {CtrlDown}{ShiftDown}g{CtrlUp}{ShiftUp}g
+  SendInput +{F10}{Sleep 300}{Down 6}
+  return 
 
     ; Adding p and object_id to clipboarded stuff
      
