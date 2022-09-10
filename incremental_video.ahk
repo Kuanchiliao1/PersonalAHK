@@ -2,14 +2,6 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 
-Would anyone be intersted in an AHK script for incremental video?
-
-Core features would be something like
-- Control the video playback speed
-- Control video playback features without activating the video window
-- Use chrome window to load video
-- Timestamp saved automatically at end of rep
-- 
 
 
 sendToVid(a, b) {
