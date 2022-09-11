@@ -173,9 +173,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     :*:c,.::{backspace}{home}class {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definitions
     :*:i,.::def initialize{end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End}
     :*:a,.::assert_equal(
-
-
-
   
 ;Cursor movement upgrades *combo
   #If (getKeyState("F13") && getKeyState("Capslock", "P"))
@@ -233,12 +230,10 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     g:: send ^5
     h:: send ^7
 
-
 ;RShift down hotkeys *combo
   #If (getKeyState("F14", "V") && WinActive("ahk_exe sm18.exe")) 
   ; 	;Video Control
           
-
         f::sendToVid("{Space}", "Google Chrome")
         q::sendToVid("q", "Google Chrome")
         e::sendToVid("e", "Google Chrome")
@@ -353,7 +348,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       Send {Alt}
       Send w
       Send 3    ; This is relative number for changing layout
-
       return
 
   ; Arrow features: Control, Control + Shift, Alt, Windows(left and right)
@@ -441,10 +435,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       ; k::activateMinimize("WindowK") ; Codin Window
       n::activateMinimize("WindowN") ; Codin Window
       ; l::activateMinimize("WindowL") ; 
-      ; l::
-  
-
-
         l::
         Menu, MyMenu, Show  ; show the menu created called MyMenu
         send {F13 up}
@@ -510,7 +500,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
         mouseclick, left
         return
 
-
   ;simulated arrow keys, perhaps I can turn them into physical presses
     s:: Send {Down}
     w:: Send {Up}
@@ -528,8 +517,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       send, {Enter}
       }
       return
-
-
 
     q::
       ifwinexist ahk_exe sm18.exe
@@ -801,8 +788,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
         Send {Shift Down}{End}{Shift Up}
         SetCapsLockState, alwaysoff
         Return
-
-
   
     ;Highlight the entire page to the right/left of the cursor
       ^+a::
@@ -1062,20 +1047,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     :*?:+-::± ; plus or minus sign
     :*:Tnow::- set alarm for 
 
-    ;PEDAC template
-;       ; :*:template,.::{#}{#}Problem{Enter}{#} Input:{Enter}{#} Output:{Enter}{#} Questions(New or orig object?): {Enter}{Enter}{#}{#}Data Structure{enter}{#}{enter}{enter}{#}{#}Algorithm{Enter}{#}{Up 8}{End}{Space}
-
-
-; ##Problem
-; # Input: 
-; # Output:
-; # Questions(New or orig object?): 
-
-; ##Data Structure
-; #
-
-; ##Algorithm
-; #
 :*:template,.::
 ClipSaved := ClipboardAll ; save the entire clipboard to the variable ClipSaved
 clipboard := ""           ; empty the clipboard (start off empty to allow ClipWait to detect when the text has arrived)
@@ -1111,9 +1082,6 @@ return
   SendInput {CtrlDown}{ShiftDown}g{CtrlUp}{ShiftUp}g
   SendInput +{F10}{Sleep 300}{Down 6}
   return 
-
-    ; Adding p and object_id to clipboarded stuff
-     
         
     ;For sending dates and time
       :c*:Anow::
