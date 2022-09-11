@@ -136,6 +136,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       clipboard := oldclip
       return  
       }
+      
 
     :X*:con,.::conventionclip("🄲 ")
     :X*:key,.::conventionclip("⌨ ")
