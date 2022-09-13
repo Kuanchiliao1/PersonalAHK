@@ -657,7 +657,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
           ; case 3: setGlobal()
         }
         return
-
+;dfj
     ; Open GUI 
       2::
         Inputbox, varB, Enter string, , , 640, 480 ; varB = variable, Enter string = GUI header
