@@ -608,7 +608,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       SetCapsLockState, Alwaysoff
       }
       return
-
+;test
     ;Open GUI (Capslock + 1)
       1::
         Inputbox, varA, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header 
