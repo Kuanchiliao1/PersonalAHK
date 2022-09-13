@@ -93,7 +93,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
   ; #If t && getKeyState("Capslock", "P") ; Sample for using toggle instead of F13
   #If t && getKeyState("F13")
-    a:: MouseMove, -50, 0, 1, R
+    a:: MouseMove, -50, 0, 0, R
     w:: MouseMove, 0, -50, 1, R
     s:: MouseMove,  0, 50, 1, R
     d:: MouseMove, 50, 0, 1, R
@@ -1305,7 +1305,7 @@ return
     sleep 1500
     send {tab}
     sleep 300
-    send Coding - Launch School LS170
+    send Coding - Launch School RB175
     send {Enter}
     sleep 300
     send {Enter} 
