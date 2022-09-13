@@ -123,7 +123,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       MsgBox v = "%v%"
      return
   #If
-
+;d
 ;My conventions for anki and SM https://www.wikiwand.com/en/Enclosed_Alphanumeric_Supplement
     conventionclip(abc) { ;Function for conventions
       oldclip := clipboardall ; save clipboard to oldclip variable
@@ -136,7 +136,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       clipboard := oldclip
       return  
       }
-      
+
 
     :X*:con,.::conventionclip("🄲 ")
     :X*:key,.::conventionclip("⌨ ")
