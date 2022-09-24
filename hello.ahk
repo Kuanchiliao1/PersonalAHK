@@ -78,14 +78,66 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 #If r && getKeyState("Capslock")
   f:: send {Alt Up}
 
-
+; q w e  r  t  y!  u  i  o  p [  ]  \  
+;  a s! d!  f!  g!  h  j  k  l ;
+; z! x c!  v  b  n  m ,  .  /
+; Automate anki stuff ONLY if anki is active
+  ; Key to add "tag"
+  ; Cloze
+  ; g to submit
+  ; 
 #If r
   d:: send {backspace}
-  v:: send {CtrlDown}ku{CtrlUp}
+  v::
+    IfWinActive ahk_exe code.exe
+    {
+      send {CtrlDown}ku{CtrlUp}
+    }
+    else
+    {
+      WinActivate Add
+    }
+    return
+
   c:: send {CtrlDown}kc{CtrlUp}
   f::ControlSend, , ruby %clipboard%, Ubuntu
   g:: send ^{enter}
+  z::^z
+  y::^y
+  x::^x
   s:: send {Enter}
+  5::
+    tooltip, 
+    (
+d - backspace
+s - enter
+g - control + enter
+v - comment
+t - for anki cards
+
+x - cut
+y - redo
+z - undo
+    )
+    return
+
+  ;Anki
+  t::
+    ifwinactive Add
+    {
+      Send ^a{Left}RB175 - NETWORKED APPLICATIONS{Enter 2}
+    }
+    else
+    {
+    }
+    return
+  j::^j
+
+  ; g to submit the card
+
+
+
+
 
   Backspace:: send, you suck
   Enter:: send, you suck
@@ -157,6 +209,15 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     :X*:op,.::conventionclip("🄾🅿💻 ")  ; 🄲 What does this code do?, what's the output?
     :X*:exp,.::conventionclip("🆇✈️💻 ")
 
+    :X*:jswrong,.::conventionclip("🅹🆂 ❌💻 ")
+    :X*:jsdiff,.::conventionclip("🅹🆂 Δ💻 ")  
+    :X*:jsgp,.::conventionclip("🅹🆂 ✍𝒫💻 ")
+    :X*:jsp,.::conventionclip("🅹🆂 🅿💻 ")
+    :X*:jsturn,.::conventionclip("🅹🆂 ✍🄰→🄱💻 ")
+    :X*:jsop,.::conventionclip("🅹🆂 🄾🅿💻 ") 
+    :X*:jsoop,.::conventionclip("🅹🆂 ⭕⭕🅿💻 ")
+    :X*:jsoopexp,.::conventionclip("🅹🆂 🆇 ✈️ ⭕⭕🅿💻 ")
+    :X*:jsexp,.::conventionclip("🅹🆂 🆇✈️💻 ")
 
     :X*:rwrong,.::conventionclip("🆁🆄🅱🆈 ❌💻 ")
     :X*:rdiff,.::conventionclip("🆁🆄🅱🆈 Δ💻 ")  
@@ -174,6 +235,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     :*:c,.::{backspace}{home}class {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definitions
     :*:i,.::def initialize{end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End}
     :*:a,.::assert_equal(
+    :*:cs,.::console.log(
   
 ;Cursor movement upgrades *combo
   #If (getKeyState("F13") && getKeyState("Capslock", "P"))
@@ -608,6 +670,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       SetCapsLockState, Alwaysoff
       }
       return
+
 ;test
     ;Open GUI (Capslock + 1)
       1::
@@ -714,6 +777,11 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
         Send {Enter}
         SetCapsLockState, alwaysoff
         return
+
+
+
+
+
   
     ;Volume Up, Volume Down
       4::
@@ -835,9 +903,19 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
         SetCapsLockState, alwaysoff
         if r 
         {
-          tooltip % "Toggle: ON"
-          sleep 1000
-          tooltip 
+          tooltip, 
+    (
+d - backspace
+s - enter
+g - control + enter
+v - comment
+t - tag anki card
+
+
+x - cut
+y - redo
+z - undo
+    )
         }
         else
         {
