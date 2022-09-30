@@ -106,6 +106,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
   y::^y
   x::^x
   s:: send {Enter}
+  e::^j
   5::
     tooltip, 
     (
@@ -114,6 +115,7 @@ s - enter
 g - control + enter
 v - comment
 t - for anki cards
+e - cloze
 
 x - cut
 y - redo
@@ -125,7 +127,7 @@ z - undo
   t::
     ifwinactive Add
     {
-      Send ^a{Left}RB175 - NETWORKED APPLICATIONS{Enter 2}
+      Send ^a{Left}RB175 - Databases{Enter 2}
     }
     else
     {
@@ -229,6 +231,9 @@ z - undo
     :X*:roopexp,.::conventionclip("🆁🆄🅱🆈 🆇 ✈️ ⭕⭕🅿💻 ")
     :X*:rexp,.::conventionclip("🆁🆄🅱🆈 🆇✈️💻 ")
 
+    :X*:jq,.::conventionclip("jQuery")
+
+
     :*:d,.::do ||{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left} ; Ruby - write blocks 
     :*:m,.::{backspace}{home}def {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definitions
     :*:,.::{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left}{Down} ; Ruby - write blocks 
@@ -236,7 +241,13 @@ z - undo
     :*:i,.::def initialize{end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End}
     :*:a,.::assert_equal(
     :*:cs,.::console.log(
-  
+    :*:eb,.::<%=%>{left 2}
+    :*:bd,.::border: pink solid;
+
+    :*:test,.::
+    send <div>`n%clipboard%`n</div>+{tab}
+    return
+
 ;Cursor movement upgrades *combo
   #If (getKeyState("F13") && getKeyState("Capslock", "P"))
     w::
