@@ -137,13 +137,8 @@ z - undo
 
   ; g to submit the card
 
-
-
-
-
   Backspace:: send, you suck
   Enter:: send, you suck
-  
 
   ; #If t && getKeyState("Capslock", "P") ; Sample for using toggle instead of F13
   #If t && getKeyState("F13")
