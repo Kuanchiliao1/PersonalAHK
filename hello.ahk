@@ -127,12 +127,21 @@ z - undo
   t::
     ifwinactive Add
     {
-      Send ^a{Left}RB175 - Databases{Enter 2}
+      KeyWait, t
+      KeyWait, t, D T0.1 
+
+      If ErrorLevel 
+        Send ^a{Left}175 - Networked Applications{Enter 2}
+      else
+        Send ^a{Left}180 - Databases{Enter 2}
+      return
     }
     else
     {
     }
     return
+
+
   j::^j
 
   ; g to submit the card
@@ -521,7 +530,6 @@ z - undo
         }
         return
 
-
   ;Scroll function
     j::
           Loop %VarJ%
@@ -548,8 +556,6 @@ z - undo
         ; ControlSend, , ^{left}, ahk_exe vlc.exe 		
         activateMinimize("hello.ahk ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe")
       return
-
-      
 
   ;Activate/minimize Todoist
     t::activateMinimize("Todoist")
@@ -597,8 +603,6 @@ z - undo
       send, {Enter}
       }
       return
-
-  #If
 
 ;Capslock Down Hotkeys *combo
     #If (getKeyState("Capslock", "P"))
