@@ -246,7 +246,17 @@ z - undo
     :*:a,.::assert_equal(
     :*:cs,.::console.log(
     :*:eb,.::<%=%>{left 2}
-    :*:bd,.::border: pink solid;
+    :*:b,.::border: pink solid;
+    :*:bd,.::
+    sendraw, 
+    (
+*,
+*`:`:before,
+*`:`:after {
+  box-sizing: border-box;
+}
+    )
+    return
 
     :*:test,.::
     send <div>`n%clipboard%`n</div>+{tab}
@@ -1393,7 +1403,7 @@ return
     sleep 1500
     send {tab}
     sleep 300
-    send Coding - Launch School RB175
+    send Coding - Launch School LS180
     send {Enter}
     sleep 300
     send {Enter} 
