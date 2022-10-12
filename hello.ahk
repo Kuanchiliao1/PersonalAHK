@@ -266,9 +266,11 @@ z - undo
     return
 
 ; Convert to capital
-^u::                                                                 ; Convert text to upper
- StringUpper Clipboard, Clipboard
- Send %Clipboard%
+^#s::           
+Send ^c                                                      ; Convert text to upper
+sleep 500
+ StringUpper Output, Clipboard
+ Send %Output%
 RETURN
 
 
@@ -1276,25 +1278,25 @@ return
   
 ;All Anki shortcuts(2 - put in If statements here)	
   ;Snip and do image occlusal(Ctrl Win S)	
-    ^#s::
-      CUSTOMLOGGER(A_THISHOTKEY)
-      Clipboard := "" ; Empty the clipboard
+    ; ^#s::
+    ;   CUSTOMLOGGER(A_THISHOTKEY)
+    ;   Clipboard := "" ; Empty the clipboard
       
-      Send, #+s
+    ;   Send, #+s
 
-      ClipWait, 5 ; "2" seconds
+    ;   ClipWait, 5 ; "2" seconds
 
-      WinActivate, ahk_class Qt5QWindowIcon
-      ;Send, a
-      Sleep, 500
-      Send, {Shift down}{Control down}{o}{Shift up}{Control up}
-      WinActivate, ahk_class 
-      Send, f
-      Sleep, 2000
-      Send, {LButton}
-      Sleep, 500
-      Send, {f}r
-      return
+    ;   WinActivate, ahk_class Qt5QWindowIcon
+    ;   ;Send, a
+    ;   Sleep, 500
+    ;   Send, {Shift down}{Control down}{o}{Shift up}{Control up}
+    ;   WinActivate, ahk_class 
+    ;   Send, f
+    ;   Sleep, 2000
+    ;   Send, {LButton}
+    ;   Sleep, 500
+    ;   Send, {f}r
+    ;   return
 
   #IfWinActive ahk_class Qt5QWindowIcon
   ;Cloze hotkey
