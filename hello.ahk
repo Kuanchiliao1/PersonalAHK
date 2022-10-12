@@ -272,6 +272,7 @@ z - undo
  Send %Clipboard%
 RETURN
 
+
 ;Cursor movement upgrades *combo
   #If (getKeyState("F13") && getKeyState("Capslock", "P"))
     w::
