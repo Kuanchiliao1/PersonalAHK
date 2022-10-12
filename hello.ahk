@@ -258,9 +258,19 @@ z - undo
     )
     return
 
+    :*:bn,.::bundle exec rake
+    :*:bnt,.::bundle exec rake test
+
+
     :*:test,.::
     send <div>`n%clipboard%`n</div>+{tab}
     return
+
+; Convert to capital
+^u::                                                                 ; Convert text to upper
+ StringUpper Clipboard, Clipboard
+ Send %Clipboard%
+RETURN
 
 ;Cursor movement upgrades *combo
   #If (getKeyState("F13") && getKeyState("Capslock", "P"))
