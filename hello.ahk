@@ -809,11 +809,6 @@ RETURN
         Send {Enter}
         SetCapsLockState, alwaysoff
         return
-
-
-
-
-
   
     ;Volume Up, Volume Down
       4::
@@ -1283,7 +1278,6 @@ return
     ;   Clipboard := "" ; Empty the clipboard
       
     ;   Send, #+s
-
     ;   ClipWait, 5 ; "2" seconds
 
     ;   WinActivate, ahk_class Qt5QWindowIcon
@@ -1415,7 +1409,7 @@ return
     sleep 1500
     send {tab}
     sleep 300
-    send Coding - Launch School LS180
+    send Coding - Launch School RB185
     send {Enter}
     sleep 300
     send {Enter} 
