@@ -1409,13 +1409,26 @@ return
     sleep 1500
     send {tab}
     sleep 300
-    send Coding - Launch School RB185
+    send Coding - Launch School RB189
     send {Enter}
     sleep 300
     send {Enter} 
   return
 
   +!v::
+    mouseclick, left
+    sleep 200
+    mouseclick, left
+    sleep 1500
+    send {tab}
+    sleep 300
+    send Coding - Launch School RB185
+    send {Enter}
+    sleep 300
+    send {Enter} 
+  return
+
+  +!c::
     mouseclick, left
     sleep 200
     mouseclick, left
