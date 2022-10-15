@@ -199,6 +199,7 @@ z - undo
     :X*:con,.::conventionclip("🄲 ")
     :X*:key,.::conventionclip("⌨ ")
     :X*:ex,.::conventionclip("🅻 ")
+    :X*:gex,.::conventionclip("✍🅻 ") ; give an example of...
     :X*:ahk,.::conventionclip("🄰🅷🅺  ")
     :X*:css,.::conventionclip("🅲🆂🆂 ")
     :X*:js,.::conventionclip("🅹🆂  ")
