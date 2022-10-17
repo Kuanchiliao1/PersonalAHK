@@ -196,22 +196,24 @@ z - undo
       }
 
 
-    :X*:con,.::conventionclip("🄲 ")
-    :X*:key,.::conventionclip("⌨ ")
-    :X*:ex,.::conventionclip("🅻 ")
-    :X*:gex,.::conventionclip("✍🅻 ") ; give an example of...
-    :X*:ahk,.::conventionclip("🄰🅷🅺  ")
-    :X*:css,.::conventionclip("🅲🆂🆂 ")
-    :X*:js,.::conventionclip("🅹🆂  ")
-    :X*:html,.::conventionclip("🅷🆃🅼🅻 ")
-    :X*:ruby,.::conventionclip("🆁🆄🅱🆈 ")
-    :X*:unix,.::conventionclip("🆄🅽🅸🆇 ")
-    :X*:reg,.::conventionclip("🆁🆇")
+    :X*?:con,.::conventionclip("🄲 ")
+    :X*?:key,.::conventionclip("⌨ ")
+    :X*?:ex,.::conventionclip("🅻 ")
+    :X*?:gex,.::conventionclip("✍🅻 ") ; give an example of...
+    :X*?:ahk,.::conventionclip("🄰🅷🅺  ")
+    :X*?:css,.::conventionclip("🅲🆂🆂 ")
+    :X*?:js,.::conventionclip("🅹🆂  ")
+    :X*?:html,.::conventionclip("🅷🆃🅼🅻 ")
+    :X*?:ruby,.::conventionclip("🆁🆄🅱🆈 ")
+    :X*?:unix,.::conventionclip("🆄🅽🅸🆇 ")
+    :X*?:reg,.::conventionclip("🆁🆇")
 
-    :X*:wrong,.::conventionclip("❌💻 ") ; ("{U+274C}{U+1F4BB}") ; 🄲 What's wrong with this code? Red x and computer emoji
-    :X*:diff,.::conventionclip("Δ💻 ")    ; ({U+0394}{U+1F4BB})" ; 🄲 What's the difference? Delta and computer emoji
-    :X*:gp,.::conventionclip("✍𝒫💻 ") ; ({U+270D}{U+1F4BB})" ; 🄲 Write code for ___ purpose... 
-    :X*:p,.::conventionclip("🅿💻 ")  ; 🄲 What does this code do?
+    :X*?:wrong,.::conventionclip("❌💻 ") ; ("{U+274C}{U+1F4BB}") ; 🄲 What's wrong with this code? Red x and computer emoji
+    :X*?:diff,.::conventionclip("Δ💻 ")    ; ({U+0394}{U+1F4BB})" ; 🄲 What's the difference? Delta and computer emoji
+    :X*?:gp,.::conventionclip("✍𝒫💻 ") ; ({U+270D}{U+1F4BB})" ; 🄲 Write code for ___ purpose... 
+    :X*?:p,.::conventionclip("🅿💻 ")  ; 🄲 What does this code do?
+
+
     :X*:turn,.::conventionclip("✍🄰→🄱💻 ") ; 🄲 Write code to turn something from A to B
     :X*:op,.::conventionclip("🄾🅿💻 ")  ; 🄲 What does this code do?, what's the output?
     :X*:exp,.::conventionclip("🆇✈️💻 ")
