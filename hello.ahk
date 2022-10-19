@@ -198,8 +198,8 @@ z - undo
 
     :X*?:con,.::conventionclip("🄲 ")
     :X*?:key,.::conventionclip("⌨ ")
-    :X*?:ex,.::conventionclip("🅻 ")
-    :X*?:gex,.::conventionclip("✍🅻 ") ; give an example of...
+    :X*:ex,.::conventionclip("🅻 ")
+    :X*:gex,.::conventionclip("✍🅻 ") ; give an example of...
     :X*?:ahk,.::conventionclip("🄰🅷🅺  ")
     :X*?:css,.::conventionclip("🅲🆂🆂 ")
     :X*?:js,.::conventionclip("🅹🆂  ")
@@ -248,7 +248,8 @@ z - undo
     :*:i,.::def initialize{end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End}
     :*:a,.::assert_equal(
     :*:cs,.::console.log(
-    :*:eb,.::<%=%>{left 2}
+    :*?:eb,.::<%=  %>{left 3}
+    :*?:bb,.::<%  %>{left 3}
     :*:b,.::border: pink solid;
     :*:bd,.::
     sendraw, 
