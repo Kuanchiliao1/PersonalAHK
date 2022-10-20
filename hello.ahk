@@ -155,15 +155,12 @@ z - undo
     w:: MouseMove, 0, -50, 1, R
     s:: MouseMove,  0, 50, 1, R
     d:: MouseMove, 50, 0, 1, R
-
     b:: mouseclick, left
-
 
    #If getKeyState("F13")
      r:: 
      t := !t ; For setting toggle
      return
-     
 
      n::
      length := StrLen(clipboard) + 2
@@ -237,9 +234,7 @@ z - undo
     :X*:roop,.::conventionclip("🆁🆄🅱🆈 ⭕⭕🅿💻 ")
     :X*:roopexp,.::conventionclip("🆁🆄🅱🆈 🆇 ✈️ ⭕⭕🅿💻 ")
     :X*:rexp,.::conventionclip("🆁🆄🅱🆈 🆇✈️💻 ")
-
     :X*:jq,.::conventionclip("jQuery")
-
 
     :*:d,.::do ||{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left} ; Ruby - write blocks 
     :*:m,.::{backspace}{home}def {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definitions
@@ -271,12 +266,11 @@ z - undo
 
 ; Convert to capital
 ^#s::           
-Send ^c                                                      ; Convert text to upper
+Send ^c    ; Convert text to uppercase
 sleep 500
  StringUpper Output, Clipboard
  Send %Output%
 RETURN
-
 
 ;Cursor movement upgrades *combo
   #If (getKeyState("F13") && getKeyState("Capslock", "P"))
@@ -746,9 +740,8 @@ RETURN
           case ",": setPriority(88,95)
           case ".": setPriority(95,99)
 
-          case "gscroll":gscroll()
+          case "gscroll":gscroll() ; adjust scroll sensitivity
           case "gupdown":gupdown()
-
           case "ahk": closeAllAHK()
 
           case 1: closeDiscord()
@@ -805,7 +798,6 @@ RETURN
     ;Insert date and time for Anki cards
       t::
         Send {Enter 2}{Up 2}
-
         FormatTime, TimeString, R
         clipboard := TimeString
         Send ^v
@@ -942,7 +934,6 @@ g - control + enter
 v - comment
 t - tag anki card
 
-
 x - cut
 y - redo
 z - undo
@@ -1028,7 +1019,7 @@ z - undo
             
             IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe brave.exe
             {
-                      Run, https://www.google.com/search?q=%searchTerm%&sxsrf=ALiCzsYSwIViK8cYWBkyjNn-sOLklBOmfQ:1657397795211&source=lnms&tbm=shop&sa=X&ved=2ahUKEwjl0tb2z-z4AhWupIkEHRJMAcEQ_AUoAXoECAEQAw&biw=1975&bih=1156&dpr=1.1
+                      Run, https://www.google.com/search?q=%searchTerm%
                       Run, https://www.amazon.com/s?k=%searchTerm%	
                       Run, https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=%searchTerm%&_sacat=0
                       Run, https://camelcamelcamel.com/search?sq=%searchTerm%
@@ -1158,35 +1149,35 @@ z - undo
     :*:Tnow::- set alarm for 
 
 :*:template,.::
-ClipSaved := ClipboardAll ; save the entire clipboard to the variable ClipSaved
-clipboard := ""           ; empty the clipboard (start off empty to allow ClipWait to detect when the text has arrived)
-clipboard =               ; copy this text:
-(
-=begin
-***Problem***
-  - Description: 
-  - Input:
-    -
-  - Output:
-    -
-  - Questions
+  ClipSaved := ClipboardAll ; save the entire clipboard to the variable ClipSaved
+  clipboard := ""           ; empty the clipboard (start off empty to allow ClipWait to detect when the text has arrived)
+  clipboard =               ; copy this text:
+  (
+  =begin
+  ***Problem***
+    - Description: 
+    - Input:
+      -
+    - Output:
+      -
+    - Questions
 
-***Data Structure***
-  - 
+  ***Data Structure***
+    - 
 
-***Algorithm***
-  - 
+  ***Algorithm***
+    - 
 
-=end
-)
-ClipWait, 2              ; wait max. 2 seconds for the clipboard to contain data. 
-if (!ErrorLevel)         ; If NOT ErrorLevel, ClipWait found data on the clipboard
-    Send, ^v             ; paste the text
-Sleep, 300
-clipboard := ClipSaved   ; restore original clipboard
-ClipSaved =              ; Free the memory in case the clipboard was very large.
-send {up 12}{end}{Space}
-return
+  =end
+  )
+  ClipWait, 2              ; wait max. 2 seconds for the clipboard to contain data. 
+  if (!ErrorLevel)         ; If NOT ErrorLevel, ClipWait found data on the clipboard
+      Send, ^v             ; paste the text
+  Sleep, 300
+  clipboard := ClipSaved   ; restore original clipboard
+  ClipSaved =              ; Free the memory in case the clipboard was very large.
+  send {up 12}{end}{Space}
+  return
 
 :*:stage,.::
   SendInput {CtrlDown}{ShiftDown}g{CtrlUp}{ShiftUp}g
