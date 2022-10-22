@@ -133,7 +133,7 @@ z - undo
       If ErrorLevel 
         Send ^a{Left}175 - Networked Applications{Enter 2}
       else
-        Send ^a{Left}180 - Databases{Enter 2}
+        Send ^a{Left}RB185 - Database Applications{Enter 2}
       return
     }
     else
