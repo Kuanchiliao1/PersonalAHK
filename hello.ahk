@@ -428,7 +428,8 @@ z - undo
 
       Haystack := clipboard
       ; Copy timestamped URL of video to clipboard
-      sendToVid("+{F10}{Tab 3}{Enter}", "Google Chrome") 
+      sendToVid("+{F10}{Tab 3}", "Google Chrome") 
+      return
       sendToVid("^w", "Google Chrome")
       
       clipboard := RegExReplace(Haystack, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", clipboard) ; Haystack, needle, replacement
