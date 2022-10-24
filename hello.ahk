@@ -264,14 +264,6 @@ z - undo
     send <div>`n%clipboard%`n</div>+{tab}
     return
 
-; Convert to capital
-^#s::           
-Send ^c    ; Convert text to uppercase
-sleep 500
- StringUpper Output, Clipboard
- Send %Output%
-RETURN
-
 ;Cursor movement upgrades *combo
   #If (getKeyState("F13") && getKeyState("Capslock", "P"))
     w::
