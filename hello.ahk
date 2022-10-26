@@ -420,6 +420,8 @@ z - undo
     ; Copies timestamped URL of vid and transfer to SM
     
     x::
+      ; move mouse to absolute position of 100x 100y
+
       clipboard := ""
       Send ^{Home}
       Send {CtrlDown}{ShiftDown}{down 2}{CtrlUp}{ShiftUp}
@@ -428,11 +430,17 @@ z - undo
 
       Haystack := clipboard
       ; Copy timestamped URL of video to clipboard
-      sendToVid("+{F10}{Tab 3}", "Google Chrome") 
-      return
-      sendToVid("^w", "Google Chrome")
+      ; sendToVid("+{F10}{Tab 3}", "Google Chrome") 
+      ; sendToVid("^w", "Google Chrome")
+
+      mousemove, 2000, 800, 0
+      sleep 300
+      send {Rbutton}
+      sleep 200
+      send {Tab 3}{Enter}^w
       
       clipboard := RegExReplace(Haystack, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", clipboard) ; Haystack, needle, replacement
+      return
       Send ^{Home}
       Send ^v
       Sleep, 200
