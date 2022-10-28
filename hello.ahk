@@ -1294,17 +1294,17 @@ z - undo
     
 ;Delete windows in taskbar fast
   #If (MouseIsOverClass()="Shell_TrayWnd")
-  d::
-    Click Right
-    Sleep 200
-    Send {Up}{Enter}
-    return
+  ; d::
+  ;   Click Right
+  ;   Sleep 200
+  ;   Send {Up}{Enter}
+  ;   return
 
-    MouseIsOverClass() {
-    MouseGetPos,,,WinID
-    WinGetClass, WinClass, ahk_id %WinID%
-    return WinClass
-    }
+  ;   MouseIsOverClass() {
+  ;   MouseGetPos,,,WinID
+  ;   WinGetClass, WinClass, ahk_id %WinID%
+  ;   return WinClass
+  ;   }
   
 #IfWinActive ahk_exe sm18.exe ; if one of these windows are active, execute. This is more robust
   ~^m::
