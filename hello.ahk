@@ -422,13 +422,13 @@ z - undo
     x::
       ; move mouse to absolute position of 100x 100y
 
-      clipboard := ""
-      Send ^{Home}
-      Send {CtrlDown}{ShiftDown}{down 2}{CtrlUp}{ShiftUp}
-      Send ^x ; Cut all topic text
-      clipwait
+      ; clipboard := ""
+      ; Send ^{Home}
+      ; Send {CtrlDown}{ShiftDown}{down 2}{CtrlUp}{ShiftUp}
+      ; Send ^x ; Cut all topic text
+      ; clipwait
+      ; Haystack := clipboard
 
-      Haystack := clipboard
       ; Copy timestamped URL of video to clipboard
       ; sendToVid("+{F10}{Tab 3}", "Google Chrome") 
       ; sendToVid("^w", "Google Chrome")
@@ -1305,6 +1305,14 @@ z - undo
   ;   WinGetClass, WinClass, ahk_id %WinID%
   ;   return WinClass
   ;   }
+
+  ; Set a timer for 3 minutes
+  SetTimer, Timer1, 180000
+  return
+  ; Log "this is a log" whenever the control A button is pressed
+  ^a::
+  Log, this is a log
+  return
   
 #IfWinActive ahk_exe sm18.exe ; if one of these windows are active, execute. This is more robust
   ~^m::
