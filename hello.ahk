@@ -1309,10 +1309,6 @@ z - undo
   ; Set a timer for 3 minutes
   SetTimer, Timer1, 180000
   return
-  ; Log "this is a log" whenever the control A button is pressed
-  ^a::
-  Log, this is a log
-  return
   
 #IfWinActive ahk_exe sm18.exe ; if one of these windows are active, execute. This is more robust
   ~^m::
