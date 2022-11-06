@@ -1036,7 +1036,6 @@ z - undo
               Run, https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=%searchTerm%&_sacat=0
               Run, https://camelcamelcamel.com/search?sq=%searchTerm%
 
-              Msgbox "Remember to use Cammel!!"	
                 SetCapsLockState, alwaysoff
                 WinWaitClose search
             }
@@ -1293,8 +1292,8 @@ z - undo
     RWin::^j
     
 ;Delete windows in taskbar fast
-  #If (MouseIsOverClass()="Shell_TrayWnd")
-  ; d::
+  ; #If (MouseIsOverClass()="Shell_TrayWnd")
+  ; ; d::
   ;   Click Right
   ;   Sleep 200
   ;   Send {Up}{Enter}
@@ -1306,9 +1305,9 @@ z - undo
   ;   return WinClass
   ;   }
 
-  ; Set a timer for 3 minutes
-  SetTimer, Timer1, 180000
-  return
+  ; ; Set a timer for 3 minutes
+  ; SetTimer, Timer1, 180000
+  ; return
   
 #IfWinActive ahk_exe sm18.exe ; if one of these windows are active, execute. This is more robust
   ~^m::
