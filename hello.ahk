@@ -1243,18 +1243,6 @@ z - undo
     Sleep 200
     Run, https://www.youtube.com/results?search_query=%ClipBoard%
     Return
-  
-  ;Search AHK documentation
-    ; ::
-    ; CUSTOMLOGGER(A_THISHOTKEY)
-    ; Send, ^c
-    ; ClipWait,
-    ; Run, https://www.autohotkey.com/docs/Tutorial.htm#s83
-    ; Sleep, 1500
-    ; Send, {Alt down}s{Alt up}
-    ; Send, %ClipBoard% 
-    ; Send, {Enter}
-    ; Return
 
 ;Paste clean text
   ^#v::
@@ -1442,14 +1430,7 @@ z - undo
 
 ; Projects: 
 
-  ; To do:
-  
-  ; Advanced: scroll through the mouse wheel to change the side buttons(?)
-  ; Autosend emails by highlighting email address
-  ; Sending the shortcut for the compose feature (c)
-  ; Navigate to the "To:" field or image references as last resort
-
-;Guide
+; Key Guide
 ; Shift + Alt + Arrow: copy line up or down
 ; Move lines: alt + arrow 
 ; Hold alt: highlight multiple things
@@ -1476,6 +1457,10 @@ z - undo
 ;Look up hotkey functions(Control Shift P)
 ;Split window? (Control)
 
+  ; To do:
+  ; Advanced: scroll through the mouse wheel to change the side buttons(?)
+  ; Sending the shortcut for the compose feature (c)
+  ; Navigate to the "To:" field or image references as last resort
 
 ; Tasklist:
 ; -ip Start with lines 1-500 only... General refactoring and organization - figure out consistent convention for describing the code as well as.... 
