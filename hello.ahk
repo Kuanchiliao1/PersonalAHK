@@ -826,6 +826,7 @@ z - undo
         IfWinNotActive, Code Tester
         {
         WinActivate, Code Tester
+        Sleep 500
         Send {#}SingleInstance force {Enter 2}
         }
         else
