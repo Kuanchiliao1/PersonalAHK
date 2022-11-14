@@ -168,15 +168,6 @@ z - undo
       send {|} %clipboard% {|}{enter}
       send {+}{- %length%}{+}
      return
-
-     m::
-     SAT := "Saturday"
-      MON := "Monday"
-      Saturday := "Saturn"
-      Monday := "Moon"
-      v := SAT .  MON      ; v = "SaturdayMonday" (there must be a SPACE before and after dot)
-      MsgBox v = "%v%"
-     return
   #If
 ;d
 ;My conventions for anki and SM https://www.wikiwand.com/en/Enclosed_Alphanumeric_Supplement
@@ -440,6 +431,10 @@ z - undo
       send {Tab 3}{Enter}^w
       
       clipboard := RegExReplace(Haystack, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", clipboard) ; Haystack, needle, replacement
+      sleep, 200
+         Send {Alt}
+      Send w
+      Send 3    ; This is relative number for changing layout
       return
       Send ^{Home}
       Send ^v
@@ -826,7 +821,8 @@ z - undo
         IfWinNotActive, Code Tester
         {
         WinActivate, Code Tester
-        Sleep 500
+        WinWait, Code Tester
+        Sleep 100
         Send {#}SingleInstance force {Enter 2}
         }
         else
