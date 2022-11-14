@@ -1048,11 +1048,23 @@ z - undo
     
     ;cut highlighted text and wrap it with console.log
       b::
-        OldClip := Clipboard
-        Clipboard := ""
-        Send ^x
-        Clipwait
-        Clipboard := "console.log('%c" Clipboard "', 'font-size:50px;color:red;text-shadow: 2px 3px white')"
+        WinGetTitle, WinTitle, A
+        WinGetPos,,, Width, Height, %WinTitle%
+        If (Height > A_ScreenHeight )
+        {
+          WinMove, %WinTitle%, , , 0, Width, Height - 100
+        }
+        else
+        {
+          WinMove, %WinTitle%, , , -100, Width, Height + 100
+        }
+        
+        SetCapsLockState, alwaysoff
+        ; OldClip := Clipboard
+        ; Clipboard := ""
+        ; Send ^x
+        ; Clipwaitff
+        ; Clipboard := "console.log('%c" Clipboard "', 'font-size:50px;color:red;text-shadow: 2px 3px white')"
         return
     
     ;Go to next focusmate session
