@@ -200,7 +200,7 @@ z - undo
     :X*?:diff,.::conventionclip("Δ💻 ")    ; ({U+0394}{U+1F4BB})" ; 🄲 What's the difference? Delta and computer emoji
     :X*?:gp,.::conventionclip("✍𝒫💻 ") ; ({U+270D}{U+1F4BB})" ; 🄲 Write code for ___ purpose... 
     :X*?:p,.::conventionclip("🅿💻 ")  ; 🄲 What does this code do?
-
+    :X*?:eye,.::conventionclip("👀💻 ")  ; 🄲 What does this code do?
 
     :X*:turn,.::conventionclip("✍🄰→🄱💻 ") ; 🄲 Write code to turn something from A to B
     :X*:op,.::conventionclip("🄾🅿💻 ")  ; 🄲 What does this code do?, what's the output?
@@ -1052,11 +1052,11 @@ z - undo
         WinGetPos,,, Width, Height, %WinTitle%
         If (Height > A_ScreenHeight )
         {
-          WinMove, %WinTitle%, , , 0, Width, Height - 100
+          WinMove, %WinTitle%, , , 0, Width, A_ScreenHeight
         }
         else
         {
-          WinMove, %WinTitle%, , , -100, Width, Height + 100
+          WinMove, %WinTitle%, , , -110, Width, Height + 110
         }
         
         SetCapsLockState, alwaysoff
