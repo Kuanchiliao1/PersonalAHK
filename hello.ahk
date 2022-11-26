@@ -22,9 +22,9 @@ GroupAdd, SuperMemo, ahk_class TElDATAWind ;Element Data window
 GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
 
     ; these are the lines 1-4 on the menu
-        Menu, MyMenu, Add, l, MenuHandler  ;MenuHandler is a label - 
-        Menu, MyMenu, Add, F13, MenuHandler
-        Menu, MyMenu, Add, F14, MenuHandler
+        Menu, MyMenu, Add, L Window(L), MenuHandler  ;MenuHandler is a label - 
+        Menu, MyMenu, Add, F SM18, MenuHandler
+        Menu, MyMenu, Add, G Discord, MenuHandler
         Menu, MyMenu, Add, Run Chrome, MenuHandler
 
 ; RUN THESE PROGRAMS ON STARTUP
@@ -182,7 +182,6 @@ z - undo
       clipboard := oldclip
       return  
       }
-
 
     :X*?:con,.::conventionclip("🄲 ")
     :X*?:key,.::conventionclip("⌨ ")
@@ -538,9 +537,9 @@ z - undo
         If (A_ThisMenuItemPos = 1) {
             activateMinimize("WindowL")
         } else if (A_ThisMenuItemPos = 2) {
-            Run, C:\users\juho2\downloads
+            activateMinimize("ahk_exe sm18.exe")
         } else if (A_ThisMenuItemPos = 3) {
-            Run, calc.exe
+            activateMinimize("ahk_exe Discord.exe")
         } else if (A_ThisMenuItemPos = 4) {
             Run, Chrome.exe
         }
