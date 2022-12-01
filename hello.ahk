@@ -198,7 +198,7 @@ z - undo
     :X*?:wrong,.::conventionclip("❌💻 ") ; ("{U+274C}{U+1F4BB}") ; 🄲 What's wrong with this code? Red x and computer emoji
     :X*?:diff,.::conventionclip("Δ💻 ")    ; ({U+0394}{U+1F4BB})" ; 🄲 What's the difference? Delta and computer emoji
     :X*?:gp,.::conventionclip("✍𝒫💻 ") ; ({U+270D}{U+1F4BB})" ; 🄲 Write code for ___ purpose... 
-    :X*?:p,.::conventionclip("🅿💻 ")  ; 🄲 What does this code do?
+    :X*?:pp,.::conventionclip("🅿💻 ")  ; 🄲 What does this code do?
     :X*?:eye,.::conventionclip("👀💻 ")  ; 🄲 What does this code do?
 
     :X*:turn,.::conventionclip("✍🄰→🄱💻 ") ; 🄲 Write code to turn something from A to B
@@ -237,7 +237,6 @@ z - undo
     :*?:bb,.::<%  %>{left 3}
     :*:b,.::border: pink solid;
     :*:bd,.::
-    sendraw, 
     (
 *,
 *`:`:before,
