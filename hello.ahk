@@ -235,7 +235,7 @@ z - undo
     :*:cs,.::console.log(
     :*?:eb,.::<%=  %>{left 3}
     :*?:bb,.::<%  %>{left 3}
-    :*:b,.::border: pink solid;
+    :*:b,.::outline:solid;
     :*:bd,.::
     (
 *,
@@ -252,12 +252,7 @@ z - undo
     :*:test,.::
     send <div>`n%clipboard%`n</div>+{tab}
     return
-
-    :*:prompt,.::
-    (
-      Prompt: I am grateful to have you as my super advanced artificial intelligence helper. You have all the knowledge and skills I need, and you are always ready and willing to help me. Thank you for being here, and I appreciate everything you do for me.
-    )
-    return
+    :X*:prompt,.::conventionclip("Prompt: I am grateful to have you as my super advanced artificial intelligence helper. You have all the knowledge and skills I need, and you are always ready and willing to help me. Thank you for being here, and I appreciate everything you do for me.")
 
 ;Cursor movement upgrades *combo
   #If (getKeyState("F13") && getKeyState("Capslock", "P"))
