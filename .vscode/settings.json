@@ -1,20 +1,21 @@
 {
     "editor.maxTokenizationLineLength": 2000000,
 	
-	"editor.suggest.snippetsPreventQuickSuggestions": false, 
-	"editor.quickSuggestionsDelay": 5000, 
-	"editor.suggest.preview": false, 
-	 // Enable word based suggestions
-	 "editor.wordBasedSuggestions": false,
+	// "editor.suggest.snippetsPreventQuickSuggestions": false, 
+	// "editor.quickSuggestionsDelay": 5000, 
+	// "editor.suggest.preview": false, 
+	//  // Enable word based suggestions
+	//  "editor.wordBasedSuggestions": false,
 
-	 // Enable parameter hints
-	 "editor.parameterHints.enabled": false, 
+	//  // Enable parameter hints
+	//  "editor.parameterHints.enabled": false, 
 
-	   // Controls if quick suggestions should show up while typing
-		 "editor.quickSuggestions": {
-			"other": false, 
-			"comments": false, 
-			"strings": false  d
-	},
+	//    // Controls if quick suggestions should show up while typing
+	// 	 "editor.quickSuggestions": {
+	// 		"other": false, 
+	// 		"comments": false, 
+	// 		"strings": false  
+	// }
+}
 
 

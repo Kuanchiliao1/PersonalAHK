@@ -246,6 +246,8 @@ z - undo
     )
     return
 
+    :X*:vp,.::conventionclip("<meta name='viewport' content='width=device-width, initial-scale=1'>")
+
     :*:bn,.::bundle exec rake
     :*:bnt,.::bundle exec rake test
 
