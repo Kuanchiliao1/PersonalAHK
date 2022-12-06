@@ -235,7 +235,7 @@ z - undo
     :*:cs,.::console.log(
     :*?:eb,.::<%=  %>{left 3}
     :*?:bb,.::<%  %>{left 3}
-    :*:b,.::outline:solid;
+    :*:b,.::border: solid pink 5px;
     :*:bd,.::
     (
 *,
