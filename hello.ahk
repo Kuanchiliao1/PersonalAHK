@@ -247,6 +247,10 @@ z - undo
     return
 
     :X*:vp,.::conventionclip("<meta name='viewport' content='width=device-width, initial-scale=1'>")
+    
+    :X*:cardw,.::
+    :X*:cw,.::
+    conventionclip(".wrapper { display: grid;`n grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));`n grid-gap: 1rem;}")
 
     :*:bn,.::bundle exec rake
     :*:bnt,.::bundle exec rake test
