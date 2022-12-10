@@ -8,7 +8,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include ..\Private_Folder\KeyLogLib.ahk
 #KeyHistory 200
 
-Global VarJ := 3 ; Used for scroll settings
+Global VarJ := 2 ; Used for scroll settings
 Global VarK := 5
 Global VarL := ""
 
@@ -21,11 +21,11 @@ GroupAdd, SuperMemo, ahk_class TElWind ;Element window
 GroupAdd, SuperMemo, ahk_class TElDATAWind ;Element Data window
 GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
 
-    ; these are the lines 1-4 on the menu
-        Menu, MyMenu, Add, L Window(L), MenuHandler  ;MenuHandler is a label - 
-        Menu, MyMenu, Add, F SM18, MenuHandler
-        Menu, MyMenu, Add, G Discord, MenuHandler
-        Menu, MyMenu, Add, Run Chrome, MenuHandler
+; these are the lines 1-4 on the menu
+    Menu, MyMenu, Add, L Window(L), MenuHandler  ;MenuHandler is a label - 
+    Menu, MyMenu, Add, F SM18, MenuHandler
+    Menu, MyMenu, Add, G Discord, MenuHandler
+    Menu, MyMenu, Add, Run Chrome, MenuHandler
 
 ; RUN THESE PROGRAMS ON STARTUP
   if (!WinExist("KeyLog (3).ahk")) {
@@ -62,18 +62,18 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
     Run, "..\Private_Folder\timer.ahk"
   }
 
-sendToVid(a, b) {
+sendToVid(key, titlewin) {
           SetTitleMatchMode, 2
           ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, %b% ;Get the window handle of the Chrome window
           ControlFocus,,ahk_id %outputvar%
-          ControlSend, , %a%, %b%
+          ControlSend, , %key%, %titlewin%
         }
 
 return ; End of the Autoexecutable section. Below this would be the functions, hotkeys and everything else.
 
 ; Rebinds
-    RShift::F14
-    \::F13
+  RShift::F14
+  \::F13
 
 #If r && getKeyState("Capslock")
   f:: send {Alt Up}
@@ -82,10 +82,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 ;  a s! d!  f!  g!  h  j  k  l ;
 ; z! x c!  v  b  n  m ,  .  /
 ; Automate anki stuff ONLY if anki is active
-  ; Key to add "tag"
-  ; Cloze
-  ; g to submit
-  ; 
 #If r
   d:: send {backspace}
   v::
@@ -149,14 +145,19 @@ z - undo
   Backspace:: send, you suck
   Enter:: send, you suck
 
-  ; #If t && getKeyState("Capslock", "P") ; Sample for using toggle instead of F13
+  ; q w e  r  t  y  u  i  o  p [  ]  \  
+  ;  a s d  f  g  h  j  k  l ;
+  ; z x c  v  b  n  m ,  .  /
   #If t && getKeyState("F13")
     a:: MouseMove, -50, 0, 0, R
     w:: MouseMove, 0, -50, 1, R
     s:: MouseMove,  0, 50, 1, R
     d:: MouseMove, 50, 0, 1, R
     b:: mouseclick, left
-
+  
+  ; q w e  r  t  y  u  i  o  p [  ]  \  
+  ;  a s d  f  g  h  j  k  l ;
+  ; z x c  v  b  n  m ,  .  /
    #If getKeyState("F13")
      r:: 
      t := !t ; For setting toggle
@@ -169,20 +170,21 @@ z - undo
       send {+}{- %length%}{+}
      return
   #If
-;d
+
 ;My conventions for anki and SM https://www.wikiwand.com/en/Enclosed_Alphanumeric_Supplement
-    conventionclip(abc) { ;Function for conventions
+    ;Function for conventions
+    conventionclip(abc) { 
       oldclip := clipboardall ; save clipboard to oldclip variable
       clipboard := "" ; clear clipboard
-      clipboard := abc ; 🄲 UNIX {U+1F184}{U+1F17D}{U+1F178}{U+1F187}
+      clipboard := abc ; set clipboard to the argument
       clipwait, 2, 1
-      sleep 200
+      sleep 100
       send ^v
-      sleep 200
+      sleep 100
       clipboard := oldclip
-      return  
       }
 
+    ;Card creation
     :X*?:con,.::conventionclip("🄲 ")
     :X*?:key,.::conventionclip("⌨ ")
     :X*:ex,.::conventionclip("🅻 ")
@@ -226,40 +228,34 @@ z - undo
     :X*:rexp,.::conventionclip("🆁🆄🅱🆈 🆇✈️💻 ")
     :X*:jq,.::conventionclip("jQuery")
 
+    ; Ruby syntax helpers
     :*:d,.::do ||{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left} ; Ruby - write blocks 
     :*:m,.::{backspace}{home}def {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definitions
     :*:,.::{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left}{Down} ; Ruby - write blocks 
     :*:c,.::{backspace}{home}class {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definitions
-    :*:i,.::def initialize{end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End}
+    :*:i,.::def initialize{end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write class definitions
     :*:a,.::assert_equal(
-    :*:cs,.::console.log(
+    
+    ; ERB syntax helpers
     :*?:eb,.::<%=  %>{left 3}
     :*?:bb,.::<%  %>{left 3}
 
+    ; CSS syntax helpers
     :*:b,.::border: solid pink 5px;
-    :*:bd,.::
-    (
-*,
-*`:`:before,
-*`:`:after {
-  box-sizing: border-box;
-}
-    )
-    return
-
+    :X*:bd,.::conventionclip("*,`n*`:`:before,`n*`:`:after {`nbox-sizing: border-box;")
     :X*:vp,.::conventionclip("<meta name='viewport' content='width=device-width, initial-scale=1'>")
     
     :X*:cardw,.::
     :X*:cw,.::
     conventionclip(".wrapper { display: grid;`n grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));`n grid-gap: 1rem;}")
 
-    :*:bn,.::bundle exec rake
-    :*:bnt,.::bundle exec rake test
-
     :*:test,.::
     send <div>`n%clipboard%`n</div>+{tab}
     return
+    
+    ; AI prompts
     :X*:prompt,.::conventionclip("Prompt: I am grateful to have you as my super advanced artificial intelligence helper. You have all the knowledge and skills I need, and you are always ready and willing to help me. Thank you for being here, and I appreciate everything you do for me.")
+
 
 ;Cursor movement upgrades *combo
   #If (getKeyState("F13") && getKeyState("Capslock", "P"))
@@ -300,27 +296,29 @@ z - undo
     ; Red - q ; Orange - w ; Blue - e ; Green - r ; Marked - t ; pink - g ; purple - h
 #If (getKeyState("F14") && WinActive("ahk_exe anki.exe") && !WinActive("Add")) ; Active IF I hold down RShift AND anki.exe is active  AND "Add" window is not active | *combo
   ; Anki general navigation keys
-    v:: send -
-    f:: send p
-    d:: send 1
-    s:: send ^{Del}
-    z:: send z
-    c:: send ^+d
+    v::send -
+    f::send p
+    d::send 1
+    s::send ^{Del}
+    z::send z
+    c::send ^+d
     x::send b^d
   
   ;Flags + Marked
-    q:: send ^1 
-    w:: send ^2
-    e:: send ^4
-    r:: send ^3
-    t:: send +*
-    g:: send ^5
-    h:: send ^7
+    q::send ^1 
+    w::send ^2
+    e::send ^4
+    r::send ^3
+    t::send +*
+    g::send ^5
+    h::send ^7
 
 ;RShift down hotkeys *combo
+; q w e r t y u i o p [ ] \ 
+; a s d f g h j k l ; ' 
+; z x c v b n m , . /
   #If (getKeyState("F14", "V") && WinActive("ahk_exe sm18.exe")) 
-  ; 	;Video Control
-          
+   	;Video Control
         f::sendToVid("{Space}", "Google Chrome")
         q::sendToVid("q", "Google Chrome")
         e::sendToVid("e", "Google Chrome")
@@ -361,6 +359,9 @@ z - undo
         0::sendToVid("0", "WindowL")
 
 ;f13(\) Down Hotkeys *combo
+; q w e r t y u i o p [ ] \ 
+; a s d f g h j k l ; ' 
+; z x c v b n m , . /
   #If (getKeyState("F13", "V"))
   ;for using the original keys replaced by F13
     [:: send \
@@ -406,48 +407,19 @@ z - undo
       Send 6    ; This is relative number for changing layout
       Send {Down}
       return
-  
-  ; Open chrome inconito
-    ; y::
-    ; 	Run, chrome.exe %clipboard% " --new-window -incognito -always-on-top"
-    ; 	WinMove, A, , 1945, 0, 1500, 1440 ; WinMove, Active Window, , x, Y(coordinates for top left of window), window width, window height
-    ; 	WinMove, A, , 1945, 0, 1500, 1440 ; WinMove, Active Window, , x, Y(coordinates for top left of window), window width, window height
-    ; return#SingleInstance force 
-
-    ; Copies timestamped URL of vid and transfer to SM
     
     x::
       ; move mouse to absolute position of 100x 100y
-
-      ; clipboard := ""
-      ; Send ^{Home}
-      ; Send {CtrlDown}{ShiftDown}{down 2}{CtrlUp}{ShiftUp}
-      ; Send ^x ; Cut all topic text
-      ; clipwait
-      ; Haystack := clipboard
-
-      ; Copy timestamped URL of video to clipboard
-      ; sendToVid("+{F10}{Tab 3}", "Google Chrome") 
-      ; sendToVid("^w", "Google Chrome")
+      clipboard := ""
+      Send ^{Home}{CtrlDown}{ShiftDown}{down 2}{CtrlUp}{ShiftUp}^x{sleep 200} ; Cut all topic text
+      Haystack := clipboard
 
       mousemove, 2000, 800, 0
-      sleep 300
-      send {Rbutton}
-      sleep 200
-      send {Tab 3}{Enter}^w
-      
-      clipboard := RegExReplace(Haystack, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", clipboard) ; Haystack, needle, replacement
-      sleep, 200
-         Send {Alt}
-      Send w
-      Send 3    ; This is relative number for changing layout
-      return
-      Send ^{Home}
-      Send ^v
-      Sleep, 200
-      Send {Alt}
-      Send w
-      Send 3    ; This is relative number for changing layout
+      send {sleep 200}{Rbutton}{sleep 200}
+      send {Tab 2}{Enter}^w{sleep 200} ; Grab URL of timestamped video
+      ; Replace the original URL with the timestamped URL
+      clipboard := RegExReplace(Haystack, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", clipboard, output)      
+      Send {sleep 200}^{Home}^v{sleep 200}{Alt}w3
       return
 
   ; Arrow features: Control, Control + Shift, Alt, Windows(left and right)
@@ -485,7 +457,7 @@ z - undo
     #w:: send {F11}
     #s:: WinMaximize, A
       
-  ; Snap windows to diferent monitor
+  ; Snap window to diferent monitor
       +#d:: send, #+{Right}
       +#a:: send, #+{Left}
         
@@ -497,38 +469,28 @@ z - undo
     o::activateMinimize("User 1 - Anki")
     i::
       IfWinExist Add
-      {
-        IfWinNotActive, Add
-        WinActivate Add
-        else
-        WinMinimize Add
-      }
+        activateMinimize("Add")
       else
       {
-        WinActivate User 1 - Anki
-        WinWaitActive User 1 - Anki
+        activateMinimize("User 1 - Anki")
         send a
-        WinMinimize User 1 - Anki ;
+        activateMinimize("User 1 - Anki")
       }
       Return
     
-  ;Activate/minimize brave windows
+  ;Activate/minimize function
     activateMinimize(Title) {
-    Ifwinexist %Title%
+    IfWinExist %Title%
       {
         IfWinNotActive, %Title%
-        WinActivate %Title%
+          WinActivate %Title%
         else
-        WinMinimize %Title%
+          WinMinimize %Title%
       }
     else
-    {
-      send {CtrlDown}{CtrlUp}   ; Run C:\Users\kuanc\AppData\Local\Programs\todoist\Todoist.exe 
-      sleep 100
-      send {CtrlDown}{CtrlUp}
+      send {CtrlDown}{CtrlUp}{sleep 100}{CtrlDown}{CtrlUp}
     }
-      Return
-    }
+
       g::activateMinimize("WindowG") ; FocusMate window
       h::activateMinimize("WindowH") ; "Home" Window
       u::activateMinimize("ahk_class ConsoleWindowClass ahk_exe ubuntu.exe") ; "Life" Window
@@ -546,7 +508,7 @@ z - undo
         } else if (A_ThisMenuItemPos = 2) {
             activateMinimize("ahk_exe sm18.exe")
         } else if (A_ThisMenuItemPos = 3) {
-            activateMinimize("ahk_exe Discord.exe")
+            activajjkkkkteMinimize("ahk_exe Discord.exe")
         } else if (A_ThisMenuItemPos = 4) {
             Run, Chrome.exe
         }
@@ -663,10 +625,7 @@ z - undo
       run, cmd.exe /c "taskkill /IM "Discord.exe" /F"
       sleep 1000
       
-      send {CtrlDown}{CtrlUp}   ; Run C:\Users\kuanc\AppData\Local\Programs\todoist\Todoist.exe 
-      sleep 50
-      send {CtrlDown}{CtrlUp}
-      sleep 50
+      send {CtrlDown}{CtrlUp}{sleep 50}{CtrlDown}{CtrlUp}{sleep 50}
       ; send discord
       SetCapsLockState, Alwaysoff
       }
