@@ -235,6 +235,7 @@ z - undo
     :*:cs,.::console.log(
     :*?:eb,.::<%=  %>{left 3}
     :*?:bb,.::<%  %>{left 3}
+
     :*:b,.::border: solid pink 5px;
     :*:bd,.::
     (
@@ -701,6 +702,17 @@ z - undo
       SetCapsLockState, Alwaysoff
       }
       return
+  ;CSS tools
+    ;converts highlighted pixet number to rem
+    h::
+      Send ^c    ; Copy the highlighted text to the clipboard
+      clipboard := Clipboard   ; Store the clipboard contents in a variable
+      result := clipboard / 16   ; Divide the clipboard contents by 16
+      ToolTip % result . "rem"
+      Sleep 2000
+      ToolTip
+      SetCapsLockState, Alwaysoff
+    return
 
 ;test
     ;Open GUI (Capslock + 1)
