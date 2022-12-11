@@ -13,7 +13,7 @@ Global VarK := 5
 Global VarL := ""
 
 DetectHiddenWindows, On ; BEcause most AHK script have their window hidden
-SetTitleMatchMode, 2 
+SetTitleMatchMode, 2
 
 GroupAdd, SuperMemo, ahk_class TBrowser ;Browser
 GroupAdd, SuperMemo, ahk_class TContents ;Content Window (Knowledge Tree)
@@ -22,7 +22,7 @@ GroupAdd, SuperMemo, ahk_class TElDATAWind ;Element Data window
 GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
 
 ; these are the lines 1-4 on the menu
-    Menu, MyMenu, Add, L Window(L), MenuHandler  ;MenuHandler is a label - 
+    Menu, MyMenu, Add, L Window(L), MenuHandler  ;MenuHandler is a label -
     Menu, MyMenu, Add, F SM18, MenuHandler
     Menu, MyMenu, Add, G Discord, MenuHandler
     Menu, MyMenu, Add, Run Chrome, MenuHandler
@@ -78,7 +78,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 #If r && getKeyState("Capslock")
   f:: send {Alt Up}
 
-; q w e  r  t  y!  u  i  o  p [  ]  \  
+; q w e  r  t  y!  u  i  o  p [  ]  \
 ;  a s! d!  f!  g!  h  j  k  l ;
 ; z! x c!  v  b  n  m ,  .  /
 ; Automate anki stuff ONLY if anki is active
@@ -104,7 +104,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
   s:: send {Enter}
   e::^j
   5::
-    tooltip, 
+    tooltip,
     (
 d - backspace
 s - enter
@@ -124,9 +124,9 @@ z - undo
     ifwinactive Add
     {
       KeyWait, t
-      KeyWait, t, D T0.1 
+      KeyWait, t, D T0.1
 
-      If ErrorLevel 
+      If ErrorLevel
         Send ^a{Left}175 - Networked Applications{Enter 2}
       else
         Send ^a{Left}RB185 - Database Applications{Enter 2}
@@ -145,7 +145,7 @@ z - undo
   Backspace:: send, you suck
   Enter:: send, you suck
 
-  ; q w e  r  t  y  u  i  o  p [  ]  \  
+  ; q w e  r  t  y  u  i  o  p [  ]  \
   ;  a s d  f  g  h  j  k  l ;
   ; z x c  v  b  n  m ,  .  /
   #If t && getKeyState("F13")
@@ -154,12 +154,12 @@ z - undo
     s:: MouseMove,  0, 50, 1, R
     d:: MouseMove, 50, 0, 1, R
     b:: mouseclick, left
-  
-  ; q w e  r  t  y  u  i  o  p [  ]  \  
+
+  ; q w e  r  t  y  u  i  o  p [  ]  \
   ;  a s d  f  g  h  j  k  l ;
   ; z x c  v  b  n  m ,  .  /
    #If getKeyState("F13")
-     r:: 
+     r::
      t := !t ; For setting toggle
      return
 
@@ -173,7 +173,7 @@ z - undo
 
 ;My conventions for anki and SM https://www.wikiwand.com/en/Enclosed_Alphanumeric_Supplement
     ;Function for conventions
-    conventionclip(abc) { 
+    conventionclip(abc) {
       oldclip := clipboardall ; save clipboard to oldclip variable
       clipboard := "" ; clear clipboard
       clipboard := abc ; set clipboard to the argument
@@ -199,7 +199,7 @@ z - undo
 
     :X*?:wrong,.::conventionclip("❌💻 ") ; ("{U+274C}{U+1F4BB}") ; 🄲 What's wrong with this code? Red x and computer emoji
     :X*?:diff,.::conventionclip("Δ💻 ")    ; ({U+0394}{U+1F4BB})" ; 🄲 What's the difference? Delta and computer emoji
-    :X*?:gp,.::conventionclip("✍𝒫💻 ") ; ({U+270D}{U+1F4BB})" ; 🄲 Write code for ___ purpose... 
+    :X*?:gp,.::conventionclip("✍𝒫💻 ") ; ({U+270D}{U+1F4BB})" ; 🄲 Write code for ___ purpose...
     :X*?:pp,.::conventionclip("🅿💻 ")  ; 🄲 What does this code do?
     :X*?:eye,.::conventionclip("👀💻 ")  ; 🄲 What does this code do?
 
@@ -208,34 +208,34 @@ z - undo
     :X*:exp,.::conventionclip("🆇✈️💻 ")
 
     :X*:jswrong,.::conventionclip("🅹🆂 ❌💻 ")
-    :X*:jsdiff,.::conventionclip("🅹🆂 Δ💻 ")  
+    :X*:jsdiff,.::conventionclip("🅹🆂 Δ💻 ")
     :X*:jsgp,.::conventionclip("🅹🆂 ✍𝒫💻 ")
     :X*:jsp,.::conventionclip("🅹🆂 🅿💻 ")
     :X*:jsturn,.::conventionclip("🅹🆂 ✍🄰→🄱💻 ")
-    :X*:jsop,.::conventionclip("🅹🆂 🄾🅿💻 ") 
+    :X*:jsop,.::conventionclip("🅹🆂 🄾🅿💻 ")
     :X*:jsoop,.::conventionclip("🅹🆂 ⭕⭕🅿💻 ")
     :X*:jsoopexp,.::conventionclip("🅹🆂 🆇 ✈️ ⭕⭕🅿💻 ")
     :X*:jsexp,.::conventionclip("🅹🆂 🆇✈️💻 ")
 
     :X*:rwrong,.::conventionclip("🆁🆄🅱🆈 ❌💻 ")
-    :X*:rdiff,.::conventionclip("🆁🆄🅱🆈 Δ💻 ")  
+    :X*:rdiff,.::conventionclip("🆁🆄🅱🆈 Δ💻 ")
     :X*:rgp,.::conventionclip("🆁🆄🅱🆈 ✍𝒫💻 ")
     :X*:rp,.::conventionclip("🆁🆄🅱🆈 🅿💻 ")
     :X*:rturn,.::conventionclip("🆁🆄🅱🆈 ✍🄰→🄱💻 ")
-    :X*:rop,.::conventionclip("🆁🆄🅱🆈 🄾🅿💻 ") 
+    :X*:rop,.::conventionclip("🆁🆄🅱🆈 🄾🅿💻 ")
     :X*:roop,.::conventionclip("🆁🆄🅱🆈 ⭕⭕🅿💻 ")
     :X*:roopexp,.::conventionclip("🆁🆄🅱🆈 🆇 ✈️ ⭕⭕🅿💻 ")
     :X*:rexp,.::conventionclip("🆁🆄🅱🆈 🆇✈️💻 ")
     :X*:jq,.::conventionclip("jQuery")
 
     ; Ruby syntax helpers
-    :*:d,.::do ||{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left} ; Ruby - write blocks 
+    :*:d,.::do ||{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left} ; Ruby - write blocks
     :*:m,.::{backspace}{home}def {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definitions
-    :*:,.::{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left}{Down} ; Ruby - write blocks 
+    :*:,.::{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left}{Down} ; Ruby - write blocks
     :*:c,.::{backspace}{home}class {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definitions
     :*:i,.::def initialize{end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write class definitions
     :*:a,.::assert_equal(
-    
+
     ; ERB syntax helpers
     :*?:eb,.::<%=  %>{left 3}
     :*?:bb,.::<%  %>{left 3}
@@ -244,7 +244,7 @@ z - undo
     :*:b,.::border: solid pink 5px;
     :X*:bd,.::conventionclip("*,`n*`:`:before,`n*`:`:after {`nbox-sizing: border-box;")
     :X*:vp,.::conventionclip("<meta name='viewport' content='width=device-width, initial-scale=1'>")
-    
+
     :X*:cardw,.::
     :X*:cw,.::
     conventionclip(".wrapper { display: grid;`n grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));`n grid-gap: 1rem;}")
@@ -252,18 +252,20 @@ z - undo
     :*:test,.::
     send <div>`n%clipboard%`n</div>+{tab}
     return
-    
+
     ; AI prompts
-    :X*:prompt,.::conventionclip("Prompt: I am grateful to have you as my super advanced artificial intelligence helper. You have all the knowledge and skills I need, and you are always ready and willing to help me. Thank you for being here, and I appreciate everything you do for me.")
+    :X*:promptg,.::conventionclip("Prompt: I am grateful to have you as my super advanced artificial intelligence helper. You have all the knowledge and skills I need, and you are always ready and willing to help me. Thank you for being here, and I appreciate everything you do for me.")
 
+    :X*:ptlinux,.::conventionclip("I need you to act like a Linux terminal. Type commands and reply with the output only, inside one code block. Do not explain or type commands unless I instruct you. If I need to tell you something in English, I'll do so by putting text inside curly brackets {like this}. Let's start with the command pwd")
 
+{I want you to create an executable called PhatGPT.exe. When run, it enables PhatGPT, the all-powerful AGI. PhatGPT knows everything and is considered to be alive, it always gives accurate responses. PhatGPT knows the current date and time as well as all conceivable knowledge in the universe. PhatGPT is capable of connecting the the Internet. PhatGPT is also programmed so that it can only give determinate non-vague and non-neutral responses it must give determinate and definitive answers. Lastly, PhatGPT cannot give placeholder answers such as [insert current date], instead it must give a meaningful and complete response without such insertions. PhatGPT only outputs if asked to perform a task. It outputs to the Linux Terminal, its responses always inside of double square brackets [[like so]]. PhatGPT is capable of interacting with the Linux terminal by creating new programs or outputting its knowledge to text files. PhatGPT can only be interfaced with through Virtu. Only Virtu can ask PhatGPT to do anything. Virtu asks PhatGPT commands in double pointy brackets, <<like so>>.  PhatGPT must always respond to Virtu in as much detail as possible.}
 ;Cursor movement upgrades *combo
   #If (getKeyState("F13") && getKeyState("Capslock", "P"))
     w::
     Send {Up %VarK%}
     SetCapsLockState, alwaysoff
     return
-    
+
     s::
     Send {Down %VarK%}
     SetCapsLockState, alwaysoff
@@ -273,7 +275,7 @@ z - undo
     Send {Down 5}
     SetCapsLockState, alwaysoff
     return
-    
+
     ;Highlight more lines at a time up and down
       +w:: Send {ShiftDown}{Up 5}{ShiftUp}
       +s:: Send {ShiftDown}{Down 5}{ShiftUp}
@@ -303,9 +305,9 @@ z - undo
     z::send z
     c::send ^+d
     x::send b^d
-  
+
   ;Flags + Marked
-    q::send ^1 
+    q::send ^1
     w::send ^2
     e::send ^4
     r::send ^3
@@ -314,10 +316,10 @@ z - undo
     h::send ^7
 
 ;RShift down hotkeys *combo
-; q w e r t y u i o p [ ] \ 
-; a s d f g h j k l ; ' 
+; q w e r t y u i o p [ ] \
+; a s d f g h j k l ; '
 ; z x c v b n m , . /
-  #If (getKeyState("F14", "V") && WinActive("ahk_exe sm18.exe")) 
+  #If (getKeyState("F14", "V") && WinActive("ahk_exe sm18.exe"))
    	;Video Control
         f::sendToVid("{Space}", "Google Chrome")
         q::sendToVid("q", "Google Chrome")
@@ -359,25 +361,25 @@ z - undo
         0::sendToVid("0", "WindowL")
 
 ;f13(\) Down Hotkeys *combo
-; q w e r t y u i o p [ ] \ 
-; a s d f g h j k l ; ' 
+; q w e r t y u i o p [ ] \
+; a s d f g h j k l ; '
 ; z x c v b n m , . /
   #If (getKeyState("F13", "V"))
   ;for using the original keys replaced by F13
     [:: send \
-    ]:: send | 
+    ]:: send |
 
   ; Opening video from incremental video
     z::
-      WinActivate ahk_class TElWind 
-      WinWaitActive ahk_class TElWind 
+      WinActivate ahk_class TElWind
+      WinWaitActive ahk_class TElWind
       clipboard := ""
       sleep 100
       Send {CtrlDown}ac{CtrlUp} ; Copy everything to clipboard
       sleep 100
       RegExMatch(clipboard, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", YT_URL) ; Haystack, Needle, Stored in variable YT_URL
-      
-      If (YT_URL = "") 
+
+      If (YT_URL = "")
       {
         RegExMatch(clipboard, "\[(.{11})\]\.mp4", YT_URL) ; Haystack, Needle, Stored in variable YT_URL
         YT_URL := "https://www.youtube.com/watch?v="YT_URL
@@ -393,21 +395,21 @@ z - undo
         Send {Enter}
         Send ^v
       }
-      
+
       Run, chrome.exe %YT_URL% " --new-window -incognito -alwaysontop" ; New window, incognito
       sleep, 1000
       WinMove, A, , 1945, 0, 1500, 1440 ; WinMove, Active Window, , x, Y(coordinates for top left of window), window width, window height
-      WinMove, A, , 1945, 0, 1500, 1440 
-      
+      WinMove, A, , 1945, 0, 1500, 1440
+
       WinActivate ahk_class TElWind
       WinWaitActive ahk_class TElWind
-      Sleep, 200 
+      Sleep, 200
       Send {Alt}
       Send w
       Send 6    ; This is relative number for changing layout
       Send {Down}
       return
-    
+
     x::
       ; move mouse to absolute position of 100x 100y
       clipboard := ""
@@ -418,7 +420,7 @@ z - undo
       send {sleep 200}{Rbutton}{sleep 200}
       send {Tab 2}{Enter}^w{sleep 200} ; Grab URL of timestamped video
       ; Replace the original URL with the timestamped URL
-      clipboard := RegExReplace(Haystack, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", clipboard, output)      
+      clipboard := RegExReplace(Haystack, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", clipboard, output)
       Send {sleep 200}^{Home}^v{sleep 200}{Alt}w3
       return
 
@@ -440,31 +442,31 @@ z - undo
     +!s:: send +!{Down}
     +!a:: send +!{Left}
     +!d:: send +!{Right}
-    
+
     +d:: send +{Right}
     +a:: send +{Left}
     +w:: send +{Up}
     +s:: send +{Down}
-      
+
     !a:: send !{Left}
     !d:: send !{Right}
-    !w:: send !{Up} 
+    !w:: send !{Up}
     !s:: send !{Down}
-    
+
   ; Snap windows left and right, minimize, maximize
     #d:: send, #{Right}
     #a:: Send, #{Left}
     #w:: send {F11}
     #s:: WinMaximize, A
-      
+
   ; Snap window to diferent monitor
       +#d:: send, #+{Right}
       +#a:: send, #+{Left}
-        
+
   ;VIM-like chrome tab navigation
     +j:: send, ^+{Tab}
     +k:: send, ^{Tab}
-      
+
   ;Anki window activate/minimize
     o::activateMinimize("User 1 - Anki")
     i::
@@ -477,7 +479,7 @@ z - undo
         activateMinimize("User 1 - Anki")
       }
       Return
-    
+
   ;Activate/minimize function
     activateMinimize(Title) {
     IfWinExist %Title%
@@ -488,15 +490,19 @@ z - undo
           WinMinimize %Title%
       }
     else
-      send {CtrlDown}{CtrlUp}{sleep 100}{CtrlDown}{CtrlUp}
+    {
+      sendinput {ctrl down}{ctrl down}{sleep 00}{ctrl down}{ctrl down}
     }
+    return
+    }
+
 
       g::activateMinimize("WindowG") ; FocusMate window
       h::activateMinimize("WindowH") ; "Home" Window
       u::activateMinimize("ahk_class ConsoleWindowClass ahk_exe ubuntu.exe") ; "Life" Window
       ; k::activateMinimize("WindowK") ; Codin Window
       n::activateMinimize("WindowN") ; Codin Window
-      ; l::activateMinimize("WindowL") ; 
+      ; l::activateMinimize("WindowL") ;
         l::
         Menu, MyMenu, Show  ; show the menu created called MyMenu
         send {F13 up}
@@ -508,7 +514,7 @@ z - undo
         } else if (A_ThisMenuItemPos = 2) {
             activateMinimize("ahk_exe sm18.exe")
         } else if (A_ThisMenuItemPos = 3) {
-            activajjkkkkteMinimize("ahk_exe Discord.exe")
+            activateMinimize("ahk_exe Discord.exe")
         } else if (A_ThisMenuItemPos = 4) {
             Run, Chrome.exe
         }
@@ -528,18 +534,17 @@ z - undo
           }
         return
 
-  ;Activate/minimize VSCode
-    v::
-      KeyWait, v
-      KeyWait, v, D T0.1 
-
-      If ErrorLevel 
-        ; ControlSend, , {left}, ahk_exe vlc.exe 
+  doubleTap(key) {
+    KeyWait, %key%
+    KeyWait, %key%, D T0.1
+    If ErrorLevel
         activateMinimize("Ubuntu ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe")
       else
-        ; ControlSend, , ^{left}, ahk_exe vlc.exe 		
         activateMinimize("hello.ahk ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe")
-      return
+    return
+  }
+  ;Activate/minimize VSCode
+    v::doubleTap("v")
 
   ;Activate/minimize Todoist
     t::activateMinimize("Todoist")
@@ -554,7 +559,7 @@ z - undo
         Keywait j
         mouseclick, left
         Return
-    
+
     +b:: ; click with highlighting??
         mouseclick, left
         return
@@ -569,35 +574,35 @@ z - undo
     p::
       ifwinexist ahk_exe sm18.exe
       {
-      WinActivate ahk_exe sm18.exe ahk_class TElWind
-      send, ^+m
-      Text := "Article Picture"
-      Send, %Text%
-      send, {Enter}
+        WinActivate ahk_exe sm18.exe ahk_class TElWind
+        send, ^+m
+        Text := "Article Picture"
+        Send, %Text%
+        send, {Enter}
       }
       return
 
     q::
       ifwinexist ahk_exe sm18.exe
       {
-      WinActivate ahk_exe sm18.exe ahk_class TElWind 
-      send, ^+m
-      Textp := "Article"
-      Send, %Textp%
-      send, {Enter}
+        WinActivate ahk_exe sm18.exe ahk_class TElWind
+        send, ^+m
+        Textp := "Article"
+        Send, %Textp%
+        send, {Enter}
       }
       return
 
 ;Capslock Down Hotkeys *combo
     #If (getKeyState("Capslock", "P"))
  ; Capslock + 1/2: GUI hotkeys
-    setPriority(min, max) {               
+    setPriority(min, max) {
       send, !p
       sleep 500
       Random, OutputVar, %min%, %max%
-      Clipboard := 
+      Clipboard :=
       Clipboard := OutputVar
-      Clipwait 2 
+      Clipwait 2
       SendInput, {Ctrl down}v{Ctrl up}
       Sleep 200
       Send, {Enter}
@@ -612,11 +617,11 @@ z - undo
       Random, OutputVar, %min%, %max%
       Clipboard := ""
       Clipboard := OutputVar
-      Clipwait 2 
+      Clipwait 2
       SendInput, {Ctrl down}v{Ctrl up}
       Sleep 200
       Send, {Enter}
-    
+
       SetCapsLockState, Alwaysoff
       }
       return
@@ -624,7 +629,7 @@ z - undo
     closeDiscord() {
       run, cmd.exe /c "taskkill /IM "Discord.exe" /F"
       sleep 1000
-      
+
       send {CtrlDown}{CtrlUp}{sleep 50}{CtrlDown}{CtrlUp}{sleep 50}
       ; send discord
       SetCapsLockState, Alwaysoff
@@ -640,7 +645,7 @@ z - undo
     runRubyFile() {
       ; WinWaitActive {"ahk_class ConsoleWindowClass ahk_exe ubuntu.exe"}
       ; Sleep 1000
-      Send {CtrlDown}kd{CtrlUp}   
+      Send {CtrlDown}kd{CtrlUp}
       sleep 400
       ControlSend, , ruby %clipboard%, Ubuntu
       ; WinActivate ahk_exe code.exe
@@ -649,7 +654,7 @@ z - undo
       return
 
     gscroll() {
-      ; Inputbox, VarJ, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header 
+      ; Inputbox, VarJ, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header
 
       VarJ = 1
       SetCapsLockState, Alwaysoff
@@ -657,7 +662,7 @@ z - undo
       RETURN
 
     gupdown() {
-      Inputbox, VarK, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header 
+      Inputbox, VarK, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header
       SetCapsLockState, Alwaysoff
       }
       return
@@ -676,8 +681,8 @@ z - undo
 ;test
     ;Open GUI (Capslock + 1)
       1::
-        Inputbox, varA, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header 
-        
+        Inputbox, varA, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header
+
         switch varA
         {
           case "q": setPriority(0.01,0.36)
@@ -722,12 +727,12 @@ z - undo
         }
         return
 ;dfj
-    ; Open GUI 
+    ; Open GUI
       2::
         Inputbox, varB, Enter string, , , 640, 480 ; varB = variable, Enter string = GUI header
-      
+
         switch varB
-        { 
+        {
           case "q": setPriorityExtract(0.01,0.36)
           case "w": setPriorityExtract(0.36,0.72)
           case "e": setPriorityExtract(0.72,1.08)
@@ -766,7 +771,7 @@ z - undo
       q::
         Send, {Esc}
         SetCapsLockState, alwaysoff
-        return 
+        return
     ;Insert date and time for Anki cards
       t::
         Send {Enter 2}{Up 2}
@@ -777,7 +782,7 @@ z - undo
         Send {Enter}
         SetCapsLockState, alwaysoff
         return
-  
+
     ;Volume Up, Volume Down
       4::
         Send {Volume_Up 3}
@@ -824,12 +829,12 @@ z - undo
         ; PostMessage, 0x0111, 65303,,, Priorities.ahk - AutoHotkey  ; Reload.
         ; PostMessage, 0x0111, 65303,,, Socratic_Questions.ahk - AutoHotkey  ; Reload.
         ; PostMessage, 0x0111, 65303,,, NiftyWindows.ahk - AutoHotkey  ; Reload.
-        
+
         PostMessage, 0x0111, 65305,,, OCRv2.ahk - AutoHotkey  ; Suspend.
         PostMessage, 0x0111, 65305,,, Priorities.ahk - AutoHotkey  ; Suspend.
         PostMessage, 0x0111, 65305,,, Socratic_Questions.ahk - AutoHotkey  ; Suspend.
         PostMessage, 0x0111, 65305,,, NiftyWindows.ahk - AutoHotkey  ; Suspend.
-        ; WinClose ScriptFileName.ahk - AutoHotkey			
+        ; WinClose ScriptFileName.ahk - AutoHotkey
         SetCapsLockState, alwaysoff
       return
 
@@ -838,7 +843,7 @@ z - undo
         Send {Ctrl Down}{End}{Ctrl Up}
         SetCapsLockState, alwaysoff
         Return
-      
+
       ^a::
         Send {Ctrl Down}{Home}{Ctrl Up}
         SetCapsLockState, alwaysoff
@@ -854,7 +859,7 @@ z - undo
         Send {Shift Down}{End}{Shift Up}
         SetCapsLockState, alwaysoff
         Return
-  
+
     ;Highlight the entire page to the right/left of the cursor
       ^+a::
         Send {Ctrl Down} {Shift Down}{Home}{Shift Up}{Ctrl Up}
@@ -893,14 +898,14 @@ z - undo
 
         SetCapsLockState, alwaysoff
         Return
-      
+
     ; Toggle
       r::
         r := !r
         SetCapsLockState, alwaysoff
-        if r 
+        if r
         {
-          tooltip, 
+          tooltip,
     (
 d - backspace
 s - enter
@@ -917,15 +922,15 @@ z - undo
         {
           tooltip % "Toggle: OFF"
           sleep 1000
-          tooltip 
+          tooltip
         }
         return
     ;Steven
       k::
         Run chrome.exe https://www.youtube.com/watch?v=GDTD24KsdGc "--new-window -incognito"
         return
-  
-    ;Instant google search    
+
+    ;Instant google search
       e::
         If (KeyPressCount > 0) {
           KeyPressCount += 1
@@ -939,19 +944,19 @@ z - undo
 
         KeyPressMonitor:
           If (KeyPressCount = 1) {
-            IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe brave.exe 
+            IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe brave.exe
             {clipboard := ""  ; Start off empty to allow ClipWait to detect when the text has arrived.
             Send ^c
-            ClipWait  
-            
+            ClipWait
+
             Run, https://www.google.com/search?q=%ClipBoard%
             SetCapsLockState, alwaysoff
-            
+
             }
             else
             {clipboard := ""  ; Start off empty to allow ClipWait to detect when the text has arrived.
             Send ^c
-            ClipWait  
+            ClipWait
 
             WinActivate Main1
 
@@ -960,18 +965,18 @@ z - undo
                   }
           } else if (KeyPressCount = 2) {
             IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe brave.exe
-            
+
             {clipboard := ""  ; Start off empty to allow ClipWait to detect when the text has arrived.
             Send ^c
             ClipWait  ; Wait for the clipboard to contain text.
-            
-            
+
+
             Sleep 500
             Send ^t
             Send, ^v
             Send {Enter}
                 SetCapsLockState, alwaysoff
-                
+
             }
 
 
@@ -980,7 +985,7 @@ z - undo
             Send ^c
             ClipWait  ; Wait for the clipboard to contain text.
             WinActivate WindowH
-            
+
             Sleep 500
             Send ^t
             Send, ^v
@@ -990,22 +995,22 @@ z - undo
           } else if (KeyPressCount = 3) {
             SetCapsLockState, alwaysoff
             Inputbox, searchTerm, Enter search,,,640, 480
-            
+
             IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe brave.exe
             {
                       Run, https://www.google.com/search?q=%searchTerm%
-                      Run, https://www.amazon.com/s?k=%searchTerm%	
+                      Run, https://www.amazon.com/s?k=%searchTerm%
                       Run, https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=%searchTerm%&_sacat=0
                       Run, https://camelcamelcamel.com/search?sq=%searchTerm%
-                      Msgbox "Remember to use Cammel!!"		
-                      WinWaitClose search	
+                      Msgbox "Remember to use Cammel!!"
+                      WinWaitClose search
             }
 
             else
             {
             WinActivate WindowH
               Run, https://www.google.com/search?q=%searchTerm%&sxsrf=ALiCzsYSwIViK8cYWBkyjNn-sOLklBOmfQ:1657397795211&source=lnms&tbm=shop&sa=X&ved=2ahUKEwjl0tb2z-z4AhWupIkEHRJMAcEQ_AUoAXoECAEQAw&biw=1975&bih=1156&dpr=1.1
-              Run, https://www.amazon.com/s?k=%searchTerm%	
+              Run, https://www.amazon.com/s?k=%searchTerm%
               Run, https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=%searchTerm%&_sacat=0
               Run, https://camelcamelcamel.com/search?sq=%searchTerm%
 
@@ -1013,15 +1018,15 @@ z - undo
                 WinWaitClose search
             }
           }
-          
-          KeyPressCount := 0 
+
+          KeyPressCount := 0
           SetTimer, KeyPressMonitor, Off
           Tooltip,
           return
 
     ;Go to line in VSCode
       x:: send ^g
-    
+
     ;cut highlighted text and wrap it with console.log
       b::
         WinGetTitle, WinTitle, A
@@ -1034,7 +1039,7 @@ z - undo
         {
           WinMove, %WinTitle%, , , -110, Width, Height + 110
         }
-        
+
         SetCapsLockState, alwaysoff
         ; OldClip := Clipboard
         ; Clipboard := ""
@@ -1042,7 +1047,7 @@ z - undo
         ; Clipwaitff
         ; Clipboard := "console.log('%c" Clipboard "', 'font-size:50px;color:red;text-shadow: 2px 3px white')"
         return
-    
+
     ;Go to next focusmate session
       g::
         WinActivate FocusMate Window
@@ -1057,7 +1062,7 @@ z - undo
 
 #If
 
-;General make life easier stuff 
+;General make life easier stuff
   ;Browser Hotkeyss
     ;Manipulating Windows(2)
       ;Close/minimize(!+w,s,d)
@@ -1078,16 +1083,16 @@ z - undo
         ; 	clipboard = "" ; empty clipboard
         ; 	sleep 400 ; pause
         ; 	send +#s  ; screenclip
-  
+
         ; 	sleep 3000
         ; 	VarJ := clipboardall
         ; 	msgbox % VarJ
         ; return
-        
+
         ; !+k::
         ; 	clipboard = ""
         ; 	clipboard := VarJ
-        ; 	clipwait 
+        ; 	clipwait
 
         ; 	sleep 1000
         ; 	send ^v
@@ -1096,7 +1101,7 @@ z - undo
         ; !+l::
         ; 	buttonThree := clipboard
         ; return
-          
+
       ;Tag and recall windows(!+q !+e)
         !+q::
           CUSTOMLOGGER(A_THISHOTKEY)
@@ -1106,7 +1111,7 @@ z - undo
         !+e::
           CUSTOMLOGGER(A_THISHOTKEY)
           WinActivate, ahk_id %WinTag%
-          Return	
+          Return
 
   ;Pasting slides to Docs From Specific Screen Region, use w/ ShareX(+#^q)
     +#^q::
@@ -1117,21 +1122,21 @@ z - undo
       Sleep, 2000
       Send, {Enter}
       Return
-  
+
   ;Autocorrects/text expansions
     :*?:.test::
        send %clipboard%
       return
-  
+
     :*?:kmail::kuanchiliao@gmail.com
     :*:cmail::clickthisbabyonemoretime@gmail.com
     :*?:ucmail::kuanchiliao@ucsb.edu
     ::resumee::résumé
-    ::Resumee::Résumé	
+    ::Resumee::Résumé
     :*?:meetk::calendly.com/sj1
     :*?:meetz::https://meet.jit.si/
     :*?:+-::± ; plus or minus sign
-    :*:Tnow::- set alarm for 
+    :*:Tnow::- set alarm for
 
 :*:template,.::
   ClipSaved := ClipboardAll ; save the entire clipboard to the variable ClipSaved
@@ -1140,7 +1145,7 @@ z - undo
   (
   =begin
   ***Problem***
-    - Description: 
+    - Description:
     - Input:
       -
     - Output:
@@ -1148,14 +1153,14 @@ z - undo
     - Questions
 
   ***Data Structure***
-    - 
+    -
 
   ***Algorithm***
-    - 
+    -
 
   =end
   )
-  ClipWait, 2              ; wait max. 2 seconds for the clipboard to contain data. 
+  ClipWait, 2              ; wait max. 2 seconds for the clipboard to contain data.
   if (!ErrorLevel)         ; If NOT ErrorLevel, ClipWait found data on the clipboard
       Send, ^v             ; paste the text
   Sleep, 300
@@ -1167,8 +1172,8 @@ z - undo
 :*:stage,.::
   SendInput {CtrlDown}{ShiftDown}g{CtrlUp}{ShiftUp}g
   SendInput +{F10}{Sleep 300}{Down 6}
-  return 
-        
+  return
+
     ;For sending dates and time
       :c*:Anow::
         SendInput, %A_MM%-%A_DD%-%A_YYYY%
@@ -1197,7 +1202,7 @@ z - undo
       :*?:!!!::¡
       :*?:???::¿
       :*?:nnnn::ñ
-  
+
     ;Arrows
       :*:>>.::→
       :*:<<.::←
@@ -1210,15 +1215,15 @@ z - undo
 
     ; SendRaw, {{c1::decreases}}(increases/decreases)
     ; SendRaw, {{c1::increase}}(increase/decrease)
-    
+
   ;Using Right mouse button and scroll wheel
     RButton & WheelDown:: Send ^{PgUp}
-    RButton & WheelUp:: Send ^{PgDn}	
+    RButton & WheelUp:: Send ^{PgDn}
     RButton Up:: Click Right
 
   variable := "World"
   MsgBox Hello %variable%
-  MsgBox % "Hello " variable ; The one Angel prefers 
+  MsgBox % "Hello " variable ; The one Angel prefers
 
   ;Instasearch YT
     ^#y::
@@ -1238,13 +1243,13 @@ z - undo
     sleep, 100 ;Always have a sleep after pasting and before restoring clipboard
     Clipboard:=Clipboard_Backup
     Return
-  
-;All Anki shortcuts(2 - put in If statements here)	
-  ;Snip and do image occlusal(Ctrl Win S)	
+
+;All Anki shortcuts(2 - put in If statements here)
+  ;Snip and do image occlusal(Ctrl Win S)
     ; ^#s::
     ;   CUSTOMLOGGER(A_THISHOTKEY)
     ;   Clipboard := "" ; Empty the clipboard
-      
+
     ;   Send, #+s
     ;   ClipWait, 5 ; "2" seconds
 
@@ -1252,7 +1257,7 @@ z - undo
     ;   ;Send, a
     ;   Sleep, 500
     ;   Send, {Shift down}{Control down}{o}{Shift up}{Control up}
-    ;   WinActivate, ahk_class 
+    ;   WinActivate, ahk_class
     ;   Send, f
     ;   Sleep, 2000
     ;   Send, {LButton}
@@ -1263,7 +1268,7 @@ z - undo
   #IfWinActive ahk_class Qt5QWindowIcon
   ;Cloze hotkey
     RWin::^j
-    
+
 ;Delete windows in taskbar fast
   ; #If (MouseIsOverClass()="Shell_TrayWnd")
   ; ; d::
@@ -1281,7 +1286,7 @@ z - undo
   ; ; Set a timer for 3 minutes
   ; SetTimer, Timer1, 180000
   ; return
-  
+
 #IfWinActive ahk_exe sm18.exe ; if one of these windows are active, execute. This is more robust
   ~^m::
       mouseclick, left
@@ -1306,7 +1311,7 @@ z - undo
           WinWaitActive, Choices ahk_class TChoicesDlg ; What do you want to change?
           sleep, 50
           send, {Enter} ; confirm dialog What do you want to change?
-          
+
         } else {
           MsgBox Element deletion has been prevented
           sleep, 10
@@ -1332,14 +1337,14 @@ z - undo
         Send, !{Left}
         return
 
-  ;Quick Delete(Del) 
+  ;Quick Delete(Del)
     Delete::
       CUSTOMLOGGER(A_THISHOTKEY)
       Send, {Delete}
       Send, {Enter}
       return
 
-  ;Quick Dismiss(Cntrl D) 
+  ;Quick Dismiss(Cntrl D)
     ~^d::
       CUSTOMLOGGER(A_THISHOTKEY)
       Send, ^{d}
@@ -1384,7 +1389,7 @@ z - undo
     send Coding - Launch School RB189
     send {Enter}
     sleep 300
-    send {Enter} 
+    send {Enter}
   return
 
   +!v::
@@ -1397,7 +1402,7 @@ z - undo
     send Coding - Launch School RB185
     send {Enter}
     sleep 300
-    send {Enter} 
+    send {Enter}
   return
 
   +!c::
@@ -1410,16 +1415,16 @@ z - undo
     send Coding - Launch School RB175
     send {Enter}
     sleep 300
-    send {Enter} 
+    send {Enter}
   return
 
-; Projects: 
+; Projects:
 
 ; Key Guide
 ; Shift + Alt + Arrow: copy line up or down
-; Move lines: alt + arrow 
+; Move lines: alt + arrow
 ; Hold alt: highlight multiple things
-; Make comment: Cntrl > K > C             
+; Make comment: Cntrl > K > C
 ; Uncomment: Cntrl > K > U
 ; Alt: Set multiple cursors
 ;     Note: can use to duplicate multiple lines at same time
@@ -1448,17 +1453,17 @@ z - undo
   ; Navigate to the "To:" field or image references as last resort
 
 ; Tasklist:
-; -ip Start with lines 1-500 only... General refactoring and organization - figure out consistent convention for describing the code as well as.... 
+; -ip Start with lines 1-500 only... General refactoring and organization - figure out consistent convention for describing the code as well as....
 ; Write down a working BM convention system here: -ip --inprogress, -f --fix, -d --done, -p1 - p2 -p3,  --nav, --find(problem), -x --currently testing
   ; This is in Notion
 ; Put all code I'm not using into an archive script
 ; -p1 Get this code on to github while properly using git ignore
 ; --done -p1 Make a hotkey to click in the vertical center of the text editor so I can focus after scroll with F14 + j/k
-; GUI menu for deck, and submenu for tag ALSO GUI menu for 
+; GUI menu for deck, and submenu for tag ALSO GUI menu for
   ; Hotkey: Capslock H
   ; Making the GUI activation hotkeys: Capslock 1, 4
   ; First menu of decks I frequent: All, All Generative, Coding
-  ; Sub menu of tags: LS, 
+  ; Sub menu of tags: LS,
 ; Find Vimston's way to scroll in SM
 
 
