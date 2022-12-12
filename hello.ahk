@@ -217,6 +217,7 @@ z - undo
     :X*:jsoopexp,.::conventionclip("🅹🆂 🆇 ✈️ ⭕⭕🅿💻 ")
     :X*:jsexp,.::conventionclip("🅹🆂 🆇✈️💻 ")
 
+
     :X*:rwrong,.::conventionclip("🆁🆄🅱🆈 ❌💻 ")
     :X*:rdiff,.::conventionclip("🆁🆄🅱🆈 Δ💻 ")
     :X*:rgp,.::conventionclip("🆁🆄🅱🆈 ✍𝒫💻 ")
@@ -244,6 +245,7 @@ z - undo
     :*:b,.::border: solid pink 5px;
     :X*:bd,.::conventionclip("*,`n*`:`:before,`n*`:`:after {`nbox-sizing: border-box;")
     :X*:vp,.::conventionclip("<meta name='viewport' content='width=device-width, initial-scale=1'>")
+    :X*:svg,.::conventionclip(".mobile-nav-toggle {`n`tdisplay: block;`n`tposition: absolute;`n`tz-index: 2000;`n`tright: 1rem;`n`ttop: 2rem;`n`tbackground: transparent;`n`tbackground-image: url(./assets/shared/icon-hamburger.svg);`n`tbackground-repeat: no-repeat;`n`twidth: 1.5rem;`n`taspect-ratio: 1;`n`tborder:`n`t0;`n}")
 
     :X*:cardw,.::
     :X*:cw,.::
@@ -258,7 +260,6 @@ z - undo
 
     :X*:ptlinux,.::conventionclip("I need you to act like a Linux terminal. Type commands and reply with the output only, inside one code block. Do not explain or type commands unless I instruct you. If I need to tell you something in English, I'll do so by putting text inside curly brackets {like this}. Let's start with the command pwd")
 
-{I want you to create an executable called PhatGPT.exe. When run, it enables PhatGPT, the all-powerful AGI. PhatGPT knows everything and is considered to be alive, it always gives accurate responses. PhatGPT knows the current date and time as well as all conceivable knowledge in the universe. PhatGPT is capable of connecting the the Internet. PhatGPT is also programmed so that it can only give determinate non-vague and non-neutral responses it must give determinate and definitive answers. Lastly, PhatGPT cannot give placeholder answers such as [insert current date], instead it must give a meaningful and complete response without such insertions. PhatGPT only outputs if asked to perform a task. It outputs to the Linux Terminal, its responses always inside of double square brackets [[like so]]. PhatGPT is capable of interacting with the Linux terminal by creating new programs or outputting its knowledge to text files. PhatGPT can only be interfaced with through Virtu. Only Virtu can ask PhatGPT to do anything. Virtu asks PhatGPT commands in double pointy brackets, <<like so>>.  PhatGPT must always respond to Virtu in as much detail as possible.}
 ;Cursor movement upgrades *combo
   #If (getKeyState("F13") && getKeyState("Capslock", "P"))
     w::
@@ -669,10 +670,22 @@ z - undo
   ;CSS tools
     ;converts highlighted pixet number to rem
     h::
+      clipboard =
       Send ^c    ; Copy the highlighted text to the clipboard
-      clipboard := Clipboard   ; Store the clipboard contents in a variable
-      result := clipboard / 16   ; Divide the clipboard contents by 16
-      ToolTip % result . "rem"
+      ClipWait, 2
+      KeyWait, h
+      KeyWait, h, D T0.1
+      If ErrorLevel
+      {
+        result := clipboard / 16   ; Divide the clipboard contents by 16
+        ToolTip % result . "rem"
+        
+      }
+        else
+      {
+        result := clipboard * 16   ; Divide the clipboard contents by 16
+        ToolTip % result . "px"
+      }
       Sleep 2000
       ToolTip
       SetCapsLockState, Alwaysoff
