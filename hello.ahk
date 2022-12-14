@@ -455,8 +455,8 @@ z - undo
   ; Snap windows left and right, minimize, maximize
     #d:: send, #{Right}
     #a:: Send, #{Left}
-    #w:: send {F11}
-    #s:: WinMaximize, A
+    #s:: send {F11}
+    #w:: WinMaximize, A
 
   ; Snap window to diferent monitor
       +#d:: send, #+{Right}
