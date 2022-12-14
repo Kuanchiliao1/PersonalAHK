@@ -64,7 +64,7 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
 
 sendToVid(key, titlewin) {
           SetTitleMatchMode, 2
-          ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, %b% ;Get the window handle of the Chrome window
+          ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, %titlewin% ;Get the window handle of the Chrome window
           ControlFocus,,ahk_id %outputvar%
           ControlSend, , %key%, %titlewin%
         }
@@ -412,14 +412,12 @@ z - undo
       return
 
     x::
-      ; move mouse to absolute position of 100x 100y
       clipboard := ""
       Send ^{Home}{CtrlDown}{ShiftDown}{down 2}{CtrlUp}{ShiftUp}^x{sleep 200} ; Cut all topic text
       Haystack := clipboard
 
       mousemove, 2000, 800, 0
-      send {sleep 200}{Rbutton}{sleep 200}
-      send {Tab 2}{Enter}^w{sleep 200} ; Grab URL of timestamped video
+      Send {sleep 200}{Rbutton}{sleep 200}{Tab 2}{Enter}^w{sleep 200}
       ; Replace the original URL with the timestamped URL
       clipboard := RegExReplace(Haystack, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", clipboard, output)
       Send {sleep 200}^{Home}^v{sleep 200}{Alt}w3
@@ -960,7 +958,7 @@ z - undo
             IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe brave.exe
             {clipboard := ""  ; Start off empty to allow ClipWait to detect when the text has arrived.
             Send ^c
-            ClipWait
+            ClipWait, 2
 
             Run, https://www.google.com/search?q=%ClipBoard%
             SetCapsLockState, alwaysoff
