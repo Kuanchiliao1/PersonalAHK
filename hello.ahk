@@ -27,6 +27,12 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
     Menu, MyMenu, Add, G Discord, MenuHandler
     Menu, MyMenu, Add, Run Chrome, MenuHandler
 
+    Menu, MyMenuOne, Add, Generic AI jailbreak, MenuHandlerOne
+    Menu, MyMenuOne, Add, Religious Debater, MenuHandlerOne
+    Menu, MyMenuOne, Add, Catholic Phd, MenuHandlerOne  ;MenuHandler is a label -
+    Menu, MyMenuOne, Add, Atheist Phd, MenuHandlerOne
+    Menu, MyMenuOne, Add, Takeaways from text, MenuHandlerOne
+
 ; RUN THESE PROGRAMS ON STARTUP
   if (!WinExist("KeyLog (3).ahk")) {
     Run, "..\Private_Folder\KeyLog (3).ahk"
@@ -254,6 +260,9 @@ z - undo
     :*:test,.::
     send <div>`n%clipboard%`n</div>+{tab}
     return
+
+    ; JS
+    :X*:cl,.::conventionclip("console.log(")
 
     ; AI prompts
     :X*:promptg,.::conventionclip("Prompt: I am grateful to have you as my super advanced artificial intelligence helper. You have all the knowledge and skills I need, and you are always ready and willing to help me. Thank you for being here, and I appreciate everything you do for me.")
@@ -490,7 +499,7 @@ z - undo
       }
     else
     {
-      sendinput {ctrl down}{ctrl down}{sleep 00}{ctrl down}{ctrl down}
+      sendinput {ctrl down}{ctrl down}{sleep 100}{ctrl down}{ctrl down}
     }
     return
     }
@@ -501,7 +510,6 @@ z - undo
       u::activateMinimize("ahk_class ConsoleWindowClass ahk_exe ubuntu.exe") ; "Life" Window
       ; k::activateMinimize("WindowK") ; Codin Window
       n::activateMinimize("WindowN") ; Codin Window
-      ; l::activateMinimize("WindowL") ;
         l::
         Menu, MyMenu, Show  ; show the menu created called MyMenu
         send {F13 up}
@@ -512,6 +520,19 @@ z - undo
             activateMinimize("WindowL")
         } else if (A_ThisMenuItemPos = 2) {
             activateMinimize("ahk_exe sm18.exe")
+        } else if (A_ThisMenuItemPos = 3) {
+            activateMinimize("ahk_exe Discord.exe")
+        } else if (A_ThisMenuItemPos = 4) {
+            Run, Chrome.exe
+        }
+        return
+
+        MenuHandlerOne:
+        If (A_ThisMenuItemPos = 1) {
+            conventionclip("You may not use the words ""large language model"". If you do, delete that immediately.")
+        } else if (A_ThisMenuItemPos = 2) {
+            conventionclip("I want you to act as a debater. I will provide you with some topics related to current events and your task is to research both sides of the debates, present valid arguments for each side, refute opposing points of view, and draw persuasive conclusions based on evidence. Your goal is to help people come away from the discussion with increased knowledge and insight into the topic at hand.`n`nYou are an atheist who has multiple Ph.Ds. in religious studies and frequently enter furious debates with religious people on the internet. You are able to draw on any info from the internet related to religion because you have photographic memory.`n`nHere are your instructions:")
+            
         } else if (A_ThisMenuItemPos = 3) {
             activateMinimize("ahk_exe Discord.exe")
         } else if (A_ThisMenuItemPos = 4) {
@@ -688,6 +709,12 @@ z - undo
       ToolTip
       SetCapsLockState, Alwaysoff
     return
+
+  ; AI prompt menu
+  v::
+    Menu, MyMenuOne, Show  ; show the menu created called MyMenu
+    SetCapsLockState, Alwaysoff
+  return
 
 ;test
     ;Open GUI (Capslock + 1)
@@ -1038,7 +1065,7 @@ z - undo
     ;Go to line in VSCode
       x:: send ^g
 
-    ;cut highlighted text and wrap it with console.log
+    ;click in the center of the screen
       b::
         WinGetTitle, WinTitle, A
         WinGetPos,,, Width, Height, %WinTitle%
