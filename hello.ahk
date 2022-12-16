@@ -421,6 +421,10 @@ z - undo
       return
 
     x::
+      SetBatchLines, -1  ; Set the number of lines processed in each batch to the maximum (-1)
+      SetKeyDelay, 20  ; Set the delay between keystrokes to 20ms
+      SetMouseDelay, 20  ; Set the delay between mouse clicks to 20ms
+
       clipboard := ""
       Send ^{Home}{CtrlDown}{ShiftDown}{down 2}{CtrlUp}{ShiftUp}^x{sleep 200} ; Cut all topic text
       Haystack := clipboard
