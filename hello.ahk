@@ -493,7 +493,7 @@ z - undo
       Return
 
   ;Activate/minimize function
-    activateMinimize(Title) {
+    activateMinimize(Title, Backup="") {
     IfWinExist %Title%
       {
         IfWinNotActive, %Title%
@@ -503,7 +503,7 @@ z - undo
       }
     else
     {
-      sendinput {ctrl down}{ctrl down}{sleep 100}{ctrl down}{ctrl down}
+      Run, %Backup%
     }
     return
     }
@@ -511,7 +511,7 @@ z - undo
 
       g::activateMinimize("WindowG") ; FocusMate window
       h::activateMinimize("WindowH") ; "Home" Window
-      u::activateMinimize("ahk_class ConsoleWindowClass ahk_exe ubuntu.exe") ; "Life" Window
+      u::activateMinimize("ahk_class ConsoleWindowClass ahk_exe ubuntu.exe", "C:\Program Files\WindowsApps\CanonicalGroupLimited.UbuntuonWindows_2004.2022.1.0_x64__79rhkp1fndgsc\ubuntu.exe") ; "Life" Window
       ; k::activateMinimize("WindowK") ; Codin Window
       n::activateMinimize("WindowN") ; Codin Window
         l::
@@ -574,7 +574,7 @@ z - undo
     t::activateMinimize("Todoist")
 
   ;Notion window activate/minimize
-    m::activateMinimize("ahk_class Chrome_WidgetWin_1 ahk_exe Notion.exe")
+    m::activateMinimize("ahk_class Chrome_WidgetWin_1 ahk_exe Notion.exe", "C:\Users\kuanc\Desktop\Notion.lnk")
 
   ;Clicks
     b:: ; Click center of activate window
