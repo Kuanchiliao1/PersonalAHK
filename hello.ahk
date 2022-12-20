@@ -872,7 +872,7 @@ z - undo
         ; PostMessage, 0x0111, 65303,,, Socratic_Questions.ahk - AutoHotkey  ; Reload.
         ; PostMessage, 0x0111, 65303,,, NiftyWindows.ahk - AutoHotkey  ; Reload.
 
-        PostMessage, 0x0111, 65305,,, OCRv2.ahk - AutoHotkey  ; Suspend.
+        PostMessage, 0x0111, 65303,,, OCRv2.ahk - AutoHotkey  ; Suspend.
         PostMessage, 0x0111, 65305,,, Priorities.ahk - AutoHotkey  ; Suspend.
         PostMessage, 0x0111, 65305,,, Socratic_Questions.ahk - AutoHotkey  ; Suspend.
         PostMessage, 0x0111, 65305,,, NiftyWindows.ahk - AutoHotkey  ; Suspend.
