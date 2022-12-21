@@ -42,7 +42,7 @@ f:: send {Alt Up}
 ;  a s! d!  f!  g!  h  j  k  l ;
 ; z! x c!  v  b  n  m ,  .  /
 ; Automate anki stuff ONLY if anki is active
-#If
+#If r
 d:: send {backspace}
 v::
 	IfWinActive ahk_exe code.exe
