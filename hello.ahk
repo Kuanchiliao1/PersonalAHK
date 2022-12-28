@@ -169,12 +169,6 @@ z - undo
      t := !t ; For setting toggle
      return
 
-     n::
-     length := StrLen(clipboard) + 2
-      send {+}{- %length%}{+}{enter}
-      send {|} %clipboard% {|}{enter}
-      send {+}{- %length%}{+}
-     return
   #If
 
 ;My conventions for anki and SM https://www.wikiwand.com/en/Enclosed_Alphanumeric_Supplement
@@ -252,6 +246,7 @@ z - undo
     :X*:bd,.::conventionclip("*,`n*`:`:before,`n*`:`:after {`nbox-sizing: border-box;")
     :X*:vp,.::conventionclip("<meta name='viewport' content='width=device-width, initial-scale=1'>")
     :X*:svg,.::conventionclip(".mobile-nav-toggle {`n`tdisplay: block;`n`tposition: absolute;`n`tz-index: 2000;`n`tright: 1rem;`n`ttop: 2rem;`n`tbackground: transparent;`n`tbackground-image: url(./assets/shared/icon-hamburger.svg);`n`tbackground-repeat: no-repeat;`n`twidth: 1.5rem;`n`taspect-ratio: 1;`n`tborder:`n`t0;`n}")
+
 
     :X*:cardw,.::
     :X*:cw,.::
@@ -482,6 +477,7 @@ z - undo
   ;Anki window activate/minimize
     o::activateMinimize("User 1 - Anki")
     i::
+      SetTitleMatchMode, 1
       IfWinExist Add
         activateMinimize("Add")
       else
@@ -513,7 +509,11 @@ z - undo
       h::activateMinimize("WindowH") ; "Home" Window
       u::activateMinimize("ahk_class ConsoleWindowClass ahk_exe ubuntu.exe", "C:\Program Files\WindowsApps\CanonicalGroupLimited.UbuntuonWindows_2004.2022.1.0_x64__79rhkp1fndgsc\ubuntu.exe") ; "Life" Window
       ; k::activateMinimize("WindowK") ; Codin Window
-      n::activateMinimize("WindowN") ; Codin Window
+      n::
+        activateMinimize("WindowAI")
+        ; msgbox
+      return
+
         l::
         Menu, MyMenu, Show  ; show the menu created called MyMenu
         send {F13 up}
