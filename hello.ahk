@@ -973,11 +973,6 @@ z - undo
         return
 
       l::
-        ; if (clipboard != "")
-        ;   {
-        ;     conventionclip("console.log(" . clipboard . ")")
-        ;     return
-        ;   }
         clipboard =
         Send ^c    ; Copy the highlighted text to the clipboard
         ClipWait, 2
@@ -989,7 +984,7 @@ z - undo
         }
           else
         {
-          conventionclip("console.log(" . clipboard . ")")
+          clipboard := "console.log(" . clipboard . ")"
         }
         SetCapsLockState, Alwaysoff
       return
