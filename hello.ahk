@@ -972,6 +972,28 @@ z - undo
         Run chrome.exe https://www.youtube.com/watch?v=GDTD24KsdGc "--new-window -incognito"
         return
 
+      l::
+        ; if (clipboard != "")
+        ;   {
+        ;     conventionclip("console.log(" . clipboard . ")")
+        ;     return
+        ;   }
+        clipboard =
+        Send ^c    ; Copy the highlighted text to the clipboard
+        ClipWait, 2
+        KeyWait, l
+        KeyWait, l, D T0.1
+        If ErrorLevel
+        {
+          send, console.log(){left}
+        }
+          else
+        {
+          conventionclip("console.log(" . clipboard . ")")
+        }
+        SetCapsLockState, Alwaysoff
+      return
+
     ;Instant google search
       e::
         If (KeyPressCount > 0) {
