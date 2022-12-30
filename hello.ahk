@@ -81,14 +81,14 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
   RShift::F14
   \::F13
 
-#If r && getKeyState("Capslock")
+#If (r && getKeyState("Capslock"))
   f:: send {Alt Up}
 
 ; q w e  r  t  y!  u  i  o  p [  ]  \
 ;  a s! d!  f!  g!  h  j  k  l ;
 ; z! x c!  v  b  n  m ,  .  /
 ; Automate anki stuff ONLY if anki is active
-#If r
+#If (r)
   d:: send {backspace}
   v::
     IfWinActive ahk_exe code.exe
@@ -324,7 +324,7 @@ z - undo
 ; q w e r t y u i o p [ ] \
 ; a s d f g h j k l ; '
 ; z x c v b n m , . /
-  #If (getKeyState("F14", "V") && WinActive("ahk_exe sm18.exe"))
+  #If (getKeyState("F14") && WinActive("ahk_exe sm18.exe")) ; Was getKeyState("F14", "V")
    	;Video Control
         f::sendToVid("{Space}", "Google Chrome")
         q::sendToVid("q", "Google Chrome")
@@ -345,7 +345,7 @@ z - undo
         9::sendToVid("9", "Google Chrome")
         0::sendToVid("0", "Google Chrome")
 
-  #If (getKeyState("F14", "V"))
+  #If (getKeyState("F14")) ; Was ("F14", "V")
         f::sendToVid("{space}", "WindowL")
         q::sendToVid("q", "WindowL")
         e::sendToVid("e", "WindowL")
@@ -973,22 +973,15 @@ z - undo
         return
 
       l::
-        clipboard =
-        Send ^c    ; Copy the highlighted text to the clipboard
-        ClipWait, 2
         KeyWait, l
         KeyWait, l, D T0.1
         If ErrorLevel
-        {
           send, console.log(){left}
-        }
           else
-        {
-          clipboard := "console.log(" . clipboard . ")"
-        }
+          conventionclip("console.log(" . clipboard . ")")
         SetCapsLockState, Alwaysoff
       return
-
+      
     ;Instant google search
       e::
         If (KeyPressCount > 0) {
