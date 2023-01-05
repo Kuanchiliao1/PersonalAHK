@@ -106,28 +106,20 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
   e::^j
     return
 
-  ;Anki
   t::
-    ifwinactive Add
-    {
-      KeyWait, t
-      KeyWait, t, D T0.1
+    If (WinActive("Add")) {
+        KeyWait, t
+        KeyWait, t, D T0.1
 
-      If ErrorLevel
-        Send ^a{Left}175 - Networked Applications{Enter 2}
-      else
-        Send ^a{Left}RB185 - Database Applications{Enter 2}
-      return
-    }
-    else
-    {
-    }
+        If ErrorLevel
+          Send ^a{Left}175 - Networked Applications{Enter 2}
+        else
+          Send ^a{Left}RB185 - Database Applications{Enter 2}
+        return
+      }
     return
 
-
   j::^j
-
-  ; g to submit the card
 
   Backspace:: send, you suck
   Enter:: send, you suck
@@ -154,10 +146,10 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
 ;My conventions for anki and SM https://www.wikiwand.com/en/Enclosed_Alphanumeric_Supplement
     ;Function for conventions
-    conventionclip(abc) {
+    conventionclip(convention) {
       oldclip := clipboardall ; save clipboard to oldclip variable
       clipboard := "" ; clear clipboard
-      clipboard := abc ; set clipboard to the argument
+      clipboard := convention ; set clipboard to the argument
       clipwait, 2, 1
       sleep 100
       send ^v
@@ -198,7 +190,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     :X*:jsoopexp,.::conventionclip("🅹🆂 🆇 ✈️ ⭕⭕🅿💻 ")
     :X*:jsexp,.::conventionclip("🅹🆂 🆇✈️💻 ")
 
-
     :X*:rwrong,.::conventionclip("🆁🆄🅱🆈 ❌💻 ")
     :X*:rdiff,.::conventionclip("🆁🆄🅱🆈 Δ💻 ")
     :X*:rgp,.::conventionclip("🆁🆄🅱🆈 ✍𝒫💻 ")
@@ -212,10 +203,10 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
     ; Ruby syntax helpers
     :*:d,.::do ||{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left} ; Ruby - write blocks
-    :*:m,.::{backspace}{home}def {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definitions
+    :*:m,.::{backspace}{home}def {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definition
     :*:,.::{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left}{Down} ; Ruby - write blocks
-    :*:c,.::{backspace}{home}class {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definitions
-    :*:i,.::def initialize{end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write class definitions
+    :*:c,.::{backspace}{home}class {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definition
+    :*:i,.::def initialize{end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write class definition
     :*:a,.::assert_equal(
 
     ; ERB syntax helpers
@@ -227,7 +218,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     :X*:bd,.::conventionclip("*,`n*`:`:before,`n*`:`:after {`nbox-sizing: border-box;")
     :X*:vp,.::conventionclip("<meta name='viewport' content='width=device-width, initial-scale=1'>")
     :X*:svg,.::conventionclip(".mobile-nav-toggle {`n`tdisplay: block;`n`tposition: absolute;`n`tz-index: 2000;`n`tright: 1rem;`n`ttop: 2rem;`n`tbackground: transparent;`n`tbackground-image: url(./assets/shared/icon-hamburger.svg);`n`tbackground-repeat: no-repeat;`n`twidth: 1.5rem;`n`taspect-ratio: 1;`n`tborder:`n`t0;`n}")
-
 
     :X*:cardw,.::
     :X*:cw,.::
@@ -282,7 +272,8 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     ; Guide:
     ; bury  - v ; pause - f ; pass - space ; fail - d ; suspend - s ; delete - a ; reschedule - c ; redo - z ; change deck - x
     ; Red - q ; Orange - w ; Blue - e ; Green - r ; Marked - t ; pink - g ; purple - h
-#If (getKeyState("F14") && WinActive("ahk_exe anki.exe") && !WinActive("Add")) ; Active IF I hold down RShift AND anki.exe is active  AND "Add" window is not active | *combo
+#If (getKeyState("F14") && WinActive("ahk_exe anki.exe") && !WinActive("Add")) 
+; Active RShift down AND anki.exe is active  AND "Add" window is not active | *combo
   ; Anki general navigation keys
     v::send -
     f::send p
@@ -326,7 +317,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
         9::sendToVid("9", "Google Chrome")
         0::sendToVid("0", "Google Chrome")
 
-  #If (getKeyState("F14")) ; Was ("F14", "V")
+  #If (getKeyState("F14"))
         f::sendToVid("{space}", "WindowL")
         q::sendToVid("q", "WindowL")
         e::sendToVid("e", "WindowL")
@@ -365,8 +356,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       sleep 100
       RegExMatch(clipboard, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", YT_URL) ; Haystack, Needle, Stored in variable YT_URL
 
-      If (YT_URL = "")
-      {
+      If (YT_URL = "") {
         RegExMatch(clipboard, "\[(.{11})\]\.mp4", YT_URL) ; Haystack, Needle, Stored in variable YT_URL
         YT_URL := "https://www.youtube.com/watch?v="YT_URL
 
@@ -380,7 +370,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
         Send ^{End}
         Send {Enter}
         Send ^v
-      }
+        }
 
       Run, chrome.exe %YT_URL% " --new-window -incognito -alwaysontop" ; New window, incognito
       sleep, 1000
@@ -396,6 +386,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       Send {Down}
       return
 
+    ; Store timestamped URL in clipboard, close the original tab, and paste URL into SM
     x::
       SetBatchLines, -1  ; Set the number of lines processed in each batch to the maximum (-1)
       SetKeyDelay, 20  ; Set the delay between keystrokes to 20ms
@@ -412,6 +403,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       Send {sleep 200}^{Home}^v{sleep 200}{Alt}w3
       return
 
+  ; Replaces the functionality of arrow keys bc they are unergonomic. Can now use arrow keys and arrow shortcuts with both hands comfortably on the keyboard(vs having to move your right hand to the arrow keys)
   ; Arrow features: Control, Control + Shift, Alt, Windows(left and right)
     ^!w:: send ^!{Up}
     ^!s:: send ^!{Down}
@@ -471,59 +463,53 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
   ;Activate/minimize function
     activateMinimize(Title, Backup="") {
-    IfWinExist %Title%
-      {
-        IfWinNotActive, %Title%
-          WinActivate %Title%
-        else
-          WinMinimize %Title%
+      If (WinExist(Title)) {
+          IfWinNotActive, %Title%
+            WinActivate %Title%
+          else
+            WinMinimize %Title%
+        }
+      else {
+        Run, %Backup%
       }
-    else
-    {
-      Run, %Backup%
-    }
-    return
-    }
+      return
+      }
 
+    g::activateMinimize("WindowG") ; FocusMate window
+    h::activateMinimize("WindowH") ; "Home" Window
+    u::activateMinimize("ahk_class ConsoleWindowClass ahk_exe ubuntu.exe", "C:\Program Files\WindowsApps\CanonicalGroupLimited.UbuntuonWindows_2004.2022.1.0_x64__79rhkp1fndgsc\ubuntu.exe") ; "Life" Window
+    ; k::activateMinimize("WindowK") ; Codin Window
+    n::activateMinimize("WindowAI")
 
-      g::activateMinimize("WindowG") ; FocusMate window
-      h::activateMinimize("WindowH") ; "Home" Window
-      u::activateMinimize("ahk_class ConsoleWindowClass ahk_exe ubuntu.exe", "C:\Program Files\WindowsApps\CanonicalGroupLimited.UbuntuonWindows_2004.2022.1.0_x64__79rhkp1fndgsc\ubuntu.exe") ; "Life" Window
-      ; k::activateMinimize("WindowK") ; Codin Window
-      n::
-        activateMinimize("WindowAI")
-        ; msgbox
+      l::
+      Menu, MyMenu, Show  ; show the menu created called MyMenu
+      send {F13 up}
       return
 
-        l::
-        Menu, MyMenu, Show  ; show the menu created called MyMenu
-        send {F13 up}
-        return
+      MenuHandler:
+      If (A_ThisMenuItemPos = 1) {
+          activateMinimize("WindowL")
+      } else if (A_ThisMenuItemPos = 2) {
+          activateMinimize("ahk_exe sm18.exe")
+      } else if (A_ThisMenuItemPos = 3) {
+          activateMinimize("ahk_exe Discord.exe")
+      } else if (A_ThisMenuItemPos = 4) {
+          Run, Chrome.exe
+      }
+      return
 
-        MenuHandler:
-        If (A_ThisMenuItemPos = 1) {
-            activateMinimize("WindowL")
-        } else if (A_ThisMenuItemPos = 2) {
-            activateMinimize("ahk_exe sm18.exe")
-        } else if (A_ThisMenuItemPos = 3) {
-            activateMinimize("ahk_exe Discord.exe")
-        } else if (A_ThisMenuItemPos = 4) {
-            Run, Chrome.exe
-        }
-        return
-
-        MenuHandlerOne:
-        If (A_ThisMenuItemPos = 1) {
-            conventionclip("You may not use the words ""large language model"". If you do, delete that immediately.")
-        } else if (A_ThisMenuItemPos = 2) {
-            conventionclip("I want you to act as a debater. I will provide you with some topics related to current events and your task is to research both sides of the debates, present valid arguments for each side, refute opposing points of view, and draw persuasive conclusions based on evidence. Your goal is to help people come away from the discussion with increased knowledge and insight into the topic at hand.`n`nYou are an atheist who has multiple Ph.Ds. in religious studies and frequently enter furious debates with religious people on the internet. You are able to draw on any info from the internet related to religion because you have photographic memory.`n`nHere are your instructions:")
-            
-        } else if (A_ThisMenuItemPos = 3) {
-            activateMinimize("ahk_exe Discord.exe")
-        } else if (A_ThisMenuItemPos = 4) {
-            Run, Chrome.exe
-        }
-        return
+      MenuHandlerOne:
+      If (A_ThisMenuItemPos = 1) {
+          conventionclip("You may not use the words ""large language model"". If you do, delete that immediately.")
+      } else if (A_ThisMenuItemPos = 2) {
+          conventionclip("I want you to act as a debater. I will provide you with some topics related to current events and your task is to research both sides of the debates, present valid arguments for each side, refute opposing points of view, and draw persuasive conclusions based on evidence. Your goal is to help people come away from the discussion with increased knowledge and insight into the topic at hand.`n`nYou are an atheist who has multiple Ph.Ds. in religious studies and frequently enter furious debates with religious people on the internet. You are able to draw on any info from the internet related to religion because you have photographic memory.`n`nHere are your instructions:")
+          
+      } else if (A_ThisMenuItemPos = 3) {
+          activateMinimize("ahk_exe Discord.exe")
+      } else if (A_ThisMenuItemPos = 4) {
+          Run, Chrome.exe
+      }
+      return
 
   ;Scroll function
     j::
@@ -1453,7 +1439,7 @@ RWin::^j
     send {Enter}
   return
 
-sendToVid(key, titlewin) {
+sendToVid(key, titlewin="") {
         SetTitleMatchMode, 2
         ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, %titlewin% ;Get the window handle of the Chrome window
         ControlFocus,,ahk_id %outputvar%
