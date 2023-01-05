@@ -1036,7 +1036,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
             Send, ^v
             Send {Enter}
                 SetCapsLockState, alwaysoff
-
             }
 
 
@@ -1101,25 +1100,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
         }
 
         SetCapsLockState, alwaysoff
-        ; OldClip := Clipboard
-        ; Clipboard := ""
-        ; Send ^x
-        ; Clipwaitff
-        ; Clipboard := "console.log('%c" Clipboard "', 'font-size:50px;color:red;text-shadow: 2px 3px white')"
         return
-
-    ;Go to next focusmate session
-      g::
-        WinActivate FocusMate Window
-        WinWaitActive FocusMate Window
-        Send ^w
-        Run, https://www.focusmate.com/
-        MsgBox, 4096,, Continue after page loads!
-        Send f
-        Sleep 500
-        Send jc
-        return
-
 #If
 
 ;General make life easier stuff
