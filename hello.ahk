@@ -28,6 +28,7 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
     Menu, MyMenu, Add, G Discord, MenuHandler
     Menu, MyMenu, Add, Run Chrome, MenuHandler
 
+    ; AI prompt menu
     Menu, MyMenuOne, Add, Generic AI jailbreak, MenuHandlerOne
     Menu, MyMenuOne, Add, Religious Debater, MenuHandlerOne
     Menu, MyMenuOne, Add, Catholic Phd, MenuHandlerOne  ;MenuHandler is a label -
@@ -69,13 +70,6 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
     Run, "..\Private_Folder\timer.ahk"
   }
 
-sendToVid(key, titlewin) {
-          SetTitleMatchMode, 2
-          ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, %titlewin% ;Get the window handle of the Chrome window
-          ControlFocus,,ahk_id %outputvar%
-          ControlSend, , %key%, %titlewin%
-        }
-
 return ; End of the Autoexecutable section. Below this would be the functions, hotkeys and everything else.
 
 ; Rebinds
@@ -110,20 +104,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
   x::^x
   s:: send {Enter}
   e::^j
-  5::
-    tooltip,
-    (
-d - backspace
-s - enter
-g - control + enter
-v - comment
-t - for anki cards
-e - cloze
-
-x - cut
-y - redo
-z - undo
-    )
     return
 
   ;Anki
@@ -1008,7 +988,7 @@ z - undo
           tooltip
         }
         return
-        
+
     ;Steven
       k::
         Run chrome.exe https://www.youtube.com/watch?v=GDTD24KsdGc "--new-window -incognito"
@@ -1338,48 +1318,9 @@ z - undo
     Clipboard:=Clipboard_Backup
     Return
 
-;All Anki shortcuts(2 - put in If statements here)
-  ;Snip and do image occlusal(Ctrl Win S)
-    ; ^#s::
-    ;   CUSTOMLOGGER(A_THISHOTKEY)
-    ;   Clipboard := "" ; Empty the clipboard
-
-    ;   Send, #+s
-    ;   ClipWait, 5 ; "2" seconds
-
-    ;   WinActivate, ahk_class Qt5QWindowIcon
-    ;   ;Send, a
-    ;   Sleep, 500
-    ;   Send, {Shift down}{Control down}{o}{Shift up}{Control up}
-    ;   WinActivate, ahk_class
-    ;   Send, f
-    ;   Sleep, 2000
-    ;   Send, {LButton}
-    ;   Sleep, 500
-    ;   Send, {f}r
-    ;   return
-
-  #IfWinActive ahk_class Qt5QWindowIcon
-  ;Cloze hotkey
-    RWin::^j
-
-;Delete windows in taskbar fast
-  ; #If (MouseIsOverClass()="Shell_TrayWnd")
-  ; ; d::
-  ;   Click Right
-  ;   Sleep 200
-  ;   Send {Up}{Enter}
-  ;   return
-
-  ;   MouseIsOverClass() {
-  ;   MouseGetPos,,,WinID
-  ;   WinGetClass, WinClass, ahk_id %WinID%
-  ;   return WinClass
-  ;   }
-
-  ; ; Set a timer for 3 minutes
-  ; SetTimer, Timer1, 180000
-  ; return
+#IfWinActive ahk_class Qt5QWindowIcon ; This is the add window in Anki
+;Cloze hotkey
+RWin::^j
 
 #IfWinActive ahk_exe sm18.exe ; if one of these windows are active, execute. This is more robust
   ~^m::
@@ -1473,7 +1414,7 @@ z - undo
 ; return
 
 ; For calendar
-+!b::
+  +!b::
     mouseclick, left
     sleep 200
     mouseclick, left
@@ -1511,6 +1452,13 @@ z - undo
     sleep 300
     send {Enter}
   return
+
+sendToVid(key, titlewin) {
+        SetTitleMatchMode, 2
+        ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, %titlewin% ;Get the window handle of the Chrome window
+        ControlFocus,,ahk_id %outputvar%
+        ControlSend, , %key%, %titlewin%
+      }
 
 ; Projects:
 
