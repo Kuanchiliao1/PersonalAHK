@@ -815,13 +815,21 @@ z - undo
         Send, {Esc}
         SetCapsLockState, alwaysoff
         return
-
     ;Insert date and time for Anki cards, AI
-      API_KEY := "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"
-      url:="https://api.openai.com/v1/completions" ; url pointing to the API endpoint
       t::
+        url:="https://api.openai.com/v1/completions" ; url pointing to the API endpoint
+        ; Ask for API key if one does not exist and store in ini file
+        If !(FileExist("API_Key.ini"))
+        {
+          ; No real validations put in place yet
+          Inputbox, API_key,, Enter your key
+          Msgbox IMPORTANT! This does NOT have validations in place. If you need to change your key, you MUST edit APIKey.ini
+          IniWrite, %API_key%, API_key.ini, Section, Key
+        }
         KeyWait, t
         KeyWait, t, D T0.1
+
+        SetCapsLockState, alwaysoff
         If ErrorLevel
         {
           Send {Enter 2}{Up 2}
@@ -833,19 +841,25 @@ z - undo
         }
         else
         {
+          IniRead, API_key, API_key.ini, Section, Key
           clipboardOld := Clipboard
           Clipboard = ""
           Send ^c
           Clipwait
           sleep 200
-          prompt := "Write a biblical version of the following text: " . Clipboard
+          prompt :=
+          ; Checking if clipboard is wrapped with brackets
+          if (SubStr(clipboard, 1, 1) && SubStr(clipboard, 0)) {
+            prompt := clipboard
+          } else {
+            prompt := "Extract the key points from the following text. Define in basic terms any terminology an average reader might not know and put that in a seperate section. Input start: " . Clipboard
+          }
           try{ ; only way to properly protect from an error here
               data:={"model":"text-davinci-003","prompt":prompt,"max_tokens": 400,"temperature": 1234} ; key-val data to be posted
               whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-              msgbox % whr
               whr.Open("POST", url, true)
               whr.SetRequestHeader("Content-Type", "Application/json")
-              whr.SetRequestHeader("Authorization", "Bearer " . API_KEY)
+              whr.SetRequestHeader("Authorization", "Bearer " . API_key)
               whr.Send(StrReplace(JSON.Dump(data), 1234, 0.7))
               ; msgbox % StrReplace(JSON.Dump(data), 1234, 0.7)
               whr.WaitForResponse()
@@ -853,17 +867,16 @@ z - undo
               ; you can get the response data either in raw or text format
               ; raw: hObject.responseBody
               responseText := whr.ResponseText
-              msgbox % responseText
               responseData := JSON.load(responseText)
               
               response := responseData["choices"][1]["text"]
               sleep 200
               Clipboard := RegexReplace(response, "\n")
-              ; Clipboard := response
-              msgbox % clipboard
-              Tooltip % Clipboard
-              sleep 5000
-              tooltip
+              Clipboard := response
+              Msgbox % clipboard
+              ; Tooltip % Clipboard
+              ; sleep 5000
+              ; tooltip
               ; text: hObject.responseText	
           }catch e {
               MsgBox, % e.message
