@@ -2,8 +2,6 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 
-
-
 sendToVid(a, b) {
 					SetTitleMatchMode, 2
 					ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, %b% ;Get the window handle of the Chrome window

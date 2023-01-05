@@ -6,6 +6,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #InstallKeybdHook
 #InstallMouseHook
 #Include ..\Private_Folder\KeyLogLib.ahk
+#Include JSON.ahk
 #KeyHistory 200
 
 Global VarJ := 2 ; Used for scroll settings
@@ -814,14 +815,60 @@ z - undo
         Send, {Esc}
         SetCapsLockState, alwaysoff
         return
-    ;Insert date and time for Anki cards
+
+    ;Insert date and time for Anki cards, AI
+      API_KEY := "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"
+      url:="https://api.openai.com/v1/completions" ; url pointing to the API endpoint
       t::
-        Send {Enter 2}{Up 2}
-        FormatTime, TimeString, R
-        clipboard := TimeString
-        Send ^v
-        Sleep, 200
-        Send {Enter}
+        KeyWait, t
+        KeyWait, t, D T0.1
+        If ErrorLevel
+        {
+          Send {Enter 2}{Up 2}
+          FormatTime, TimeString, R
+          clipboard := TimeString
+          Send ^v
+          Sleep, 200
+          Send {Enter}
+        }
+        else
+        {
+          clipboardOld := Clipboard
+          Clipboard = ""
+          Send ^c
+          Clipwait
+          sleep 200
+          prompt := "Write a biblical version of the following text: " . Clipboard
+          try{ ; only way to properly protect from an error here
+              data:={"model":"text-davinci-003","prompt":prompt,"max_tokens": 400,"temperature": 1234} ; key-val data to be posted
+              whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+              msgbox % whr
+              whr.Open("POST", url, true)
+              whr.SetRequestHeader("Content-Type", "Application/json")
+              whr.SetRequestHeader("Authorization", "Bearer " . API_KEY)
+              whr.Send(StrReplace(JSON.Dump(data), 1234, 0.7))
+              ; msgbox % StrReplace(JSON.Dump(data), 1234, 0.7)
+              whr.WaitForResponse()
+
+              ; you can get the response data either in raw or text format
+              ; raw: hObject.responseBody
+              responseText := whr.ResponseText
+              msgbox % responseText
+              responseData := JSON.load(responseText)
+              
+              response := responseData["choices"][1]["text"]
+              sleep 200
+              Clipboard := RegexReplace(response, "\n")
+              ; Clipboard := response
+              msgbox % clipboard
+              Tooltip % Clipboard
+              sleep 5000
+              tooltip
+              ; text: hObject.responseText	
+          }catch e {
+              MsgBox, % e.message
+          }
+        }
         SetCapsLockState, alwaysoff
         return
 
