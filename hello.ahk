@@ -815,7 +815,7 @@ z - undo
         Send, {Esc}
         SetCapsLockState, alwaysoff
         return
-    ;Insert date and time for Anki cards, AI
+    ;Insert date and time for Anki cards, AI script
       t::
         url:="https://api.openai.com/v1/completions" ; url pointing to the API endpoint
         ; Ask for API key if one does not exist and store in ini file
@@ -830,17 +830,14 @@ z - undo
         KeyWait, t, D T0.1
 
         SetCapsLockState, alwaysoff
-        If ErrorLevel
-        {
+        If (ErrorLevel) {
           Send {Enter 2}{Up 2}
           FormatTime, TimeString, R
           clipboard := TimeString
           Send ^v
           Sleep, 200
           Send {Enter}
-        }
-        else
-        {
+        } else {
           IniRead, API_key, API_key.ini, Section, Key
           clipboardOld := Clipboard
           Clipboard = ""
@@ -854,14 +851,15 @@ z - undo
           } else {
             prompt := "Extract the key points from the following text. Define in basic terms any terminology an average reader might not know and put that in a seperate section. Input start: " . Clipboard
           }
+
           try{ ; only way to properly protect from an error here
               data:={"model":"text-davinci-003","prompt":prompt,"max_tokens": 400,"temperature": 1234} ; key-val data to be posted
               whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
               whr.Open("POST", url, true)
               whr.SetRequestHeader("Content-Type", "Application/json")
               whr.SetRequestHeader("Authorization", "Bearer " . API_key)
+              tooltip % "Generating response..."
               whr.Send(StrReplace(JSON.Dump(data), 1234, 0.7))
-              ; msgbox % StrReplace(JSON.Dump(data), 1234, 0.7)
               whr.WaitForResponse()
 
               ; you can get the response data either in raw or text format
@@ -873,11 +871,8 @@ z - undo
               sleep 200
               Clipboard := RegexReplace(response, "\n")
               Clipboard := response
+              tooltip
               Msgbox % clipboard
-              ; Tooltip % Clipboard
-              ; sleep 5000
-              ; tooltip
-              ; text: hObject.responseText	
           }catch e {
               MsgBox, % e.message
           }
@@ -1005,28 +1000,15 @@ z - undo
       r::
         r := !r
         SetCapsLockState, alwaysoff
-        if r
-        {
-          tooltip,
-    (
-d - backspace
-s - enter
-g - control + enter
-v - comment
-t - tag anki card
-
-x - cut
-y - redo
-z - undo
-    )
-        }
-        else
-        {
+        if (r) { 
+          tooltip,`nd - backspace`ns - enter`ng - control + enter`nv - comment`nt - tag anki card `nx - cut`ny - redo`nz - undo 
+          } else {
           tooltip % "Toggle: OFF"
           sleep 1000
           tooltip
         }
         return
+        
     ;Steven
       k::
         Run chrome.exe https://www.youtube.com/watch?v=GDTD24KsdGc "--new-window -incognito"
