@@ -838,7 +838,11 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
               Clipboard := RegexReplace(response, "\n")
               Clipboard := response
               tooltip
-              Msgbox % clipboard
+              Gui, Font, s25, Verdana,
+              Gui, Add, Text, cTeal, %clipboard%
+              Gui, Show, W888 H500 Center, Wrap Text
+              Gui, Color, cNavy
+              Gui, +resize
           }catch e {
               MsgBox, % e.message
           }
