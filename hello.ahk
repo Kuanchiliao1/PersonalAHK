@@ -665,14 +665,11 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       ClipWait, 2
       KeyWait, h
       KeyWait, h, D T0.1
-      If ErrorLevel
-      {
+      If (ErrorLevel) {
         result := clipboard / 16   ; Divide the clipboard contents by 16
-        ToolTip % result . "rem"
-        
-      }
-        else
-      {
+        ToolTip % result . "rem" 
+        }
+        else {
         result := clipboard * 16   ; Divide the clipboard contents by 16
         ToolTip % result . "px"
       }
@@ -812,14 +809,14 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
           sleep 200
           prompt :=
           ; Checking if clipboard is wrapped with brackets
-          if (SubStr(clipboard, 1, 1) && SubStr(clipboard, 0)) {
+          if (SubStr(clipboard, 1, 1) === "[" && SubStr(clipboard, 0) === "]") {
             prompt := clipboard
           } else {
-            prompt := "Extract the key points from the following text. Define in basic terms any terminology an average reader might not know and put that in a seperate section. Input start: " . Clipboard
+            prompt := "Extract the key points from the following text. Define any terminology an average reader might stuggle with in a seperate section. Input start: " . clipboard
           }
-
+          
           try{ ; only way to properly protect from an error here
-              data:={"model":"text-davinci-003","prompt":prompt,"max_tokens": 400,"temperature": 1234} ; key-val data to be posted
+              data:={"model":"text-davinci-003","prompt": prompt,"max_tokens": 400,"temperature": 1234} ; key-val data to be posted
               whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
               whr.Open("POST", url, true)
               whr.SetRequestHeader("Content-Type", "Application/json")
@@ -840,7 +837,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
               tooltip
               Gui, Font, s25, Verdana,
               Gui, Add, Text, cTeal, %clipboard%
-              Gui, Show, W888 H500 Center, Wrap Text
+              Gui, Show, W1200 H800 Center, Wrap Text
               Gui, Color, cNavy
               Gui, +resize
           }catch e {
@@ -1290,8 +1287,8 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     Return
 
 #IfWinActive ahk_class Qt5QWindowIcon ; This is the add window in Anki
-;Cloze hotkey
-RWin::^j
+  ;Cloze hotkey
+  RWin::^j
 
 #IfWinActive ahk_exe sm18.exe ; if one of these windows are active, execute. This is more robust
   ~^m::
@@ -1373,7 +1370,7 @@ RWin::^j
 
 
   #If
-; Testing
+; Testing with submenus
 ; Menu, MyMainMenu, Add, AllDeck, MenuHandler
 ; Menu, MySubMenu1, Add, PSY143, SubMenu1Label
 ; Menu, MySubMenu1, Add, YT, SubMenu1Label
