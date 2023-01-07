@@ -686,6 +686,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
 ;test
     ;Open GUI (Capslock + 1)
+    ; Language: autohotkey
       1::
         Inputbox, varA, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header
 
@@ -732,7 +733,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
           ; case 3: setGlobal()
         }
         return
-;dfj
     ; Open GUI
       2::
         Inputbox, varB, Enter string, , , 640, 480 ; varB = variable, Enter string = GUI header
@@ -780,6 +780,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
         return
     ;Insert date and time for Anki cards, AI script
       t::
+        SetCapsLockState, alwaysoff
         url:="https://api.openai.com/v1/completions" ; url pointing to the API endpoint
         ; Ask for API key if one does not exist and store in ini file
         If !(FileExist("API_Key.ini"))
@@ -792,7 +793,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
         KeyWait, t
         KeyWait, t, D T0.1
 
-        SetCapsLockState, alwaysoff
         If (ErrorLevel) {
           Send {Enter 2}{Up 2}
           FormatTime, TimeString, R
@@ -807,14 +807,60 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
           Send ^c
           Clipwait
           sleep 200
-          prompt :=
-          ; Checking if clipboard is wrapped with brackets
-          if (SubStr(clipboard, 1, 1) === "[" && SubStr(clipboard, 0) === "]") {
-            prompt := clipboard
-          } else {
-            prompt := "Extract the key points from the following text. Define any terminology an average reader might stuggle with in a seperate section. Input start: " . clipboard
-          }
+          InputBox, command, Enter command, Enter command to generate the following from highlighted text`n`nc(cloze)`ns(summary)`nk(key points)`nt(terminology)`n`nLeave blank if you only want highlighted text as prompt, , 640, 480
           
+          prompt := ""
+
+          switch command
+          {
+            case "c":
+              prompt := "Generate fill in the blanks that capture the main points in the following sentence. Rules: 1. Wrap the answer in brackets [like so]. 2. Make up to 10.`n Input start:`n" . clipboard
+            case "k":
+              prompt := "Extract the key points from the following text in bullet format. Input start: " . clipboard
+            case "t":
+              prompt := "Define any terminology an average reader might stuggle with in a seperate section. Input start: " . clipboard
+            case "kt":
+              prompt := "Generate cloze deletions for the following input. Generate them to cover all the main points and reword every sentence. Wrap the answer in brackets [like so].Make up to 10. Input start:" . clipboard
+            case "s":
+              prompt := "Summarize the following text. Input start: " . clipboard
+            default:
+              prompt := "Summarize the following text. Input start: " . clipboard
+          }
+
+
+          ; if (command == "c") {
+          ;   prompt := "Generate fill in the blanks that capture the main points in the following sentence. Wrap the answer in brackets [like so]. Make up to 10.`n Input start:`n" . clipboard
+          ; } else if (command == "k") {
+          ;   prompt := "Extract the key points from the following text in bullet format. Input start: " . clipboard
+          ; }  else if (command == "t") {
+          ;   prompt := "Define any terminology an average reader might stuggle with in a seperate section. Input start: " . clipboard
+          ; } else if (command == "kt") {
+          ;   prompt := "Generate cloze deletions for the following input. Generate them to cover all the main points and reword every sentence. Wrap the answer in brackets [like so].Make up to 10. Input start:" . clipboard
+          ; } else if (command == "d") {
+          ;   prompt := clipboard
+          ; } else if (command == "s") {
+          ;   prompt := "Summarize the following text. Input start: " . clipboard
+          ; }
+
+          
+
+          msgbox % prompt
+          ; prompt :=
+          ; ; Checking if clipboard is wrapped with brackets
+          ; if (SubStr(clipboard, 1, 1) == "[" && SubStr(clipboard, 0) == "]") {
+          ;   ; function to remove leading and trailing spaces
+          ;   prompt := clipboard
+          ; } else {
+          ;   prompt := "Extract the key points from the following text. Define any terminology an average reader might stuggle with in a seperate section. Input start: " . clipboard
+          ; }
+
+          removeSpaces(str)
+            {
+              str := RegExReplace(str, "^\s+", "")
+              str := RegExReplace(str, "\s+$", "")
+              return str
+            }
+
           try{ ; only way to properly protect from an error here
               data:={"model":"text-davinci-003","prompt": prompt,"max_tokens": 400,"temperature": 1234} ; key-val data to be posted
               whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
@@ -835,9 +881,10 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
               Clipboard := RegexReplace(response, "\n")
               Clipboard := response
               tooltip
+              Gui, Destroy
               Gui, Font, s25, Verdana,
-              Gui, Add, Text, cTeal, %clipboard%
-              Gui, Show, W1200 H800 Center, Wrap Text
+              Gui, Add, Text, cTeal W1100 wrap ReadOnly, Copied to clip!`n`n %clipboard%
+              Gui, Show, W1200 H1000 Center,, Wrap Text
               Gui, Color, cNavy
               Gui, +resize
           }catch e {
@@ -1185,7 +1232,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
   clipboard := ""           ; empty the clipboard (start off empty to allow ClipWait to detect when the text has arrived)
   clipboard =               ; copy this text:
   (
-  =begin
+  /*
   ***Problem***
     - Description:
     - Input:
@@ -1200,7 +1247,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
   ***Algorithm***
     -
 
-  =end
+  */
   )
   ClipWait, 2              ; wait max. 2 seconds for the clipboard to contain data.
   if (!ErrorLevel)         ; If NOT ErrorLevel, ClipWait found data on the clipboard
