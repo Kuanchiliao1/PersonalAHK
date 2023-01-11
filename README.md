@@ -1,55 +1,15 @@
-Hi! 
-This is my autohotkey script intended for personal use, so it may not work on your device.
+#hello.ahk
 
-The main goals are to automated any redundant tasks/actions. 
-Examples:
-- little things such as a hotkey for closing/minimizing windows(alternative is moving your mouse to click the x button)
-- replacing the unergonomic ESC key with Capslock + Q
-- autoexpand for my emails so I don't have to type out the whole thing
-- a timer I can set up in less than 5 actions
+Thank you for checking out my personal AutoHotkey script! This is a collection of mini scripts I've collected over the years.(I didn't figure out Github until this year) It automates a variety of repetitive tasks and actions to save time and effort on the my end
 
+## Here's a demo of some of my most useful scripts:
+- Hotkeys for minimizing/opening programs
+- Automate the expansion of frequently used emails or phrases or code
+- Include a timer GUI that can be easily set up in a matter of seconds
+- Converting rem => px and px => rem for Frontend work
+- Instantly googling the highlighted text
+- Using OpenAI's API to summarize, give terminology, or generate flashcards for highlighted text. I think this is by far the most technically complex script on here. It's still a work in progress and I might make a separate repo just for this script in the future.
 
-I hope to give potential inspiration to others who are looking for snippets they can use.
+Video demo here:
 
-
-$project
-========
-
-$project will solve your problem of where to start with documentation,
-by providing a basic explanation of how to do it easily.
-
-Look how easy it is to use:
-
-    import project
-    # Get your stuff done
-    project.do_stuff()
-
-Features
---------
-
-- Be awesome
-- Make things faster
-
-Installation
-------------
-
-Install $project by running:
-
-    install project
-
-Contribute
-----------
-
-- Issue Tracker: github.com/$project/$project/issues
-- Source Code: github.com/$project/$project
-
-Support
--------
-
-If you are having issues, please let us know.
-We have a mailing list located at: project@google-groups.com
-
-License
--------
-
-The project is licensed under the BSD license.
+Feel free to steal any examples that you like and use them as inspiration for your own projects. This script was intended for personal use, please note that the full script may not work on all devices.
