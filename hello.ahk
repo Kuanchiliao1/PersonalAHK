@@ -67,7 +67,7 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
     Run, "..\Private_Folder\Priorities.ahk"
   }
   if (!WinExist("timer.ahk")) {
-    Run, "..\Private_Folder\timer.ahk"
+    Run, "timer.ahk"
   }
 
 return ; End of the Autoexecutable section. Below this would be the functions, hotkeys and everything else.
@@ -823,6 +823,8 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
               prompt := "Generate cloze deletions for the following input. Generate them to cover all the main points and reword every sentence. Wrap the answer in brackets [like so].Make up to 10. Input start:" . clipboard
             case "s":
               prompt := "Summarize the following text. Input start: " . clipboard
+            case "tp":
+            prompt := "Generate thought provoking points and questions from the following passage. Input start: " . clipboard
             default:
               prompt := "Summarize the following text. Input start: " . clipboard
           }
@@ -844,7 +846,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
           
 
-          msgbox % prompt
           ; prompt :=
           ; ; Checking if clipboard is wrapped with brackets
           ; if (SubStr(clipboard, 1, 1) == "[" && SubStr(clipboard, 0) == "]") {
