@@ -680,10 +680,32 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       SetCapsLockState, Alwaysoff
     return
 
-  ; AI prompt menu
+  ; ChatGPT, AI prompt menu
   v::
-    Menu, MyMenuOne, Show  ; show the menu created called MyMenu
     SetCapsLockState, Alwaysoff
+    KeyWait, t
+    KeyWait, t, D T0.1
+
+        If (ErrorLevel) {
+          ; if ProcessExist((VarL)) {
+          ;   activateMinimize("ahk_id " . VarL)
+          ; } else {
+          ;   Run, https://chat.openai.com/chat,,, pid
+          ;   msgbox % "ahk_id " . VarL
+          ;   VarL := test
+          ;   WinWaitActive
+          ; }
+          activateMinimize("ahk_pid " . VarL)
+          WinActivate ahk_pid %VarL%
+          sleep 1000
+          WinMinimize ahk_pid %VarL%
+          sleep 1000
+          WinActivate ahk_pid %VarL%
+          Run, https://chat.openai.com/chat,,, pid
+          VarL := pid
+        } else {
+          Menu, MyMenuOne, Show  ; show the menu created called MyMenu
+        }
   return
 
 ;test
