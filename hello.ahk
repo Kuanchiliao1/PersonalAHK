@@ -215,7 +215,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
     ; CSS syntax helpers
     :*:b,.::border: solid pink 5px;
-    :X*:bd,.::conventionclip("*,`n*`:`:before,`n*`:`:after {`nbox-sizing: border-box;")
+    :X*:bd,.::conventionclip("html {box-sizing: border-box;}`n`n*, *::before, *::after {box-sizing: inherit;}")
     :X*:vp,.::conventionclip("<meta name='viewport' content='width=device-width, initial-scale=1'>")
     :X*:svg,.::conventionclip(".mobile-nav-toggle {`n`tdisplay: block;`n`tposition: absolute;`n`tz-index: 2000;`n`tright: 1rem;`n`ttop: 2rem;`n`tbackground: transparent;`n`tbackground-image: url(./assets/shared/icon-hamburger.svg);`n`tbackground-repeat: no-repeat;`n`twidth: 1.5rem;`n`taspect-ratio: 1;`n`tborder:`n`t0;`n}")
 
@@ -389,8 +389,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     ; Store timestamped URL in clipboard, close the original tab, and paste URL into SM
     x::
       SetBatchLines, -1  ; Set the number of lines processed in each batch to the maximum (-1)
-      SetKeyDelay, 20  ; Set the delay between keystrokes to 20ms
-      SetMouseDelay, 20  ; Set the delay between mouse clicks to 20ms
 
       clipboard := ""
       Send ^{Home}{CtrlDown}{ShiftDown}{down 2}{CtrlUp}{ShiftUp}^x{sleep 200} ; Cut all topic text
@@ -687,22 +685,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     KeyWait, t, D T0.1
 
         If (ErrorLevel) {
-          ; if ProcessExist((VarL)) {
-          ;   activateMinimize("ahk_id " . VarL)
-          ; } else {
-          ;   Run, https://chat.openai.com/chat,,, pid
-          ;   msgbox % "ahk_id " . VarL
-          ;   VarL := test
-          ;   WinWaitActive
-          ; }
-          activateMinimize("ahk_pid " . VarL)
-          WinActivate ahk_pid %VarL%
-          sleep 1000
-          WinMinimize ahk_pid %VarL%
-          sleep 1000
-          WinActivate ahk_pid %VarL%
-          Run, https://chat.openai.com/chat,,, pid
-          VarL := pid
+          activateMinimize("WindowAI", "brave.exe https://chat.openai.com/chat '' --new-window''")
         } else {
           Menu, MyMenuOne, Show  ; show the menu created called MyMenu
         }
