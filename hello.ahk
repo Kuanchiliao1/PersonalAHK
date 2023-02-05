@@ -1239,6 +1239,15 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     :*?:+-::± ; plus or minus sign
     :*:Tnow::- set alarm for
 
+    ;Emojis
+    :*:hap,.::😀
+    :*:pen,.::😔
+    :*:joy,.::😂
+    :*:sad,.::😢
+    :*:cry,.::😭
+    :*:cat::😻
+    :*:love,.::❤️
+
 :*:template,.::
   ClipSaved := ClipboardAll ; save the entire clipboard to the variable ClipSaved
   clipboard := ""           ; empty the clipboard (start off empty to allow ClipWait to detect when the text has arrived)
