@@ -1240,12 +1240,14 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     :*:Tnow::- set alarm for
 
     ;Emojis
-    :*:hap,.::😀
+    :*:hap,.::🙂
     :*:pen,.::😔
     :*:joy,.::😂
     :*:sad,.::😢
     :*:cry,.::😭
-    :*:cat::😻
+    :*:sob,.::😭
+    :*:ino,.::😇
+    :*:cat,.::😻
     :*:love,.::❤️
 
 :*:template,.::
