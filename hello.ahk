@@ -1049,6 +1049,16 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
           conventionclip("console.log(" . clipboard . ")")
         SetCapsLockState, Alwaysoff
       return
+
+      i::
+        KeyWait, i
+        KeyWait, i, D T0.1
+        If ErrorLevel
+          send, document.getElementById("
+          else
+          conventionclip("document.getElementById(""" . clipboard . """)")
+        SetCapsLockState, Alwaysoff
+      return
       
     ;Instant google search
       e::
