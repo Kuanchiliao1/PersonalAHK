@@ -235,6 +235,8 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
     :X*:ptlinux,.::conventionclip("I need you to act like a Linux terminal. Type commands and reply with the output only, inside one code block. Do not explain or type commands unless I instruct you. If I need to tell you something in English, I'll do so by putting text inside curly brackets {like this}. Let's start with the command pwd")
 
+    :X*:learn,.::conventionclip("You are going to help me retain the information from this entire conversation thus far. Focus on asking me high level questions about the things we talked about, including the top 3 big takeaways. Let me answer first, then analyze my answer afterwards. Your first response should NOT include answers. On your second response, suggest some follow-up questions, give me examples, and or give further explanation to help me retain and apply the information in the future. Use your discretion to decide which combination works best for accelerating my learning and making it more effective.")
+
 ;Cursor movement upgrades *combo
   #If (getKeyState("F13") && getKeyState("Capslock", "P"))
     w::
