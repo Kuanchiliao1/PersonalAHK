@@ -215,9 +215,12 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
     ; CSS syntax helpers
     :*:b,.::border: solid pink 5px;
-    :X*:bd,.::conventionclip("html {box-sizing: border-box;}`n`n*, *::before, *::after {box-sizing: inherit;}")
+    :X*:bd,.::conventionclip("html {box-sizing: border-box;}`n`n*, *: :before, *: :after {box-sizing: inherit;}")
     :X*:vp,.::conventionclip("<meta name='viewport' content='width=device-width, initial-scale=1'>")
     :X*:svg,.::conventionclip(".mobile-nav-toggle {`n`tdisplay: block;`n`tposition: absolute;`n`tz-index: 2000;`n`tright: 1rem;`n`ttop: 2rem;`n`tbackground: transparent;`n`tbackground-image: url(./assets/shared/icon-hamburger.svg);`n`tbackground-repeat: no-repeat;`n`twidth: 1.5rem;`n`taspect-ratio: 1;`n`tborder:`n`t0;`n}")
+    ; Make it look like a button is being pressed
+    :X*:cssbtnactive,.::conventionclip("box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);")
+
 
     :X*:cardw,.::
     :X*:cw,.::
