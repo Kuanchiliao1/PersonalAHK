@@ -6,7 +6,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #InstallKeybdHook
 #InstallMouseHook
 #Include ..\Private_Folder\KeyLogLib.ahk
-#Include JSON.ahk
 #KeyHistory 200
 
 Global VarJ := 2 ; Used for scroll settings
@@ -933,6 +932,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
         WinWait, Code Tester
         Sleep 100
         Send {#}SingleInstance force {Enter 2}
+        Sendraw x::ExitApp
         }
         else
         WinMinimize, Code Tester
@@ -953,15 +953,10 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
     ;Win Escape to inactivate Nifty Window
       f::
-        ; PostMessage, 0x0111, 65303,,, OCRv2.ahk - AutoHotkey  ; Reload.
-        ; PostMessage, 0x0111, 65303,,, Priorities.ahk - AutoHotkey  ; Reload.
-        ; PostMessage, 0x0111, 65303,,, Socratic_Questions.ahk - AutoHotkey  ; Reload.
-        ; PostMessage, 0x0111, 65303,,, NiftyWindows.ahk - AutoHotkey  ; Reload.
-
-        PostMessage, 0x0111, 65303,,, OCRv2.ahk - AutoHotkey  ; Suspend.
-        PostMessage, 0x0111, 65305,,, Priorities.ahk - AutoHotkey  ; Suspend.
-        PostMessage, 0x0111, 65305,,, Socratic_Questions.ahk - AutoHotkey  ; Suspend.
-        PostMessage, 0x0111, 65305,,, NiftyWindows.ahk - AutoHotkey  ; Suspend.
+        PostMessage, 0x0111, 65303,,, OCRv2.ahk - AutoHotkey  ; Reload.
+        PostMessage, 0x0111, 65305,,, Priorities.ahk - AutoHotkey  ; Reload.
+        PostMessage, 0x0111, 65305,,, Socratic_Questions.ahk - AutoHotkey  ; Reload.
+        PostMessage, 0x0111, 65305,,, NiftyWindows.ahk - AutoHotkey  ; Reload.
         ; WinClose ScriptFileName.ahk - AutoHotkey
         SetCapsLockState, alwaysoff
       return
@@ -1179,7 +1174,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 #If
 
 ;General make life easier stuff
-  ;Browser Hotkeyss
+  ;Browser Hotkeys
     ;Manipulating Windows(2)
       ;Close/minimize(!+w,s,d)
         !+w::
@@ -1264,6 +1259,18 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     :*:ino,.::😇
     :*:cat,.::😻
     :*:love,.::❤️
+    :*:hot,.::🥵
+
+    ::zhap,.::🙂
+    ::zpen,.::😔
+    ::zjoy,.::😂
+    ::zsad,.::😢
+    ::zcry,.::😭
+    ::zsob,.::😭
+    ::zino,.::😇
+    ::zcat,.::😻
+    ::zlove,.::❤️
+    ::zhot,.::🥵
 
 :*:template,.::
   ClipSaved := ClipboardAll ; save the entire clipboard to the variable ClipSaved
