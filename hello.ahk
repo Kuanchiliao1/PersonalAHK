@@ -144,18 +144,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
   #If
 
 ;My conventions for anki and SM https://www.wikiwand.com/en/Enclosed_Alphanumeric_Supplement
-    ;Function for conventions
-    conventionclip(convention) {
-      oldclip := clipboardall ; save clipboard to oldclip variable
-      clipboard := "" ; clear clipboard
-      clipboard := convention ; set clipboard to the argument
-      clipwait, 2, 1
-      sleep 100
-      send ^v
-      sleep 100
-      clipboard := oldclip
-      }
-
     ;Card creation
     :X*?:con,.::conventionclip("🄲 ")
     :X*?:key,.::conventionclip("⌨ ")
@@ -463,20 +451,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       }
       Return
 
-  ;Activate/minimize function
-    activateMinimize(Title, Backup="") {
-      If (WinExist(Title)) {
-          IfWinNotActive, %Title%
-            WinActivate %Title%
-          else
-            WinMinimize %Title%
-        }
-      else {
-        Run, %Backup%
-      }
-      return
-      }
-
     g::activateMinimize("WindowG") ; FocusMate window
     h::activateMinimize("WindowH") ; "Home" Window
     u::activateMinimize("ahk_class ConsoleWindowClass ahk_exe ubuntu.exe", "C:\Program Files\WindowsApps\CanonicalGroupLimited.UbuntuonWindows_2004.2022.1.0_x64__79rhkp1fndgsc\ubuntu.exe") ; "Life" Window
@@ -513,7 +487,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       }
       return
 
-  ;Scroll function
+  ;Scroll
     j::
           Loop %VarJ%
           {
@@ -1343,10 +1317,8 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       :*:^^.::↑
       :*:vv.::↓
 
-
     ; :*:increases*
     ; SendRaw, {{c1::increases}}(↑↓ )
-
     ; SendRaw, {{c1::decreases}}(increases/decreases)
     ; SendRaw, {{c1::increase}}(increase/decrease)
 
@@ -1513,12 +1485,41 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     send {Enter}
   return
 
+; FUNCTIONS
+;Activate/minimize
+activateMinimize(Title, Backup="") {
+  If (WinExist(Title)) {
+      IfWinNotActive, %Title%
+        WinActivate %Title%
+      else
+        WinMinimize %Title%
+    }
+  else {
+    Run, %Backup%
+  }
+  return
+  }
+
+;Paste text
+conventionclip(convention) {
+  oldclip := clipboardall ; save clipboard to oldclip variable
+  clipboard := "" ; clear clipboard
+  clipboard := convention ; set clipboard to the argument
+  clipwait, 2, 1
+  sleep 100
+  send ^v
+  sleep 100
+  clipboard := oldclip
+  }
+
+;Send key to tab with video
 sendToVid(key, titlewin="") {
-        SetTitleMatchMode, 2
-        ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, %titlewin% ;Get the window handle of the Chrome window
-        ControlFocus,,ahk_id %outputvar%
-        ControlSend, , %key%, %titlewin%
-      }
+  SetTitleMatchMode, 2
+  ControlGet, OutputVar, Hwnd,,Chrome_RenderWidgetHostHWND1, %titlewin% ;Get the window handle of the Chrome window
+  ControlFocus,,ahk_id %outputvar%
+  ControlSend, , %key%, %titlewin%
+}
+
 
 ; Projects:
 
