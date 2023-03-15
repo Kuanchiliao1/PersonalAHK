@@ -220,10 +220,10 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     ; Make it look like a button is being pressed
     :X*:cssbtnactive,.::conventionclip("box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);")
 
-
-    :X*:cardw,.::
+    :X:cardw,.::
     :X*:cw,.::
     conventionclip(".wrapper { display: grid;`n grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));`n grid-gap: 1rem;}")
+    return
 
     :*:test,.::
     send <div>`n%clipboard%`n</div>+{tab}
