@@ -501,15 +501,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
           }
         return
 
-  doubleTap(key) {
-    KeyWait, %key%
-    KeyWait, %key%, D T0.1
-    If ErrorLevel
-        activateMinimize("Ubuntu ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe")
-      else
-        activateMinimize("hello.ahk ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe")
-    return
-  }
   ;Activate/minimize VSCode
     v::doubleTap("v")
 
@@ -563,76 +554,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 ;Capslock Down Hotkeys *combo
     #If (getKeyState("Capslock", "P"))
  ; Capslock + 1/2: GUI hotkeys
-    setPriority(min, max) {
-      send, !p
-      sleep 500
-      Random, OutputVar, %min%, %max%
-      Clipboard :=
-      Clipboard := OutputVar
-      Clipwait 2
-      SendInput, {Ctrl down}v{Ctrl up}
-      Sleep 200
-      Send, {Enter}
 
-      SetCapsLockState, Alwaysoff
-      }
-      return
-
-    setPriorityExtract(min, max) {
-      SendInput, {Shift down}{Alt down}{x}{Shift up}{Alt up}
-      Sleep, 800
-      Random, OutputVar, %min%, %max%
-      Clipboard := ""
-      Clipboard := OutputVar
-      Clipwait 2
-      SendInput, {Ctrl down}v{Ctrl up}
-      Sleep 200
-      Send, {Enter}
-
-      SetCapsLockState, Alwaysoff
-      }
-      return
-
-    closeDiscord() {
-      run, cmd.exe /c "taskkill /IM "Discord.exe" /F"
-      sleep 1000
-
-      send {CtrlDown}{CtrlUp}{sleep 50}{CtrlDown}{CtrlUp}{sleep 50}
-      ; send discord
-      SetCapsLockState, Alwaysoff
-      }
-      return
-
-      closeAllAHK() {
-        run, cmd.exe /c "taskkill /f /im autohotkey.exe"
-      SetCapsLockState, Alwaysoff
-      }
-      return
-
-    runRubyFile() {
-      ; WinWaitActive {"ahk_class ConsoleWindowClass ahk_exe ubuntu.exe"}
-      ; Sleep 1000
-      Send {CtrlDown}kd{CtrlUp}
-      sleep 400
-      ControlSend, , ruby %clipboard%, Ubuntu
-      ; WinActivate ahk_exe code.exe
-      SetCapsLockState, Alwaysoff
-      }
-      return
-
-    gscroll() {
-      ; Inputbox, VarJ, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header
-
-      VarJ = 1
-      SetCapsLockState, Alwaysoff
-      }
-      RETURN
-
-    gupdown() {
-      Inputbox, VarK, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header
-      SetCapsLockState, Alwaysoff
-      }
-      return
   ;CSS tools
     ;converts highlighted pixet number to rem
     h::
@@ -661,12 +583,11 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     SetCapsLockState, Alwaysoff
     KeyWait, t
     KeyWait, t, D T0.1
-
-        If (ErrorLevel) {
-          activateMinimize("WindowAI", "brave.exe https://chat.openai.com/chat '' --new-window''")
-        } else {
-          Menu, MyMenuOne, Show  ; show the menu created called MyMenu
-        }
+      If (ErrorLevel) {
+        activateMinimize("WindowAI", "brave.exe https://chat.openai.com/chat '' --new-window''")
+      } else {
+        Menu, MyMenuOne, Show  ; show the menu created called MyMenu
+      }
   return
 
 ;test
@@ -1049,7 +970,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
         KeyPressMonitor:
           If (KeyPressCount = 1) {
             IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe brave.exe
-            {clipboard := ""  ; Start off empty to allow ClipWait to detect when the text has arrived.
+            {clipboard := ""
             Send ^c
             ClipWait, 2
 
@@ -1058,28 +979,28 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
             }
             else
-            {clipboard := ""  ; Start off empty to allow ClipWait to detect when the text has arrived.
+            {clipboard := ""
             Send ^c
             ClipWait
 
             WinActivate Main1
 
             Run, https://www.google.com/search?q=%ClipBoard%
-                  SetCapsLockState, alwaysoff
-                  }
+              SetCapsLockState, alwaysoff
+              }
           } else if (KeyPressCount = 2) {
             IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe brave.exe
 
-            {clipboard := ""  ; Start off empty to allow ClipWait to detect when the text has arrived.
-            Send ^c
-            ClipWait  ; Wait for the clipboard to contain text.
+            {clipboard := ""
+              Send ^c
+              ClipWait  ; Wait for the clipboard to contain text.
 
 
-            Sleep 500
-            Send ^t
-            Send, ^v
-            Send {Enter}
-                SetCapsLockState, alwaysoff
+              Sleep 500
+              Send ^t
+              Send, ^v
+              Send {Enter}
+              SetCapsLockState, alwaysoff
             }
 
 
@@ -1101,12 +1022,12 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
             IfWinActive ahk_class Chrome_WidgetWin_1 ahk_exe brave.exe
             {
-                      Run, https://www.google.com/search?q=%searchTerm%
-                      Run, https://www.amazon.com/s?k=%searchTerm%
-                      Run, https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=%searchTerm%&_sacat=0
-                      Run, https://camelcamelcamel.com/search?sq=%searchTerm%
-                      Msgbox "Remember to use Cammel!!"
-                      WinWaitClose search
+              Run, https://www.google.com/search?q=%searchTerm%
+              Run, https://www.amazon.com/s?k=%searchTerm%
+              Run, https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=%searchTerm%&_sacat=0
+              Run, https://camelcamelcamel.com/search?sq=%searchTerm%
+              Msgbox "Remember to use Cammel!!"
+              WinWaitClose search
             }
 
             else
@@ -1520,6 +1441,87 @@ sendToVid(key, titlewin="") {
   ControlSend, , %key%, %titlewin%
 }
 
+; Enable double tap hotkey
+doubleTap(key) {
+  KeyWait, %key%
+  KeyWait, %key%, D T0.1
+  If ErrorLevel
+      activateMinimize("Ubuntu ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe")
+    else
+      activateMinimize("hello.ahk ahk_class Chrome_WidgetWin_1 ahk_exe Code.exe")
+  return
+}
+
+setPriority(min, max) {
+  send, !p
+  sleep 500
+  Random, OutputVar, %min%, %max%
+  Clipboard :=
+  Clipboard := OutputVar
+  Clipwait 2
+  SendInput, {Ctrl down}v{Ctrl up}
+  Sleep 200
+  Send, {Enter}
+
+  SetCapsLockState, Alwaysoff
+  }
+  return
+
+setPriorityExtract(min, max) {
+  SendInput, {Shift down}{Alt down}{x}{Shift up}{Alt up}
+  Sleep, 800
+  Random, OutputVar, %min%, %max%
+  Clipboard := ""
+  Clipboard := OutputVar
+  Clipwait 2
+  SendInput, {Ctrl down}v{Ctrl up}
+  Sleep 200
+  Send, {Enter}
+
+  SetCapsLockState, Alwaysoff
+  }
+  return
+
+closeDiscord() {
+  run, cmd.exe /c "taskkill /IM "Discord.exe" /F"
+  sleep 1000
+
+  send {CtrlDown}{CtrlUp}{sleep 50}{CtrlDown}{CtrlUp}{sleep 50}
+  ; send discord
+  SetCapsLockState, Alwaysoff
+  }
+  return
+
+  closeAllAHK() {
+    run, cmd.exe /c "taskkill /f /im autohotkey.exe"
+  SetCapsLockState, Alwaysoff
+  }
+  return
+
+runRubyFile() {
+  ; WinWaitActive {"ahk_class ConsoleWindowClass ahk_exe ubuntu.exe"}
+  ; Sleep 1000
+  Send {CtrlDown}kd{CtrlUp}
+  sleep 400
+  ControlSend, , ruby %clipboard%, Ubuntu
+  ; WinActivate ahk_exe code.exe
+  SetCapsLockState, Alwaysoff
+  }
+  return
+
+gscroll() {
+  ; Inputbox, VarJ, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header
+
+  VarJ = 1
+  SetCapsLockState, Alwaysoff
+  }
+  RETURN
+
+gupdown() {
+  Inputbox, VarK, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header
+  SetCapsLockState, Alwaysoff
+  }
+  return
 
 ; Projects:
 
