@@ -1,2 +1,6 @@
-*.ini
+API_key.ini
+FastNavKeys.ini
+Keylog.ini
+*.pdf
+launch.json
 prompts.txt
