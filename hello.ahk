@@ -188,6 +188,8 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     :X*:rexp,.::conventionclip("🆁🆄🅱🆈 🆇✈️💻 ")
     :X*:jq,.::conventionclip("jQuery")
 
+    :X*:resource,.::conventionclip("🔮📖")
+
     ; Ruby syntax helpers
     :*:d,.::do ||{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left} ; Ruby - write blocks
     :*:m,.::{backspace}{home}def {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definition
