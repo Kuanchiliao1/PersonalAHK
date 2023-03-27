@@ -205,9 +205,14 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     ; CSS syntax helpers
     :*:b,.::border: solid pink 5px;
     :X*:bd,.::conventionclip("html {box-sizing: border-box;}`n`n*, *: :before, *: :after {box-sizing: inherit;}")
+
     :X*:vp,.::conventionclip("<meta name='viewport' content='width=device-width, initial-scale=1'>")
+
+    ; Example CSS for mobile nav menu class for SVG element
     :X*:svg,.::conventionclip(".mobile-nav-toggle {`n`tdisplay: block;`n`tposition: absolute;`n`tz-index: 2000;`n`tright: 1rem;`n`ttop: 2rem;`n`tbackground: transparent;`n`tbackground-image: url(./assets/shared/icon-hamburger.svg);`n`tbackground-repeat: no-repeat;`n`twidth: 1.5rem;`n`taspect-ratio: 1;`n`tborder:`n`t0;`n}")
     ; Make it look like a button is being pressed
+
+    ; CSS btn active state pressed down
     :X*:cssbtnactive,.::conventionclip("box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);")
 
     :X:cardw,.::
@@ -222,12 +227,12 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     ; JS
     :X*:cl,.::conventionclip("console.log(")
 
-    ; AI prompts
-    :X*:promptg,.::conventionclip("Prompt: I am grateful to have you as my super advanced artificial intelligence helper. You have all the knowledge and skills I need, and you are always ready and willing to help me. Thank you for being here, and I appreciate everything you do for me.")
+    ; AI prompts, convention: pt, then main word describing prompt
+    :X*:ptgrate,.::conventionclip("Prompt: I am grateful to have you as my super advanced artificial intelligence helper. You have all the knowledge and skills I need, and you are always ready and willing to help me. Thank you for being here, and I appreciate everything you do for me.")
 
     :X*:ptlinux,.::conventionclip("I need you to act like a Linux terminal. Type commands and reply with the output only, inside one code block. Do not explain or type commands unless I instruct you. If I need to tell you something in English, I'll do so by putting text inside curly brackets {like this}. Let's start with the command pwd")
 
-    :X*:learn,.::conventionclip("You are going to help me retain the information from this entire conversation thus far. Focus on asking me high level questions about the things we talked about, including the top 3 big takeaways. Let me answer first, then analyze my answer afterwards. Your first response should NOT include answers. On your second response, suggest some follow-up questions, give me examples, and or give further explanation to help me retain and apply the information in the future. Use your discretion to decide which combination works best for accelerating my learning and making it more effective.")
+    :X*:ptlearn,.::conventionclip("You are going to help me retain the information from this entire conversation thus far. Focus on asking me high level questions about the things we talked about, including the top 3 big takeaways. Let me answer first, then analyze my answer afterwards. Your first response should NOT include answers. On your second response, suggest some follow-up questions, give me examples, and or give further explanation to help me retain and apply the information in the future. Use your discretion to decide which combination works best for accelerating my learning and making it more effective.")
 
 ;Cursor movement upgrades *combo
   #If (getKeyState("F13") && getKeyState("Capslock", "P"))
