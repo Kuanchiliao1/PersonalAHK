@@ -697,7 +697,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
         Send, {Esc}
         SetCapsLockState, alwaysoff
         return
-        
+
     ;Volume Up, Volume Down
       4::
         Send {Volume_Up 3}
@@ -976,30 +976,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
           ; return
 
         !+d::WinMaximize, A
-
-      ;Three buttons for clipboard - Testing
-        ; !+j::
-        ; 	clipboard = "" ; empty clipboard
-        ; 	sleep 400 ; pause
-        ; 	send +#s  ; screenclip
-
-        ; 	sleep 3000
-        ; 	VarJ := clipboardall
-        ; 	msgbox % VarJ
-        ; return
-
-        ; !+k::
-        ; 	clipboard = ""
-        ; 	clipboard := VarJ
-        ; 	clipwait
-
-        ; 	sleep 1000
-        ; 	send ^v
-        ; return
-
-        ; !+l::
-        ; 	buttonThree := clipboard
-        ; return
 
       ;Tag and recall windows(!+q !+e)
         !+q::
