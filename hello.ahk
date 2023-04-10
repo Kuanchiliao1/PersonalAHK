@@ -235,8 +235,8 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     :X*:ptlearn,.::conventionclip("You are going to help me retain the information from this entire conversation thus far. Focus on asking me high level questions about the things we talked about, including the top 3 big takeaways. Let me answer first, then analyze my answer afterwards. Your first response should NOT include answers. On your second response, suggest some follow-up questions, give me examples, and or give further explanation to help me retain and apply the information in the future. Use your discretion to decide which combination works best for accelerating my learning and making it more effective.")
 
     :X*:ptcloze,.::
-      conventionclip("Generate 10 very short flash cards from this lesson, encapsulating the most important points, in the following format: What color are apples? ")
-
+      conventionclip("Generate 10 very short flash cards from this lesson, encapsulating the most important points, in the following format: What color are apples?")
+      send {enter 2}
       sendraw, {{c1::red}}
       return
 
