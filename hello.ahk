@@ -236,7 +236,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
     :X*:ptcloze,.::
       conventionclip("Generate 10 very short flash cards from this lesson, encapsulating the most important points, in the following format: What color are apples?")
-      send {enter 2}
+      send {ShiftDown}{enter 2}{ShiftUp}
       sendraw, {{c1::red}}
       return
 
