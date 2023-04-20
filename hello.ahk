@@ -1082,13 +1082,17 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
         Return
 
       :c*:Cnow::
-        Clipboard := ""
         FormatTime, TimeString, R
-        Clipboard := TimeString
-        Clipwait
-        Send ^v
+        conventionclip(TimeString)
         Sleep, 200
         Send {Enter}
+        Return
+
+      :c*:Dnow::
+        FormatTime, TimeString, R
+        conventionclip(TimeString)
+        Sleep, 200
+        Send {Enter 3}{Up 2}
         Return
 
     ;Spanish accents
