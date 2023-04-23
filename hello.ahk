@@ -400,10 +400,12 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       Haystack := clipboard
 
       mousemove, 2000, 800, 0
-      Send {sleep 200}{Rbutton}{sleep 200}{Tab 2}{Enter}^w{sleep 200}
+      sleep 200
+      send {Rbutton}{sleep 200}{Tab 2}{Enter}^w{sleep 200}
       ; Replace the original URL with the timestamped URL
       clipboard := RegExReplace(Haystack, "(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])", clipboard, output)
-      Send {sleep 200}^{Home}^v{sleep 200}{Alt}w3
+      sleep 200
+      send ^{Home}^v{sleep 200}{Alt}w3
       return
 
   ; Replaces the functionality of arrow keys bc they are unergonomic. Can now use arrow keys and arrow shortcuts with both hands comfortably on the keyboard(vs having to move your right hand to the arrow keys)
