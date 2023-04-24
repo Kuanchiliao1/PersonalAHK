@@ -238,6 +238,8 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       conventionclip("Generate 10 very short flash cards from this lesson, encapsulating the most important points, in the following format: What color are apples?")
       send {ShiftDown}{enter 2}{ShiftUp}
       sendraw, {{c1::red}}
+      send {ShiftDown}{enter 2}{ShiftUp}
+      conventionclip("Note: make sure the answers are extremely short and the question provides all context needed")
       return
 
 ;Cursor movement upgrades *combo
