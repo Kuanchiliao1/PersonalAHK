@@ -123,9 +123,9 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
   Backspace:: send, you suck
   Enter:: send, you suck
 
-  ; q w e  r  t  y  u  i  o  p [  ]  \
-  ;  a s d  f  g  h  j  k  l ;
-  ; z x c  v  b  n  m ,  .  /
+  ; q w! e  r  t  y  u  i  o  p [  ]  \
+  ;  a! s! d!  f  g  h  j  k  l ;
+  ; z x c  v  b!  n  m ,  .  /
   #If t && getKeyState("F13")
     a:: MouseMove, -50, 0, 0, R
     w:: MouseMove, 0, -50, 1, R
@@ -133,7 +133,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     d:: MouseMove, 50, 0, 1, R
     b:: mouseclick, left
 
-  ; q w e  r  t  y  u  i  o  p [  ]  \
+  ; q w e  r!  t  y  u  i  o  p [  ]  \
   ;  a s d  f  g  h  j  k  l ;
   ; z x c  v  b  n  m ,  .  /
    #If getKeyState("F13")
@@ -248,7 +248,8 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     Send {Up %VarK%}
     SetCapsLockState, alwaysoff
     return
-
+    
+    ; Not work debug later
     s::
     Send {Down %VarK%}
     SetCapsLockState, alwaysoff
