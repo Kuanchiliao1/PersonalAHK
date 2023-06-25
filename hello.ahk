@@ -1126,10 +1126,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     RButton & WheelUp:: Send ^{PgDn}
     RButton Up:: Click Right
 
-  variable := "World"
-  MsgBox Hello %variable%
-  MsgBox % "Hello " variable ; The one Angel prefers
-
   ;Instasearch YT
     ^#y::
     CUSTOMLOGGER(A_THISHOTKEY)   ;This stopped working no idea why?
@@ -1165,7 +1161,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       {
         Send, ^{Del}
         WinWaitActive,  Question ahk_class TMsgDialog, , 5 ;Delete HTML component
-        ;WinWaitActive,  Choices ahk_class TChoicesDlg ;What do you want to change ; Modify only this &element / Modify &all elements using this template
+
         ;MsgBox waited
         clipboard =
         send, !p ;copy dialog text to clipboard
@@ -1233,16 +1229,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
 
 
   #If
-; Testing with submenus
-; Menu, MyMainMenu, Add, AllDeck, MenuHandler
-; Menu, MySubMenu1, Add, PSY143, SubMenu1Label
-; Menu, MySubMenu1, Add, YT, SubMenu1Label
-; Menu, MyMainMenu, Add, AllDeck, :MySubMenu1
-
-; Menu, MyMainMenu, Add, Coding, MenuHandler
-; Menu, MySubMenu2, Add, somethinghere, SubMenu2Label
-; Menu, MySubMenu2, Add, Coding, :MySubMenu2
-; return
 
 ; For calendar
   +!b::
@@ -1388,8 +1374,6 @@ closeDiscord() {
   return
 
 runRubyFile() {
-  ; WinWaitActive {"ahk_class ConsoleWindowClass ahk_exe ubuntu.exe"}
-  ; Sleep 1000
   Send {CtrlDown}kd{CtrlUp}
   sleep 400
   ControlSend, , ruby %clipboard%, Ubuntu
@@ -1399,8 +1383,6 @@ runRubyFile() {
   return
 
 gscroll() {
-  ; Inputbox, VarJ, Enter string, , , 640, 480 ; varA = variable, Enter string = GUI header
-
   VarJ = 1
   SetCapsLockState, Alwaysoff
   }
@@ -1415,14 +1397,6 @@ gupdown() {
 ; Projects:
 
 ; Key Guide
-; Shift + Alt + Arrow: copy line up or down
-; Move lines: alt + arrow
-; Hold alt: highlight multiple things
-; Make comment: Cntrl > K > C
-; Uncomment: Cntrl > K > U
-; Alt: Set multiple cursors
-;     Note: can use to duplicate multiple lines at same time
-
 ; Fold (Ctrl+Shift+[) folds the innermost uncollapsed region at the cursor.
 ; Unfold (Ctrl+Shift+]) unfolds the collapsed region at the cursor.
 ; Toggle Fold (Ctrl+K Ctrl+L) folds or unfolds the region at the cursor.
