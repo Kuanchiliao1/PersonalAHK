@@ -1072,33 +1072,28 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
   send {up 12}{end}{Space}
   return
 
-:*:stage,.::
-  SendInput {CtrlDown}{ShiftDown}g{CtrlUp}{ShiftUp}g
-  SendInput +{F10}{Sleep 300}{Down 6}
-  return
+  ;For sending dates and time
+    :c*:Anow::
+      SendInput, %A_MM%-%A_DD%-%A_YYYY%
+      Return
 
-    ;For sending dates and time
-      :c*:Anow::
-        SendInput, %A_MM%-%A_DD%-%A_YYYY%
-        Return
+    :c*:Bnow::
+      SendInput, %A_DD%-%A_MM%-%A_YYYY% %A_Hour%:%A_Min% ; press CTRL+d
+      Return
 
-      :c*:Bnow::
-        SendInput, %A_DD%-%A_MM%-%A_YYYY% %A_Hour%:%A_Min% ; press CTRL+d
-        Return
+    :c*:Cnow::
+      FormatTime, TimeString, R
+      conventionclip(TimeString)
+      Sleep, 200
+      Send {Enter}
+      Return
 
-      :c*:Cnow::
-        FormatTime, TimeString, R
-        conventionclip(TimeString)
-        Sleep, 200
-        Send {Enter}
-        Return
-
-      :c*:Dnow::
-        FormatTime, TimeString, R
-        conventionclip(TimeString)
-        Sleep, 200
-        Send {Enter 3}{Up 2}
-        Return
+    :c*:Dnow::
+      FormatTime, TimeString, R
+      conventionclip(TimeString)
+      Sleep, 200
+      Send {Enter 3}{Up 2}
+      Return
 
     ;Spanish accents
       :*?:aaa::á
