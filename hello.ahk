@@ -23,9 +23,10 @@ GroupAdd, SuperMemo, ahk_class TSMMain ;Toolbar
 
 ; these are the lines 1-4 on the menu
     Menu, MyMenu, Add, L Window(L), MenuHandler  ;MenuHandler is a label -
-    Menu, MyMenu, Add, F SM18, MenuHandler
-    Menu, MyMenu, Add, G Discord, MenuHandler
-    Menu, MyMenu, Add, Run Chrome, MenuHandler
+    Menu, MyMenu, Add, f Obsidian, MenuHandler
+    Menu, MyMenu, Add, G Focusmate Window, MenuHandler
+    Menu, MyMenu, Add, R TOP window, MenuHandler
+    Menu, MyMenu, Add, V ChatGPT window, MenuHandler
 
     ; AI prompt menu
     Menu, MyMenuOne, Add, Generic AI jailbreak, MenuHandlerOne
@@ -484,11 +485,13 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       If (A_ThisMenuItemPos = 1) {
           activateMinimize("WindowL")
       } else if (A_ThisMenuItemPos = 2) {
-          activateMinimize("ahk_exe sm18.exe")
+          activateMinimize("ahk_class Chrome_WidgetWin_1 ahk_exe Obsidian.exe")
       } else if (A_ThisMenuItemPos = 3) {
-          activateMinimize("ahk_exe Discord.exe")
+          activateMinimize("Window G")
       } else if (A_ThisMenuItemPos = 4) {
-          Run, Chrome.exe
+          activateMinimize("WindowR")
+      } else if (A_ThisMenuItemPos = 5) {
+          activateMinimize("WindowAI")
       }
       return
 
