@@ -194,7 +194,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     ; Ruby syntax helpers
     :*:d,.::do ||{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left} ; Ruby - write blocks
     :*:m,.::{backspace}{home}def {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definition
-    :*:,.::{enter}end{Home}{Backspace}{Enter}{Up}{Tab}{Up}{End}{Left}{Down} ; Ruby - write blocks
     :*:c,.::{backspace}{home}class {end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write method definition
     :*:i,.::def initialize{end}{enter}end{Home}{Backspace}{Up}{End}{Sleep 50}{Home}{End} ; Ruby - write class definition
     :*:a,.::assert_equal(
@@ -219,10 +218,6 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     :X:cardw,.::
     :X*:cw,.::
     conventionclip(".wrapper { display: grid;`n grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));`n grid-gap: 1rem;}")
-    return
-
-    :*:test,.::
-    send <div>`n%clipboard%`n</div>+{tab}
     return
 
     ; JS
