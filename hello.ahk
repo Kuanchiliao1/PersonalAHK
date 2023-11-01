@@ -1007,6 +1007,10 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
       return
 
     :*?:kmail::kuanchiliao@gmail.com
+    :*?:kport::https://tony-landing-page.netlify.app/portfolio/
+    :*?:klink::https://www.linkedin.com/in/tonyliao1/
+    :*?:kgit::https://github.com/Kuanchiliao1
+
     :*:cmail::clickthisbabyonemoretime@gmail.com
     :*?:ucmail::kuanchiliao@ucsb.edu
     ::resumee::résumé
@@ -1038,6 +1042,7 @@ return ; End of the Autoexecutable section. Below this would be the functions, h
     ::zcat,.::😻
     ::zlove,.::❤️
     ::zhot,.::🥵
+
 
 :*:template,.::
   ClipSaved := ClipboardAll ; save the entire clipboard to the variable ClipSaved
